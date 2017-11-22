@@ -8,11 +8,11 @@ class NovList extends Component {
      	 var data
      	 if(this.props.data){
              data = this.props.data.slice(1,5)
-             console.log(data)
      	 }
 
      	 return (
              <div className="novlist">
+                <h4 className="list-title">{this.props.title}</h4>
                 <ul className="novlist-ul">
 	             	{
 	                    data && data.map((item,index)=>{
