@@ -6,7 +6,7 @@ import './navBar.less';
 class NavBar extends Component {
 	render() {
 		return (
-            <div class="navbar">
+            <div className="navbar">
             	<div><Link to="/">首页</Link></div>
             	<div><Link to="/">分类</Link></div>
             	<div><Link to="/">排行</Link></div>
