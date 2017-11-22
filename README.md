@@ -1,5 +1,1 @@
-[{"_id":"5912b4474e7760c035fec2d2","__v":0,"img":"http://statics.zhuishushenqi.com/recommendPage/151088383624810","link":"5611f5144a999265509c60e3","type":"c-bookdetail","order":1,"fullDes":"黑道霸宠：嚣张儿子小萌妻","simpleDes":"黑道霸宠：嚣张儿子小萌妻","title":"黑道霸宠：嚣张儿子小萌妻","node":{"_id":"591284964e7760c035fec2cf","order":1,"sex":""},"page":"5910018c8094b1e228e5868f","platforms":["ios","android"]},
-{"_id":"59891a37ce579c68722b7133","__v":0,"img":"http://statics.zhuishushenqi.com/recommendPage/151088385672630","link":"56f09a2038ddbd6e5628530d","type":"c-bookdetail","order":2,"fullDes":"萌宝娘亲祸天下","simpleDes":"萌宝娘亲祸天下","title":"萌宝娘亲祸天下","node":{"_id":"591284964e7760c035fec2cf","order":1,"sex":""},"page":"5910018c8094b1e228e5868f","platforms":["ios","android"]},
-{"_id":"59e5ac226f75a1e95a82d8e2","__v":0,"img":"http://statics.zhuishushenqi.com/recommendPage/151088387171738","link":"5a09186d8f99b2ec22bb757e","type":"c-booklist","order":3,"fullDes":"推理的细节","simpleDes":"推理的细节","title":"推理的细节","node":{"_id":"591284964e7760c035fec2cf","order":1,"sex":""},"page":"5910018c8094b1e228e5868f","platforms":["ios","android"]}]
-
-http://api.zhuishushenqi.com/recommendPage/node/books/all/5912825ba1dbf3ad33ee7ffe
+app
