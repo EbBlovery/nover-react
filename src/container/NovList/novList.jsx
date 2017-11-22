@@ -26,7 +26,7 @@ class NovList extends Component {
                                          	<div className="novlist-right">
                                          		<p>{item.book.title}</p>
                                          		<p>{item.book.shortIntro}</p>
-                                         		<p>{item.book.minorCate} | {item.book.latelyFollower}人气</p>
+                                         		<p>{item.book.minorCate} | <span>{item.book.latelyFollower}</span>人气</p>
                                          	</div>
                                          </div>
                                 	</Link>
@@ -35,6 +35,8 @@ class NovList extends Component {
 	                    })
 	             	}
              	</ul>
+             	<p className="loadmore">查看更多>></p>
+             	<p className="shadowBar"></p>
              </div>
      	 )
      }

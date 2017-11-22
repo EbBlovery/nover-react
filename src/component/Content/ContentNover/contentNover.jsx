@@ -8,6 +8,10 @@ class ContentNover extends Component {
              <div key="index">
              	<NovList data={this.props.data[0]}/>
                   <NovList data={this.props.data[1]}/>
+
+
+                  <NovList data={this.props.data[5]}/>
+                  <NovList data={this.props.data[6]}/>
              </div>
 		)
 	}
