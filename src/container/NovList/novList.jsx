@@ -12,27 +12,25 @@ class NovList extends Component {
      	 }
 
      	 return (
-             <div>
-                <ul>
+             <div className="novlist">
+                <ul className="novlist-ul">
 	             	{
 	                    data && data.map((item,index)=>{
 	                    	return (
-	                             
-	                                <li key={index}>
-	                                    <Link to="/">
-	                                         <div>
-	                                         	<div>
-	                                         		<img src={item.book.cover}/>
-	                                         	</div>
-	                                         	<div>
-	                                         		<p>{item.book.title}</p>
-	                                         		<p>{item.book.shortIntro}</p>
-	                                         		<p>{item.book.minorCate}</p>
-	                                         	</div>
-	                                         </div>
-	                                	</Link>
-	                                </li>
-	                             
+                                <li className="novlist-li" key={index}>
+                                    <Link to="/">
+                                         <div className="novlist-div">
+                                         	<div className="novlist-left">
+                                         		<img src={item.book.cover}/>
+                                         	</div>
+                                         	<div className="novlist-right">
+                                         		<p>{item.book.title}</p>
+                                         		<p>{item.book.shortIntro}</p>
+                                         		<p>{item.book.minorCate} | {item.book.latelyFollower}人气</p>
+                                         	</div>
+                                         </div>
+                                	</Link>
+                                </li>
 	                    	)
 	                    })
 	             	}

@@ -1,0 +1,41 @@
+.novlist{
+	&-ul{
+        display:flex;
+        width:100%;
+        height:100%;
+        flex-direction: column;
+        .novlist-li{ 
+            margin: .5rem 0;
+            .novlist-div{
+				display:flex;
+				flex-direction:row;
+				flex-wrap: nowrap;
+				.novlist-left{
+					width: 4.8rem;
+					height: 5rem;
+					img{
+					    width: 4rem;
+					    height: 5rem;
+					}
+				}
+				.novlist-right{
+					padding-left: .7rem;
+					p:nth-child(1){
+                        font-size: .85rem;
+					}
+					p:nth-child(2){
+					    height:2rem;
+					    width: 100%;
+					    font-size: .7rem;
+					    overflow:hidden;
+					    opacity:.7;
+					}
+					p:nth-child(3){
+					    font-size:.7rem;
+					    opacity:.7;
+					}
+				}
+            }
+        }
+	}
+}
