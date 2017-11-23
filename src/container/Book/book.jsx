@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import Footer from '../../component/Footer/footer'
@@ -69,16 +70,27 @@ class Book extends Component {
                        <img className={this.state.isShow?'circle':''} onClick={this.handleClick.bind(this)} src={require('../../assets/arrowdown.svg')} />
             		</div>
             		<p className="linear"></p>
-            		<div className="hot-comment">
-            		    <div>	
-	            		    {
-	            				info.length<=0?(<div className="no-comment">暂无评论</div>):(
-                               	    <Comment data={info} />
-	            				)
-	            			}
-            			</div>
-            		</div>
+            		
             	</div>
+            	<div className="hot-comment">
+        		    <div className="comment-header">
+	                    <span>
+	                    	热门书评
+	                    </span>
+	                    <span>
+	                    	<Link to="/">
+	                    	    更多评论
+	                    	</Link>
+	                    </span>
+	                </div>
+        		    <div>
+            		    {
+            				info.length<=0?(<div className="no-comment">暂无评论~</div>):(
+                           	    <Comment data={info} />
+            				)
+            			}
+        			</div>
+        		</div>
             	<div className="book-love">
                     asdasdasd
             	</div>

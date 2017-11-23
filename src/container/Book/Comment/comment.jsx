@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 
 import CommentDetail from './CommentDetail';
 
+import './comment.less';
+
 class Comment extends Component {
 	render() {
 		var data = this.props.data;
 		return (
-			<ul>
+			<ul className="comment-ul">
 	            {
 	            	data.map((item,index)=>{
                         return (
