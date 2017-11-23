@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 
 import NoverInfo from '../NovList/NoverInfo/noverInfo';
 
+import HeaderBar from '../../component/HeaderBar/headerBar';
+
 import './recommend.less';
 
 class Recommend extends Component {
 	render() {
-		var data = this.props.location.state;
-		console.log(data)
+		var {data,title} = this.props.location.state;
 		return (
              <div className="recommend">
              	<div>
-             		header
+             		<HeaderBar history={this.props.history} title={title}/>
              	</div>
              	<ul className="recommend-ul">
              		{
