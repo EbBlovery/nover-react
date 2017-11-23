@@ -5,7 +5,7 @@ import './novCommend.less';
 
 class NovCommend extends Component {
     componentDidMount(){
-        console.log(this.props.title)
+        
     }
 	render() {
         var data

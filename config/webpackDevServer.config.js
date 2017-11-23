@@ -86,7 +86,12 @@ module.exports = function(proxy, allowedHost) {
     },
     public: allowedHost,
     proxy: {
-        '/recommendPage':{
+      '/recommendPage':{
+         target: 'http://api.zhuishushenqi.com/',
+         secure: false,
+         changeOrigin: true
+      },
+      '/post':{
          target: 'http://api.zhuishushenqi.com/',
          secure: false,
          changeOrigin: true

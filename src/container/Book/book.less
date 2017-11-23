@@ -87,7 +87,7 @@
             overflow:hidden;
 	    }
 	    .longIntro{
-	        padding: 1rem 0;
+	        padding: 1rem 0 .2rem;
 	        line-height:100%;
 	        p{
 		        font-size: .8rem;
@@ -100,15 +100,17 @@
 	        .actives{
                 height:100%;
 	        }
-	        span{
-	           img{
-	               width: 1.5rem;
-	               height:1.2rem;
-	               position:relative;
-	               left: 90%;
-	               bottom:.7rem;
-	           }
-	        }
+			img{
+			   width: 1.5rem;
+			   height:1.2rem;
+			   position:relative;
+			   left: 90%;
+			   bottom:.1rem;
+			   transition: all .1s linear;
+			}
+			.circle{
+			   transform:rotate(180deg);
+			}
 	    }
 	}
 }
