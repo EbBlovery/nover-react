@@ -12,7 +12,10 @@ import './book.less';
 class Book extends Component {
 	constructor(props){
          super(props)
-         this.state = {isShow: false,val:[]};
+         this.state = {isShow: false,
+         	           val:[],
+         	           recommend: []
+         	       }
 	}
 	handleClick(){
         this.setState({isShow:!this.state.isShow})
@@ -21,6 +24,11 @@ class Book extends Component {
 		console.log(this.props.location.state.data.book._id)
 		axios.get(`/post/review/best-by-book?book=${this.props.location.state.data.book._id}&limit=10`).then(res=>{
 			this.setState({val:res.data.reviews})
+		}).catch(err=>{
+			console.log(err)
+		})
+		axios.get(`http://novel.juhe.im/recommend/${this.props.location.state.data.book._id}`).then(res=>{
+            this.setState({recommend:res.data.data.books})
 		}).catch(err=>{
 			console.log(err)
 		})
@@ -92,7 +100,7 @@ class Book extends Component {
         			</div>
         		</div>
             	<div className="book-love">
-                    asdasdasd
+                    
             	</div>
             	<Footer />
             </div>
