@@ -30,7 +30,14 @@ class NovCommend extends Component {
                     })
                 }
                 </ul>
-                <p className="loadmore">查看更多>></p>
+                <p className="loadmore">
+                    <Link to={{
+                        pathname:"/recommend/" + this.props.id,
+                        state: this.props.data
+                    }}>
+                        查看更多>>
+                    </Link>
+                </p>
                 <p className="shadowBar"></p>
             </div>
 		)
