@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import NoverInfo from './NoverInfo/noverInfo';
+
 import './novList.less';
 
 class NovList extends Component {
@@ -18,24 +20,24 @@ class NovList extends Component {
 	                    data && data.map((item,index)=>{
 	                    	return (
                                 <li className="novlist-li" key={index}>
-                                    <Link to="/">
-                                         <div className="novlist-div">
-                                         	<div className="novlist-left">
-                                         		<img src={item.book.cover}/>
-                                         	</div>
-                                         	<div className="novlist-right">
-                                         		<p>{item.book.title}</p>
-                                         		<p>{item.book.shortIntro}</p>
-                                         		<p>{item.book.minorCate} | <span>{item.book.latelyFollower}</span>人气</p>
-                                         	</div>
-                                         </div>
+                                    <Link to={{
+                                        pathname:"/"
+                                    }}>
+                                        <NoverInfo data={item} />
                                 	</Link>
                                 </li>
 	                    	)
 	                    })
 	             	}
              	</ul>
-             	<p className="loadmore">查看更多>></p>
+             	<p className="loadmore">
+                    <Link to={{
+                        pathname: "/recommend/" + this.props.id,
+                        state: this.props.data
+                    }}>
+                        查看更多>>
+                    </Link>
+                </p>
              	<p className="shadowBar"></p>
              </div>
      	 )
