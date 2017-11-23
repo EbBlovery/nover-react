@@ -20,7 +20,10 @@ class Recommend extends Component {
              			data && data.map((item,index)=>{
              				return (
                                 <li className="recommend-li" key={index}>
-                                	<Link to="/">
+                                	<Link to={{
+                                		pathname:"/book/" + item.book._id,
+                                        state:{data: item}
+                                	}}>
                                 		<NoverInfo data={item} />
                                 	</Link>
                                 	<p className="linear"></p>

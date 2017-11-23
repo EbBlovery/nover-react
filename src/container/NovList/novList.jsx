@@ -21,7 +21,8 @@ class NovList extends Component {
 	                    	return (
                                 <li className="novlist-li" key={index}>
                                     <Link to={{
-                                        pathname:"/"
+                                        pathname:"/book/" + item.book._id,
+                                        state:{data: item}
                                     }}>
                                         <NoverInfo data={item} />
                                 	</Link>

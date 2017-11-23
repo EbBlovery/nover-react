@@ -21,7 +21,10 @@ class NovCommend extends Component {
                     data && data.map((item,index)=>{
                         return (
                             <li className="commend-ul-li" key={index}>
-                                <Link to="/">
+                                <Link to={{
+                                    pathname:"/book/" + item.book._id,
+                                    state:{data:item}
+                                }}>
                                     <img src={item.book.cover}/>
                                     <p>{item.book.title}</p>
                                 </Link>
