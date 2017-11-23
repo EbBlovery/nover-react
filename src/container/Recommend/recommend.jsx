@@ -29,6 +29,9 @@ class Recommend extends Component {
              			})
              		}
              	</ul>
+             	<div>
+             		<p className="show-more">没有更多书籍</p>
+             	</div>
              </div>
 		)
 	}
