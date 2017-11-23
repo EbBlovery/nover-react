@@ -6,6 +6,14 @@ import Footer from '../../component/Footer/footer'
 import './book.less';
 
 class Book extends Component {
+	constructor(props){
+         super(props)
+         this.state = {isShow: false};
+	}
+	handleClick(){
+		console.log(this.state.isShow)
+        this.setState({isShow:!this.state.isShow})
+	}
 	render() {
 		const {data} = this.props.location.state
 		console.log(data)
@@ -45,8 +53,15 @@ class Book extends Component {
             				<span className="item">2345</span>
             			</p>
             		</div>
-            		<div></div>
-            		<div></div>
+            		<p className="linear"></p>
+            		<div className="longIntro">
+                       <p className={this.state.isShow?'actives':''}>{data.book.longIntro}</p>
+                       <span><img onClick={this.handleClick.bind(this)} src={require('../../assets/arrowdown.svg')} /></span>
+            		</div>
+            		<p className="linear"></p>
+            		<div className="hot-comment">
+            			
+            		</div>
             	</div>
             	<div className="book-love">
                        asdasdasd
