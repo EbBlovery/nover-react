@@ -11,20 +11,24 @@ class BookLove extends Component {
             <div className="interest-book">
             	<p>
             	    <span>你可能感兴趣</span>
-            	    <span style={{color:'red'}}>
-            	        <Link to={{
+            	    <span>
+            	        <Link style={{color:'red'}} to={{
             	        	pathname: this.props.pathname + '/interest',
-            	        	state: this.props.data
+            	        	state: {data:this.props.data,title:'你可能感兴趣'}
             	        }}>更多</Link>
             	    </span>
             	</p>
             	<ul>
             		{
             			data && data.map((item,index)=>{
+            				var arr = [];
+             				arr.book=item;
             				return (
-                                <li key={index}>
-                                	<Link to="/">
-                                        <img src={'http://statics.zhuishushenqi.com' + item.cover} alt={item.title}/>
+                                <li key={index}>=
+                                	<Link to={{pathname:"/book/" + item._id,
+                                               state: {data: arr}   
+                                    }}>
+                                        <img src={item.cover} alt={item.title}/>
                                         <p>{item.title}</p>
                                 	</Link>
                                 </li>

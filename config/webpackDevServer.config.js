@@ -95,6 +95,11 @@ module.exports = function(proxy, allowedHost) {
          target: 'http://api.zhuishushenqi.com/',
          secure: false,
          changeOrigin: true
+      },
+      '/agent':{
+         target: 'http://statics.zhuishushenqi.com/',
+         secure: false,
+         changeOrigin: true
       }
     },
     before(app) {
