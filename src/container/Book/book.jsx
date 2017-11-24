@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import { getRecommend, getComment } from '../../apiconfig/api.js';
+
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import Footer from '../../component/Footer/footer'
 import Comment from './Comment/comment';
@@ -15,25 +17,65 @@ class Book extends Component {
          super(props)
          this.state = {isShow: false, //  短介绍 是否展示
          	           val:[],        //  评论
-         	           recommend: []  // 可能喜欢的书籍
+         	           recommend: [],  // 可能喜欢的书籍
          	       }
 	}
 	handleClick(){
         this.setState({isShow:!this.state.isShow})
 	}
 	componentDidMount(){
-		axios.get(`/post/review/best-by-book?book=${this.props.location.state.data.book._id}&limit=10`).then(res=>{
-			this.setState({val:res.data.reviews})
-		}).catch(err=>{
-			console.log(err)
+		getRecommend(this.props.location.state.data.book._id).then(res=>{  // 推荐列表
+			this.setState({recommend:res})
 		})
-		axios.get(`http://novel.juhe.im/recommend/${this.props.location.state.data.book._id}`).then(res=>{
-            this.setState({recommend:res.data.data.books})
-		}).catch(err=>{
-			console.log(err)
+		getComment(this.props.location.state.data.book._id).then(res=>{  //评论
+            this.setState({val:res})
 		})
-		console.log(this.props.location)
+		console.log('componentDidMount')
 	}
+    componentWillReceiveProps(){
+    	console.log(this.props.history.location.state.id)
+        getComment(this.props.history.location.state.id).then(res=>{
+			this.setState({val:res})
+		})
+		getRecommend(this.props.history.location.state.id).then(res=>{
+            this.setState({recommend:res})
+		})
+    }
+    shouldComponentUpdate(a,b){
+    	console.log(a,b)
+    	return true;
+        // if(a!==b){
+        //        return true
+        // }
+        // return false;
+        
+    }
+    // componentWillUpdate(){
+    // 	console.log('componentWillUpdate')
+    // }
+    // componentDidUpdate(){
+    // 	console.log('componentWillUpdate')
+    // }
+    // componentWillUnmount(){
+    // 	console.log(7)
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	render() {
 		const {data} = this.props.location.state
 		var wordCount = data.book.wordCount>=10000?Math.round((data.book.wordCount)/10000) + "万":data.book.wordCount

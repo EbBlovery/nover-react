@@ -6,7 +6,6 @@ import './bookLove.less';
 class BookLove extends Component {
 	render() {
 		const data = this.props.data.slice(0,4);
-		console.log(this.props.location)
 		return (
             <div className="interest-book">
             	<p>
@@ -20,16 +19,16 @@ class BookLove extends Component {
             	</p>
             	<ul>
             		{
-            			data && data.map((item,index)=>{
+            			data && data.map((items,index)=>{
             				var arr = [];
-             				arr.book=item;
+             				arr.book= items;
             				return (
-                                <li key={index}>=
-                                	<Link to={{pathname:"/book/" + item._id,
-                                               state: {data: arr}   
+                                <li key={index}>
+                                	<Link key={index} to={{pathname:"/book/" + items._id,
+                                               state: {data: arr,id:items._id}
                                     }}>
-                                        <img src={item.cover} alt={item.title}/>
-                                        <p>{item.title}</p>
+                                        <img src={items.cover} alt={items.title}/>
+                                        <p>{items.title}</p>
                                 	</Link>
                                 </li>
             				)
