@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import CommendList from './CommendList/commendList';  // 推荐小说横向排序的
+
 import './novCommend.less';
 
 class NovCommend extends Component {
@@ -11,28 +13,13 @@ class NovCommend extends Component {
         var data
         if(this.props.data){
             data = this.props.data.slice(1,5)
-            console.log(data)
         }
 		return (
             <div className="commend">
                 <h4 className="title">{this.props.title}</h4>
-                <ul className="commend-ul">
-                {
-                    data && data.map((item,index)=>{
-                        return (
-                            <li className="commend-ul-li" key={index}>
-                                <Link to={{
-                                    pathname:"/book/" + item.book._id,
-                                    state:{data:item}
-                                }}>
-                                    <img src={item.book.cover}/>
-                                    <p>{item.book.title}</p>
-                                </Link>
-                            </li>
-                        )
-                    })
-                }
-                </ul>
+                
+                <CommendList data={data} />  
+
                 <p className="loadmore">
                     <Link to={{
                         pathname:"/recommend/" + this.props.id,

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import Footer from '../../component/Footer/footer'
 import Comment from './Comment/comment';
+import BookLove from './BookLove/bookLove';
 
 
 import './book.less';
@@ -12,16 +13,15 @@ import './book.less';
 class Book extends Component {
 	constructor(props){
          super(props)
-         this.state = {isShow: false,
-         	           val:[],
-         	           recommend: []
+         this.state = {isShow: false, //  短介绍 是否展示
+         	           val:[],        //  评论
+         	           recommend: []  // 可能喜欢的书籍
          	       }
 	}
 	handleClick(){
         this.setState({isShow:!this.state.isShow})
 	}
 	componentDidMount(){
-		console.log(this.props.location.state.data.book._id)
 		axios.get(`/post/review/best-by-book?book=${this.props.location.state.data.book._id}&limit=10`).then(res=>{
 			this.setState({val:res.data.reviews})
 		}).catch(err=>{
@@ -100,7 +100,9 @@ class Book extends Component {
         			</div>
         		</div>
             	<div className="book-love">
-                    
+            	{
+                    this.state.recommend.length>0 ?(<BookLove data={ this.state.recommend.slice(0,4)} />):(<div></div>)
+            	}
             	</div>
             	<Footer />
             </div>

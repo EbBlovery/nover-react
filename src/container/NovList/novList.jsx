@@ -11,7 +11,6 @@ class NovList extends Component {
      	 if(this.props.data){
              data = this.props.data.slice(1,5)
      	 }
-
      	 return (
              <div className="novlist">
                 <h4 className="list-title">{this.props.title}</h4>
@@ -39,7 +38,7 @@ class NovList extends Component {
                         查看更多>>
                     </Link>
                 </p>
-             	<p className="shadowBar"></p>
+             	<p className={this.props.show?'':'shadowBar'}></p>
              </div>
      	 )
      }

@@ -5,7 +5,6 @@ import './commentDetail.less';
 class CommentDetail extends Component {
 	render() {
 		const data = this.props.data;
-		console.log(data)
 		return (
              <div className="commentDetail">
              	<div className="comment-avator">
