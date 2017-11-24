@@ -4,6 +4,7 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Index from '../component/Index/index';
 import Recommend from '../container/Recommend/recommend';
 import Book from '../container/Book/book';
+import Interest from '../container/Interest/interest';
 
 class RouterMap extends Component {
 	render() {
@@ -13,7 +14,9 @@ class RouterMap extends Component {
              		<Route exact path="/" component={Index} />
 
              		<Route path="/recommend/:id" component={Recommend}/>
+             		<Route path="/book/:id/interest" component={Interest} />
              		<Route path="/book/:id" component={Book} />
+
              	</Switch>
              </Router>
 		)

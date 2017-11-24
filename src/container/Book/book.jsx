@@ -32,6 +32,7 @@ class Book extends Component {
 		}).catch(err=>{
 			console.log(err)
 		})
+		console.log(this.props.location)
 	}
 	render() {
 		const {data} = this.props.location.state
@@ -101,7 +102,7 @@ class Book extends Component {
         		</div>
             	<div className="book-love">
             	{
-                    this.state.recommend.length>0 ?(<BookLove data={ this.state.recommend.slice(0,4)} />):(<div></div>)
+                    this.state.recommend.length>0 ?(<BookLove pathname={this.props.location.pathname} data={ this.state.recommend} />):(<div></div>)
             	}
             	</div>
             	<Footer />
