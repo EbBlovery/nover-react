@@ -6,8 +6,8 @@ import { getRecommend, getComment } from '../../apiconfig/api.js';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import Footer from '../../component/Footer/footer'
-import Comment from './Comment/comment';
-import BookLove from './BookLove/bookLove';
+import Comment from './Comment/comment';       //  小说评论 此处只取两个；
+import BookLove from './BookLove/bookLove';    //  类似小说推荐列表
 
 
 import './book.less';
@@ -30,19 +30,16 @@ class Book extends Component {
 		getComment(this.props.location.state.data.book._id).then(res=>{  //评论
             this.setState({val:res})
 		})
-		console.log('componentDidMount')
 	}
     componentWillReceiveProps(){
-    	console.log(this.props.history.location.state.id)
-        getComment(this.props.history.location.state.id).then(res=>{
+        getComment(this.props.history.location.state.id).then(res=>{ // 整老子好久的bug 老子记住你了  this.props.history.location.state.id ！== this.props.location.state.id
 			this.setState({val:res})
 		})
 		getRecommend(this.props.history.location.state.id).then(res=>{
             this.setState({recommend:res})
 		})
     }
-    shouldComponentUpdate(a,b){
-    	console.log(a,b)
+    shouldComponentUpdate(a,b){         // 一直返回true 只要数据变更就重新render； 变更糟componentWillReceiveProps 里边
     	return true;
         // if(a!==b){
         //        return true
@@ -59,21 +56,6 @@ class Book extends Component {
     // componentWillUnmount(){
     // 	console.log(7)
     // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	render() {
@@ -117,7 +99,7 @@ class Book extends Component {
             		</div>
             		<p className="linear"></p>
             		<div className="longIntro">
-                       <p className={this.state.isShow?'actives':''}>{data.book.longIntro}</p>
+                       <p className={this.state.isShow?'actives':''}>{data.book.shortIntro}</p>
                        <img className={this.state.isShow?'circle':''} onClick={this.handleClick.bind(this)} src={require('../../assets/arrowdown.svg')} />
             		</div>
             		<p className="linear"></p>
@@ -129,7 +111,10 @@ class Book extends Component {
 	                    	热门书评
 	                    </span>
 	                    <span>
-	                    	<Link to="/">
+	                    	<Link to={{
+	                    		pathname:"/comment/" + this.props.location.state.data.book._id,
+                                state: {comment:this.state.val,title:data.book.title}
+	                        }}>
 	                    	    更多评论
 	                    	</Link>
 	                    </span>
