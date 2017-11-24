@@ -112,7 +112,7 @@ class Book extends Component {
 	                    </span>
 	                    <span>
 	                    	<Link to={{
-	                    		pathname:"/comment/" + this.props.location.state.data.book._id,
+	                    		pathname:"/allcomment/" + this.props.location.state.data.book._id,
                                 state: {comment:this.state.val,title:data.book.title}
 	                        }}>
 	                    	    更多评论
