@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+ 
 import NoverInfo from '../NovList/NoverInfo/noverInfo';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
@@ -13,7 +14,7 @@ class Recommend extends Component {
         this.state = { data: [], title: '' }
     }
     componentDidMount(){
-        console.log(this.props)
+        console.log(this.props.books)
         if(!this.props.title){
             var {data,title} = this.props.location.state;
             this.setState({data: data,title: title})
@@ -54,4 +55,16 @@ class Recommend extends Component {
 	}
 }
 
-export default Recommend;
+function mapStateToProps(state){
+    return {
+         books:state.search
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+         
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Recommend);

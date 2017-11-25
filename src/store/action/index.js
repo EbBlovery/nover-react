@@ -4,7 +4,7 @@ export function handleSearch(key){
     return dispatch => {
     	getSearch(key).then(res=>{
     		console.log(res)
-            dispatch(getSearch(res))
+            dispatch(getSearchData(res))
         }).catch(err=>{
         	console.log(err)
         })

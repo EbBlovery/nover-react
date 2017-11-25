@@ -29,7 +29,7 @@ export function getCommentDetail(id,start = 0){
 
 export function getSearch(key){
     return axios.get(`http://novel.juhe.im/search?keyword=${key}`).then(res=>{
-    	return res
+    	return res.data.data
     }).catch(err=>{
     	console.log(err)
     })
