@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
- 
+
 import NoverInfo from '../NovList/NoverInfo/noverInfo';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
@@ -9,30 +8,16 @@ import HeaderBar from '../../component/HeaderBar/headerBar';
 import './recommend.less';
 
 class Recommend extends Component {
-    constructor(props){
-        super(props)
-        this.state = { data: [], title: '' }
-    }
-    componentDidMount(){
-        console.log(this.props.books)
-        if(!this.props.title){
-            var {data,title} = this.props.location.state;
-            this.setState({data: data,title: title})
-        }else{
-            var {data,title} = this.props;
-            console.log(data,title)
-        }
-    }
 	render() {
-		
+		var {data,title} = this.props.location.state;
 		return (
              <div className="recommend">
              	<div>
-             		<HeaderBar history={this.props.history} title={this.state.title}/>
+             		<HeaderBar history={this.props.history} title={title}/>
              	</div>
              	<ul className="recommend-ul">
              		{
-             			this.state.data && this.state.data.map((item,index)=>{
+             			data && data.map((item,index)=>{
              				return (
                                 <li className="recommend-li" key={index}>
                                 	<Link to={{
@@ -55,16 +40,4 @@ class Recommend extends Component {
 	}
 }
 
-function mapStateToProps(state){
-    return {
-         books:state.search
-    }
-}
-
-function mapDispatchToProps(dispatch){
-    return {
-         
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Recommend);
+export default Recommend;
