@@ -19,8 +19,8 @@ export function getRecommend(id){  //获取推荐列表
 			})
 }
 
-export function getCommentDetail(id){
-	return axios.get(`/post/review/${id}/comment/?start=0&limit=10`).then(res=>{
+export function getCommentDetail(id,start = 0){
+	return axios.get(`/post/review/${id}/comment/?start=${start}&limit=10`).then(res=>{
 		return res.data.comments
 	}).catch(err=>{
 		console.log(err)
