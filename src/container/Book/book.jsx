@@ -61,7 +61,7 @@ class Book extends Component {
 	render() {
 		const {data} = this.props.location.state
 		var wordCount = data.book.wordCount>=10000?Math.round((data.book.wordCount)/10000) + "万":data.book.wordCount
-		var info = this.state.val?this.state.val.slice(0,2):''
+		var info = this.state.val.reviews?this.state.val.reviews.slice(0,2):''
 		return (
             <div className="book">
             	<HeaderBar title="书籍详情" history={this.props.history} />
@@ -113,7 +113,7 @@ class Book extends Component {
 	                    <span>
 	                    	<Link to={{
 	                    		pathname:"/allcomment/" + this.props.location.state.data.book._id,
-                                state: {comment:this.state.val,title:data.book.title}
+                                state: {comment:this.state.val,title:data.book.title,total:this.state.val.total}
 	                        }}>
 	                    	    更多评论
 	                    	</Link>

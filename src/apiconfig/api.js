@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-
-export function getComment(id){  // 获取评论
-        return axios.get(`/post/review/best-by-book?book=${id}&limit=10`).then(res=>{
+// /post/review/by-book?book=537a03e9ac8932bf19003d7c&limit=10&start=0   
+export function getComment(id,start = 0){  // 获取评论
+        return axios.get(`/post/review/by-book?book=${id}&limit=10&start=${start}`).then(res=>{
 			// this.setState({val:res.data.reviews})
-			    return res.data.reviews
+			    return res.data
 		    }).catch(err=>{
 			    console.log(err)
 		    })
