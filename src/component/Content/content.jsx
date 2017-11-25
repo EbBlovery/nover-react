@@ -39,7 +39,7 @@ class Content extends Component {
 		return (
             <div>
                 <Banner />
-            	<Search />
+            	<Search history={this.props.history}/>
             	<ContentNover data={this.state.data}/>
             </div>
 		)

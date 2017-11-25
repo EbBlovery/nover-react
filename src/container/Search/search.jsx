@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {getSearch} from '../../apiconfig/api.js';
+
 import './search.less'; 
 
 class Search extends Component {
@@ -9,7 +11,10 @@ class Search extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        console.log(this.state.value)
+        getSearch(this.state.value).then(res=>{
+            console.log(res)
+        })
+        this.props.history.push({pathname:'/recommend/'+ this.state.value,state:'aaa'})
     }
     handleChange(e){
         this.setState({value:e.target.value})

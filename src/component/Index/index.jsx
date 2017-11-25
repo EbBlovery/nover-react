@@ -14,7 +14,7 @@ class Index extends Component {
              	<Header />
              	<NavBar />
              	<div className="containers">
-             	    <Content />
+             	    <Content history={this.props.history}/>
              	</div>
                   <Footer />
              </div>
