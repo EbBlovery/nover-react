@@ -7,6 +7,7 @@ import Book from '../container/Book/book';              //  小说内容信息
 import Interest from '../container/Interest/interest';  //  推荐小说全部列表
 import AllComment from '../container/AllComment/allComment';    //  小说全部评论
 import CommentDetailList from '../container/CommentDetailList/commentDetailList';   // 细节评论；
+import SearchNover from '../container/Search/SearchNover/searchNover';
 
 class RouterMap extends Component {
 	render() {
@@ -20,6 +21,7 @@ class RouterMap extends Component {
              		<Route path="/book/:id" component={Book} />
                     <Route path="/allcomment/:id" component={AllComment} />
                     <Route path="/commentdetaillist/:id" component={CommentDetailList} />
+                    <Route path="/search" component={SearchNover} />
              	</Switch>
              </Router>
 		)

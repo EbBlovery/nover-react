@@ -8,16 +8,30 @@ import HeaderBar from '../../component/HeaderBar/headerBar';
 import './recommend.less';
 
 class Recommend extends Component {
+    constructor(props){
+        super(props)
+        this.state = { data: [], title: '' }
+    }
+    componentDidMount(){
+        console.log(this.props)
+        if(!this.props.title){
+            var {data,title} = this.props.location.state;
+            this.setState({data: data,title: title})
+        }else{
+            var {data,title} = this.props;
+            console.log(data,title)
+        }
+    }
 	render() {
-		var {data,title} = this.props.location.state;
+		
 		return (
              <div className="recommend">
              	<div>
-             		<HeaderBar history={this.props.history} title={title}/>
+             		<HeaderBar history={this.props.history} title={this.state.title}/>
              	</div>
              	<ul className="recommend-ul">
              		{
-             			data && data.map((item,index)=>{
+             			this.state.data && this.state.data.map((item,index)=>{
              				return (
                                 <li className="recommend-li" key={index}>
                                 	<Link to={{

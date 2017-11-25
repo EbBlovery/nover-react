@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 
 import {getSearch} from '../../apiconfig/api.js';
 
+import { handleSearch } from '../../store/action/index.js';
+
+import { connect } from 'react-redux';
+
+
+
 import './search.less'; 
 
 class Search extends Component {
@@ -11,10 +17,11 @@ class Search extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        getSearch(this.state.value).then(res=>{
-            console.log(res)
-        })
-        this.props.history.push({pathname:'/recommend/'+ this.state.value,state:'aaa'})
+        // getSearch(this.state.value).then(res=>{
+        //     console.log(res)
+        // })
+        this.props.handleSearch(this.state.value)
+        this.props.history.push({pathname:'/search',search: '?value=' + this.state.value})
     }
     handleChange(e){
         this.setState({value:e.target.value})
@@ -35,4 +42,18 @@ class Search extends Component {
 	}
 }
 
-export default Search;
+function mapStateToProps(state){
+    return {
+
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        handleSearch: (key) => {
+             dispatch(handleSearch(key))       
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Search);
