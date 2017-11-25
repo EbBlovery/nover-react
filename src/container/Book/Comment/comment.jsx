@@ -7,7 +7,7 @@ import './comment.less';
 
 class Comment extends Component {
 	render() {
-		var data = this.props.data;
+		var {data,title} = this.props;
 		return (
 			<ul className="comment-ul">
 	            {
@@ -17,7 +17,7 @@ class Comment extends Component {
                             <li key={index}>
                             	<Link to={{
                                     pathname:"/commentdetaillist/" + item._id,
-                                    state:{data:item,id:item._id}
+                                    state:{data:item,id:item._id,title: title}
                                 }}>
                                     <CommentDetail data={item}/>
                             	</Link>

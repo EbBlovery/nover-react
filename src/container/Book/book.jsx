@@ -122,7 +122,7 @@ class Book extends Component {
         		    <div>
             		    {
             				info.length<=0?(<div className="no-comment">暂无评论~</div>):(
-                           	    <Comment data={info} />
+                           	    <Comment title={data.book.title} data={info} />
             				)
             			}
         			</div>

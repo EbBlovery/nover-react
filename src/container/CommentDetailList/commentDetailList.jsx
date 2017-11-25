@@ -22,7 +22,7 @@ class CommentDetailList extends Component {
     loadMore(){   // 点击加载更多 细节评论
         this.setState({count: this.state.count + 10})
         getCommentDetail(this.props.location.state.id,this.state.count).then(res=>{
-            res.push(...this.state.comment)
+            res.unshift(...this.state.comment)
             this.setState({comment: res})
         })
     }

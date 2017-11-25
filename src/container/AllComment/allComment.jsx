@@ -29,7 +29,7 @@ class AllComment extends Component {
         this.setState({count: this.state.count + 10})
         const id = this.props.history.location.pathname.split('/allcomment/')[1];
         getComment(id,this.state.count).then(res=>{
-            res.reviews.push(...this.state.comment);  //  圆满解决动态添加问题
+            res.reviews.unshift(...this.state.comment);  //  圆满解决动态添加问题  必须使用unshift
             // console.log(this.state.comment,res.reviews)
             this.setState({comment: res.reviews});
         })

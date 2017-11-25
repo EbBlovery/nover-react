@@ -3,18 +3,29 @@ import React, { Component } from 'react';
 import './search.less'; 
 
 class Search extends Component {
+    constructor(props){
+        super(props)
+        this.state = { value: '总裁' }
+    }
+    handleSubmit(e){
+        e.preventDefault();
+        console.log(this.state.value)
+    }
+    handleChange(e){
+        this.setState({value:e.target.value})
+    }
 	render() {
 		return (
-            <div className="search">
+            <form onSubmit={this.handleSubmit.bind(this)} className="search">
                 <div>
                 	<label>
-	            		<input placeholder="aaa" id="search-text" type="text" />
+	            		<input onChange={this.handleChange.bind(this)} value={this.state.value} id="search-text" type="text" />
 	            	</label>
                 </div>
             	<div>
-            	    <span><img src={require("../../assets/search.svg")} /></span>
+            	    <button><img src={require("../../assets/search.svg")} /></button>
             	</div>
-            </div>
+            </form>
 		)
 	}
 }

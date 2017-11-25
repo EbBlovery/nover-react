@@ -27,5 +27,12 @@ export function getCommentDetail(id,start = 0){
 	})
 }
 
+export function getSearch(val){
+    return axios.get().then(res=>{
+    	return res
+    }).catch(err=>{
+    	console.log(err)
+    })
+}
 
 		
