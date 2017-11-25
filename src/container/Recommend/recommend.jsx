@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import NoverInfo from '../NovList/NoverInfo/noverInfo';
+import CommendDetail from '../CommendDetail/commendDetail';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 
 import './recommend.less';
+
 
 class Recommend extends Component {
 	render() {
@@ -24,7 +25,7 @@ class Recommend extends Component {
                                 		pathname:"/book/" + item.book._id,
                                         state:{data: item}
                                 	}}>
-                                		<NoverInfo data={item} />
+                                		<CommendDetail data={item} />
                                 	</Link>
                                 	<p className="linear"></p>
                                 </li>

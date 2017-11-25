@@ -3,7 +3,6 @@ import {getSearch} from '../../apiconfig/api.js';
 export function handleSearch(key){
     return dispatch => {
     	getSearch(key).then(res=>{
-    		console.log(res)
             dispatch(getSearchData(res))
         }).catch(err=>{
         	console.log(err)
