@@ -9,6 +9,7 @@ import './index.less';
 
 class Index extends Component {
 	render(){
+            console.log(this.props.history)
 		return (
              <div className="main">
              	<Header />
@@ -16,7 +17,7 @@ class Index extends Component {
              	<div className="containers">
              	    <Content history={this.props.history}/>
              	</div>
-                  <Footer />
+                  <Footer history={this.props.history}/>
              </div>
 		)
 	}

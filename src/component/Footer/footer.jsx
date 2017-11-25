@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import {handleSearch} from '../../store/action/index';
 
 import './footer.less';
 
 class Footer extends Component {
+    constructor(props){
+        super(props)
+        this.state = { value: '总裁' }
+    }
+    handleSubmits(e){
+        e.preventDefault();
+        // getSearch(this.state.value).then(res=>{
+        //     console.log(res)
+        // })
+        console.log(this.props.history)
+        this.props.handleSearch(this.state.value);
+        this.props.history.push({pathname:'/search',search: '?value=' + this.state.value})
+    }
+    handleChanges(e){
+        this.setState({value:e.target.value})
+    }
 	render(){
 		return (
             <div className="footer">
             	<div className="footer-search">
-                    <label>
-                    	<input type="text" />
-                    	<button>搜索</button>
-                    </label>
+                    <form onSubmit={this.handleSubmits.bind(this)}>
+                        <label>
+                        	<input onChange={this.handleChanges.bind(this)} value={this.state.value} type="text" />
+                        	<button>搜索</button>
+                        </label>
+                    </form>
             	</div>
             	<div className="footer-navbar">
 	            	<div><Link to="/">首页</Link></div>|
@@ -29,4 +50,18 @@ class Footer extends Component {
 	}
 }
 
-export default Footer;
+function mapStateToProps(state){
+    return {
+
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        handleSearch: (key) => {
+             dispatch(handleSearch(key))       
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Footer);

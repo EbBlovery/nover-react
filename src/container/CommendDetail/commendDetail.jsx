@@ -4,18 +4,24 @@ import './commendDetail.less';
 
 class CommendDetail extends Component {
 	render() {
-		const item = this.props.data;
+		var item = this.props.data;
 		// if(item.book.title)
+		// var item = {}
+		// if(items.title){
+  //           item = items
+		// }else{
+		// 	item = item.book;
+		// }
 		return (
 			<div className="commendDetail-div">
 	           	<div className="commendDetail-left">
-	           		<img src={item.cover || item.book.cover}/>
+	           		<img src={item.cover}/>
 	           	</div>
 	           	<div className="commendDetail-right">
-	           		<p>{item.title || item.book.title}</p>
-	           		<p>{item.author || item.book.author} | {item.cat || item.book.majorCate}</p>
-	           		<p>{item.shortIntro || item.book.shortIntro}</p>
-	           		<p><span>{item.latelyFollower || item.book.latelyFollower}</span>人气 | <span>{item.retentionRatio || item.book.retentionRatio}%</span>读者留存</p>
+	           		<p>{item.title}</p>
+	           		<p>{item.author} | {item.cat}</p>
+	           		<p>{item.shortIntro}</p>
+	           		<p><span>{item.latelyFollower}</span>人气 | <span>{ item.retentionRatio }%</span>读者留存</p>
 	           	</div>
 	        </div>
 		)

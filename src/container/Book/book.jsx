@@ -39,7 +39,7 @@ class Book extends Component {
             this.setState({recommend:res})
 		})
     }
-    shouldComponentUpdate(a,b){         // 一直返回true 只要数据变更就重新render； 变更糟componentWillReceiveProps 里边
+    shouldComponentUpdate(a,b){         // 一直返回true 只要数据变更就重新render； 变更糟 componentWillReceiveProps 里边
     	return true;
         // if(a!==b){
         //        return true

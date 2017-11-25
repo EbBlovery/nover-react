@@ -19,13 +19,15 @@ class Recommend extends Component {
              	<ul className="recommend-ul">
              		{
              			data && data.map((item,index)=>{
+                            var items = item.book;
+                            items.cat = item.majorCate
              				return (
                                 <li className="recommend-li" key={index}>
                                 	<Link to={{
                                 		pathname:"/book/" + item.book._id,
                                         state:{data: item}
                                 	}}>
-                                		<CommendDetail data={item} />
+                                		<CommendDetail data={items} />
                                 	</Link>
                                 	<p className="linear"></p>
                                 </li>
