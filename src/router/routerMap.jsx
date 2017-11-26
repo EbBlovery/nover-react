@@ -9,6 +9,14 @@ import AllComment from '../container/AllComment/allComment';    //  小说全部
 import CommentDetailList from '../container/CommentDetailList/commentDetailList';   // 细节评论；
 import SearchNover from '../container/Search/SearchNover/searchNover';
 
+import createHistory from 'history/createBrowserHistory'
+
+
+// const history = createHistory()
+
+// // Get the current location.
+// console.log(history)
+
 class RouterMap extends Component {
 	render() {
 		return (

@@ -11,7 +11,7 @@ class BookLove extends Component {
             	<p>
             	    <span>你可能感兴趣</span>
             	    <span>
-            	        <Link style={{color:'red'}} to={{
+            	        <Link style={{color:'red'}} replace to={{
             	        	pathname: this.props.pathname + '/interest',
             	        	state: {data:this.props.data,title:'你可能感兴趣'}
             	        }}>更多</Link>

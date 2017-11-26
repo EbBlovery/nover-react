@@ -22,21 +22,26 @@ class Book extends Component {
          	           val:[],        //  评论
          	           recommend: [],  // 可能喜欢的书籍
                        bookiInfo: []   // 书籍详细信息
-         	       }
+         	        }
 	}
 	handleClick(){
         this.setState({isShow:!this.state.isShow})
 	}
+    componentWillMount(){
+        console.log(1,this.props.location)
+
+    }
 	componentDidMount(){
         console.log(1,this.props.location)
         // console.log()
-        getBook(this.props.location.state.data.book._id).then(res=>{
+        var id =this.props.location.state.id?this.props.location.state.id:this.props.location.state.data.book._id;
+        getBook(id).then(res=>{
             this.setState({bookiInfo:res.data})
         })
-		getRecommend(this.props.location.state.data.book._id).then(res=>{  // 推荐列表
+		getRecommend(id).then(res=>{  // 推荐列表
 			this.setState({recommend:res})
 		})
-		getComment(this.props.location.state.data.book._id).then(res=>{  //评论
+		getComment(id).then(res=>{  //评论
             this.setState({val:res})
 		})
 	}
