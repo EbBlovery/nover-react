@@ -28,9 +28,9 @@ class Book extends Component {
         this.setState({isShow:!this.state.isShow})
 	}
 	componentDidMount(){
+        console.log(1,this.props.location)
+        // console.log()
         getBook(this.props.location.state.data.book._id).then(res=>{
-            console.log(res.data)
-
             this.setState({bookiInfo:res.data})
         })
 		getRecommend(this.props.location.state.data.book._id).then(res=>{  // 推荐列表
@@ -41,8 +41,10 @@ class Book extends Component {
 		})
 	}
     componentWillReceiveProps(){
-        getBook(this.props.location.state.data.book._id).then(res=>{
-            console.log(res.data)
+        console.log(2,this.props.history)
+           // console.log(this.props.history.location.state)
+        getBook(this.props.history.location.state.id).then(res=>{
+            // console.log(res.data)
             this.setState({bookiInfo:res.data})
         })
         getComment(this.props.history.location.state.id).then(res=>{ // 整老子好久的bug 老子记住你了  this.props.history.location.state.id ！== this.props.location.state.id
@@ -134,7 +136,8 @@ class Book extends Component {
 	                    </span>
 	                    <span>
 	                    	<Link to={{
-	                    		pathname:"/allcomment/" + this.props.location.state.data.book._id,
+                                // this.props.location.state.data.book._id
+	                    		pathname:"/allcomment/" + this.state.bookiInfo._id,
                                 state: {comment:this.state.val,title:this.state.bookiInfo.title,total:this.state.val.total}
 	                        }}>
 	                    	    更多评论

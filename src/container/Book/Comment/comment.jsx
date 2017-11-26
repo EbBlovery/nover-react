@@ -12,7 +12,6 @@ class Comment extends Component {
 			<ul className="comment-ul">
 	            {
 	            	data.map((item,index)=>{
-	            		console.log(item)
                         return (
                             <li key={index}>
                             	<Link to={{
