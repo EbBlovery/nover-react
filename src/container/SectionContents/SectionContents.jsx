@@ -5,7 +5,12 @@ import './sectionContents.less';
 class SectionContents extends Component {
 	render() {
 		return (
-            <div>asda</div>
+            <div>
+                <p>asda</p>
+                <div>
+                
+                </div>
+            </div>
 		)
 	}
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import { getRecommend, getComment, getBook } from '../../apiconfig/api.js';
 
@@ -9,6 +9,9 @@ import Footer from '../../component/Footer/footer'
 import Comment from './Comment/comment';       //  小说评论 此处只取两个；
 import BookLove from './BookLove/bookLove';    //  类似小说推荐列表
 // import SectionContents from '../component/SectionContents/sectionContents';
+
+import SectionContents from '../SectionContents/SectionContents';
+
 
 import {tab} from '../../util/util.js';
 
@@ -84,6 +87,7 @@ class Book extends Component {
         var wordCount = this.state.bookiInfo.wordCount>=10000?Math.round((this.state.bookiInfo.wordCount)/10000) + "万":this.state.bookiInfo.wordCount
 		var info = this.state.val.reviews?this.state.val.reviews.slice(0,2):''
         var updated = tab((new Date(this.state.bookiInfo.updated)).toLocaleDateString().split('/').join('-'));
+
 		return (
             <div className="book">
             	<HeaderBar title="书籍详情" history={this.props.history} />
@@ -96,7 +100,7 @@ class Book extends Component {
             				<div>
             					<p>{this.state.bookiInfo.title}</p>
             					<p><span>{this.state.bookiInfo.author}</span>&nbsp;&nbsp; | &nbsp;&nbsp;{this.state.bookiInfo.minorCate || this.state.bookiInfo.majorCate}&nbsp;&nbsp; |&nbsp;&nbsp; {wordCount}字</p>
-            					<p>{updated}</p>
+            					<p>{updated.toString()}</p>
             				</div>
             			</div>
             			<div className="book-bot">
@@ -129,10 +133,10 @@ class Book extends Component {
             	</div>
                 <div className="section-list">
                     <p>
-                        <span>目录</span>
-                        <span>{this.state.bookiInfo.lastChapter}</span>
+                        <Link to={`${this.props.match.url}/chapter`}>asdasdasd</Link>
                     </p>
                 </div>
+                <Route path={`${this.props.match.url}/chapter`} render={()=>{<p>asdadsdadgrwetgwesdwf</p>}}/>
                <p className="linear"></p>
             	<div className="hot-comment">
         		    <div className="comment-header">
@@ -173,3 +177,11 @@ export default Book;
 // http://api.zhuishushenqi.com/post/review/best-by-book?book=579a0ea6174dee4119aacdad&limit=10
 
 // 品论 api
+
+
+// <Link to={{
+//                             pathname: '/sectionContents/'+ this.state.bookiInfo._id + '/chapter'
+//                         }}>
+//                             <span>目录</span>
+//                             <span>{this.state.bookiInfo.lastChapter}</span>
+//                         </Link>
