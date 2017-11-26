@@ -20,12 +20,10 @@ class Recommend extends Component {
              		{
              			data && data.map((item,index)=>{
                             var items = item.book;
-                            items.cat = item.majorCate
              				return (
                                 <li className="recommend-li" key={index}>
                                 	<Link to={{
-                                		pathname:"/book/" + item.book._id,
-                                        state:{data: item}
+                                		pathname:"/book/" + item.book._id
                                 	}}>
                                 		<CommendDetail data={items} />
                                 	</Link>

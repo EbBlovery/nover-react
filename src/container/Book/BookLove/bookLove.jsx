@@ -24,8 +24,9 @@ class BookLove extends Component {
              				arr.book= items;
             				return (
                                 <li key={index}>
-                                	<Link key={index} to={{pathname:"/book/" + items._id,
-                                               state: {data: arr,id:items._id}
+                                	<Link key={index} to={{
+                                        pathname:"/book/" + items._id,
+                                        state: {id:items._id}
                                     }}>
                                         <img src={items.cover} alt={items.title}/>
                                         <p>{items.title}</p>

@@ -12,5 +12,14 @@ export function tab(date){
     }else{
         result = Math.abs(newDate.getTime()-lastDate.getTime())/86400000;
     }
+    if(result<=7){
+        result = result + '天前';
+    }else if(result<=30){
+        result = (result/7).toFixed(0) + '周前'
+    }else if(60<result && result<90){
+        result = '1月前'
+    }else if(result>=90){
+        result = '完结'
+    }
     return result;
 }

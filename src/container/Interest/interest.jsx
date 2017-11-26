@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
-import InterestInfo from './InterestInfo/interestInfo';
+import CommendDetail from '../CommendDetail/commendDetail';
 
 import './interest.less';
 
@@ -25,7 +25,7 @@ class Interest extends Component {
                                 		pathname:"/book/" + item._id,
                                         state:{data: arr}
                                 	}}>
-                                		<InterestInfo data={item} />
+                                		<CommendDetail data={item} />
                                 	</Link>
                                 	<p className="linear"></p>
                                 </li>

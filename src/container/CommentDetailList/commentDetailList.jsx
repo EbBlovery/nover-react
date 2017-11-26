@@ -51,14 +51,6 @@ class CommentDetailList extends Component {
      				{
      					this.state.comment && this.state.comment.map((item,index)=>{
      						const days =  tab((new Date(item.created)).toLocaleDateString().split('/').join('-'));
-    						var day = '';
-    						if(days<=7){
-    							day = days + '天';
-    						}else if(day<=30){
-    							day = (days/7).toFixed(0) + '周'
-    						}else{
-    							day = '1月'
-    						}
      						return (
                                 <li key={index}>
                                 	<div className="list-left">
@@ -67,7 +59,7 @@ class CommentDetailList extends Component {
                                 	<div className="list-right">
                                 		<div className="list-right-div">
                                     		<p>{item.author.nickname}</p>
-                                    		<p>{day}前</p>
+                                    		<p>{days}前</p>
                                 		</div>
                                 		<p className="content">{item.content}</p>
                                 	</div>

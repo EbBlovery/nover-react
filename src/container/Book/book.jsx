@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import { getRecommend, getComment } from '../../apiconfig/api.js';
+import { getRecommend, getComment, getBook } from '../../apiconfig/api.js';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import Footer from '../../component/Footer/footer'
 import Comment from './Comment/comment';       //  小说评论 此处只取两个；
 import BookLove from './BookLove/bookLove';    //  类似小说推荐列表
+// import SectionContents from '../component/SectionContents/sectionContents';
+
+import {tab} from '../../util/util.js';
 
 
 import './book.less';
@@ -18,12 +21,18 @@ class Book extends Component {
          this.state = {isShow: false, //  短介绍 是否展示
          	           val:[],        //  评论
          	           recommend: [],  // 可能喜欢的书籍
+                       bookiInfo: []   // 书籍详细信息
          	       }
 	}
 	handleClick(){
         this.setState({isShow:!this.state.isShow})
 	}
 	componentDidMount(){
+        getBook(this.props.location.state.data.book._id).then(res=>{
+            console.log(res.data)
+
+            this.setState({bookiInfo:res.data})
+        })
 		getRecommend(this.props.location.state.data.book._id).then(res=>{  // 推荐列表
 			this.setState({recommend:res})
 		})
@@ -32,6 +41,10 @@ class Book extends Component {
 		})
 	}
     componentWillReceiveProps(){
+        getBook(this.props.location.state.data.book._id).then(res=>{
+            console.log(res.data)
+            this.setState({bookiInfo:res.data})
+        })
         getComment(this.props.history.location.state.id).then(res=>{ // 整老子好久的bug 老子记住你了  this.props.history.location.state.id ！== this.props.location.state.id
 			this.setState({val:res})
 		})
@@ -59,9 +72,11 @@ class Book extends Component {
 
 
 	render() {
-		const {data} = this.props.location.state
-		var wordCount = data.book.wordCount>=10000?Math.round((data.book.wordCount)/10000) + "万":data.book.wordCount
+		// const {data} = this.props.location.state
+		// var wordCount = data.book.wordCount>=10000?Math.round((data.book.wordCount)/10000) + "万":data.book.wordCount
+        var wordCount = this.state.bookiInfo.wordCount>=10000?Math.round((this.state.bookiInfo.wordCount)/10000) + "万":this.state.bookiInfo.wordCount
 		var info = this.state.val.reviews?this.state.val.reviews.slice(0,2):''
+        var updated = tab((new Date(this.state.bookiInfo.updated)).toLocaleDateString().split('/').join('-'));
 		return (
             <div className="book">
             	<HeaderBar title="书籍详情" history={this.props.history} />
@@ -69,12 +84,12 @@ class Book extends Component {
             		<div className="book-info-content">
             			<div className="book-top">
             				<div>
-            					<img src={data.book.cover} alt={data.book.title}/>
+            					<img src={this.state.bookiInfo.cover} alt={this.state.bookiInfo.title}/>
             				</div>
             				<div>
-            					<p>{data.book.title}</p>
-            					<p><span>{data.book.author}</span> | {data.book.minorCate} | {wordCount}字</p>
-            					<p>{}</p>
+            					<p>{this.state.bookiInfo.title}</p>
+            					<p><span>{this.state.bookiInfo.author}</span>&nbsp;&nbsp; | &nbsp;&nbsp;{this.state.bookiInfo.minorCate || this.state.bookiInfo.majorCate}&nbsp;&nbsp; |&nbsp;&nbsp; {wordCount}字</p>
+            					<p>{updated}</p>
             				</div>
             			</div>
             			<div className="book-bot">
@@ -86,25 +101,32 @@ class Book extends Component {
             		<div className="book-person">
             			<p>
             				<span>追人气</span>
-            				<span className="item">{data.book.latelyFollower}</span>
+            				<span className="item">{this.state.bookiInfo.latelyFollower}</span>
             			</p>
             			<p>
             				<span>读者留存率</span>
-            				<span className="item">{data.book.retentionRatio}</span>
+            				<span className="item">{this.state.bookiInfo.retentionRatio}%</span>
             			</p>
             			<p>
             				<span>日更字数/天</span>
-            				<span className="item">2345</span>
+            				<span className="item">{this.state.bookiInfo.serializeWordCount || 0}</span>
             			</p>
             		</div>
             		<p className="linear"></p>
             		<div className="longIntro">
-                       <p className={this.state.isShow?'actives':''}>{data.book.shortIntro}</p>
+                       <p className={this.state.isShow?'actives':''}>{this.state.bookiInfo.longIntro}</p>
                        <img className={this.state.isShow?'circle':''} onClick={this.handleClick.bind(this)} src={require('../../assets/arrowdown.svg')} />
             		</div>
             		<p className="linear"></p>
             		
             	</div>
+                <div className="section-list">
+                    <p>
+                        <span>目录</span>
+                        <span>{this.state.bookiInfo.lastChapter}</span>
+                    </p>
+                </div>
+               <p className="linear"></p>
             	<div className="hot-comment">
         		    <div className="comment-header">
 	                    <span>
@@ -113,7 +135,7 @@ class Book extends Component {
 	                    <span>
 	                    	<Link to={{
 	                    		pathname:"/allcomment/" + this.props.location.state.data.book._id,
-                                state: {comment:this.state.val,title:data.book.title,total:this.state.val.total}
+                                state: {comment:this.state.val,title:this.state.bookiInfo.title,total:this.state.val.total}
 	                        }}>
 	                    	    更多评论
 	                    	</Link>
@@ -122,7 +144,7 @@ class Book extends Component {
         		    <div>
             		    {
             				info.length<=0?(<div className="no-comment">暂无评论~</div>):(
-                           	    <Comment title={data.book.title} data={info} />
+                           	    <Comment title={this.state.bookiInfo.title} data={info} />
             				)
             			}
         			</div>
@@ -132,7 +154,7 @@ class Book extends Component {
                     this.state.recommend.length>0 ?(<BookLove pathname={this.props.location.pathname} data={ this.state.recommend} />):(<div></div>)
             	}
             	</div>
-            	<Footer />
+            	<Footer history={this.props.history}/>
             </div>
 		)
 	}
