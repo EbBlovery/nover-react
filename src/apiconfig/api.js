@@ -43,8 +43,8 @@ export function getBook(id) {
 
 export function getChapter(id){
     //  http://novel.juhe.im/book-sources?view=summary&book=
-    return axios.get(`/btoc?view=summary&book=${id}`).then(res=>{
-    	return res.data[0]
+    return axios.get(`http://novel.juhe.im/book-sources?view=summary&book=${id}`).then(res=>{
+    	return res.data.data;
     }).catch(err=>{
     	console.log(err)
     })
@@ -56,11 +56,13 @@ export function getSection(id){
     })
 }
 
-export function changeResource(id) {
-    axios.get(`http://novel.juhe.im/book-sources?view=summary&book=${id}`).then(res=>{
-    	return res
-    })
+
+export function getContent(link){
+	return axios.get(`http://novel.juhe.im/chapters/${link}`).then(res=>{
+		return res.data.data.chapter
+	})
 }
+
 
 
 // http://api.zhuishushenqi.com/recommendPage/node/books/all/578351b97fa1aac6396a3cd2?   //ajax=ajax&st=1&size=10

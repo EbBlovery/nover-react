@@ -9,7 +9,7 @@ import AllComment from '../container/AllComment/allComment';    //  小说全部
 import CommentDetailList from '../container/CommentDetailList/commentDetailList';   // 细节评论；
 import SearchNover from '../container/Search/SearchNover/searchNover';
 import SectionContents from '../container/SectionContents/SectionContents';
-
+import ReadContent from '../container/ReadContent/readContent';
 
 class RouterMap extends Component {
 	render() {
@@ -26,6 +26,7 @@ class RouterMap extends Component {
                     <Route exact path="/commentdetaillist/:id" component={CommentDetailList} />
                     <Route exact path="/search" component={SearchNover} />
                     <Route exact path="/sectionContents/:id/chapter" component={SectionContents} />
+                    <Route exact path="/sectionContents/:id/:index" component={ReadContent} />
                     <Redirect to="/index/home"/>
              	</Switch>
              </Router>
