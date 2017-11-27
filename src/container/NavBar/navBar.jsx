@@ -23,7 +23,6 @@ class NavBar extends Component {
                 	<div><NavLink to={`${match.path}/vip`}>VIP专区</NavLink></div>
                 </div>
                 <Switch>
-                    
                     <Route exact path={`${match.path}/home`} render={() => {
                         return (
                             <div>
@@ -55,7 +54,6 @@ class NavBar extends Component {
                         )
                     }}/>
                 </Switch>
-                
             </div>
 		)
 	}

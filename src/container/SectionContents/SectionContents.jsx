@@ -18,17 +18,17 @@ class SectionContents extends Component {
 		}
 	}
 	componentDidMount(){
-        getChapter(this.props.location.state.id).then(res=>{
-        	console.log(res)
+		const id = this.props.location.state.id?this.props.location.state.id:this.props.location.state.data.book._id;
+        getChapter(id).then(res=>{
         	this.setState({source:res.data})
         	// return res
-        	// getSection(res._id).then(rest=>{
-        	// 	this.setState({data:rest.data.data.chapters,title:rest.data.data.name})
-        	// })
+        	
         })
 	}
 	handleGetSource(val){
-		console.log(val)
+		getSection(val).then(rest=>{
+    		this.setState({data:rest.data.data.chapters,title:rest.data.data.name,isshow : !this.state.isshow})
+    	})
 	}
 	handleSource(){
 		this.setState({isshow : !this.state.isshow})
@@ -45,27 +45,27 @@ class SectionContents extends Component {
                 	<div className="chapter-title">
 	                    <div>
 	                    	<h3>目录</h3>
-	                    	<span>共{/*this.state.data && this.state.data.length*/}章</span>
+	                    	<span>共{this.state.data && this.state.data.length || 0 }章</span>
 	                    </div>
 	                    <span onClick={this.handleSource.bind(this)}>换源</span>
 	                </div>
 	                <div className="chapter-list">
 	                	<ul>
 	                		{
-	                			// this.state.data && this.state.data.map((item,index)=>{
-	                			// 	const chap = index + 1;
-	                			// 	const link = encodeURIComponent(item.link);
-	                			// 	return (
-                    //                     <li key={index}>
-                    //                     	<Link to={{
-                    //                     		pathname:"/sectionContents/" + this.props.location.state.id + "/" + chap,
-                    //                     		state:{ link:link, title: item.title }
-                    //                     	}}>
-                    //                             <p>{index+1 || 0}&nbsp; {item.title}</p>
-                    //                     	</Link>
-                    //                     </li>
-	                			// 	)
-	                			// })
+	                			this.state.data && this.state.data.map((item,index)=>{
+	                				const chap = index + 1;
+	                				const link = encodeURIComponent(item.link);
+	                				return (
+                                        <li key={index}>
+                                        	<Link to={{
+                                        		pathname:"/sectionContents/" + this.props.location.state.id + "/" + chap,
+                                        		state:{ link:link, title: item.title }
+                                        	}}>
+                                                <p>{index+1 || 0}&nbsp; {item.title}</p>
+                                        	</Link>
+                                        </li>
+	                				)
+	                			})
 	                		}
 	                	</ul>
 	                </div>
@@ -75,7 +75,7 @@ class SectionContents extends Component {
                     	{
                             this.state.source && this.state.source.map((item,index)=>{
                                 return (
-                                    <li onClick={this.handleGetSource.bind(this,item.link)} key={index}>
+                                    <li onClick={this.handleGetSource.bind(this,item._id)} key={index}>
                                     	<p>{item.name}</p>
                                     </li>
                                 )  
