@@ -133,10 +133,15 @@ class Book extends Component {
             	</div>
                 <div className="section-list">
                     <p>
-                        <Link to={`${this.props.match.url}/chapter`}>asdasdasd</Link>
+                        <Link to={{
+                            pathname: '/sectionContents/'+ this.state.bookiInfo._id + '/chapter',
+                            state: {id: this.state.bookiInfo._id}
+                        }}>
+                            <span>目录</span>
+                            <span>{this.state.bookiInfo.lastChapter}</span>
+                        </Link>
                     </p>
                 </div>
-                <Route path={`${this.props.match.url}/chapter`} render={()=>{<p>asdadsdadgrwetgwesdwf</p>}}/>
                <p className="linear"></p>
             	<div className="hot-comment">
         		    <div className="comment-header">
@@ -179,9 +184,3 @@ export default Book;
 // 品论 api
 
 
-// <Link to={{
-//                             pathname: '/sectionContents/'+ this.state.bookiInfo._id + '/chapter'
-//                         }}>
-//                             <span>目录</span>
-//                             <span>{this.state.bookiInfo.lastChapter}</span>
-//                         </Link>

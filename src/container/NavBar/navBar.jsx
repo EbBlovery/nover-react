@@ -10,28 +10,52 @@ import './navBar.less';
 
 class NavBar extends Component {
 	render() {
-        const url = this.props.match.url
+        const match = this.props.match
+        console.log(match)
 		return (
             <div>
                 <Header />
                 <div className="navbar">
-                	<div><NavLink to={`${url}`}>首页</NavLink></div>
-                	<div><NavLink to={`${url}list`}>分类</NavLink></div>
-                	<div><NavLink to={`${url}rank`}>排行</NavLink></div>
-                	<div><NavLink to={`${url}book`}>书单</NavLink></div>
-                	<div><NavLink to={`${url}vip`}>VIP专区</NavLink></div>
+                	<div><NavLink to={`${match.path}/home`}>首页</NavLink></div>
+                	<div><NavLink to={`${match.path}/list`}>分类</NavLink></div>
+                	<div><NavLink to={`${match.path}/rank`}>排行</NavLink></div>
+                	<div><NavLink to={`${match.path}/book`}>书单</NavLink></div>
+                	<div><NavLink to={`${match.path}/vip`}>VIP专区</NavLink></div>
                 </div>
-                <Route exact path={`${url}/list`} component={SectionContents}/>
-                <Route exact path={url} render={() => {
-                    return (
-                        <div >
-                            <div className="mainbody">
-                                <Content history={this.props.history}/>
+                <Switch>
+                    
+                    <Route exact path={`${match.path}/home`} render={() => {
+                        return (
+                            <div>
+                                <div className="mainbody">
+                                    <Content history={this.props.history}/>
+                                </div>
+                                <Footer history={this.props.history}/>
                             </div>
-                            <Footer history={this.props.history}/>
-                        </div>
-                    )
-                }}/>
+                        )
+                    }}/>
+                    <Route path={`${match.path}/list`} render={({match})=>{
+                        return (
+                            <div>dsafdasfafasfas</div>
+                        )
+                    }}/>
+                    <Route path={`${match.path}/rank`} render={({match})=>{
+                        return (
+                            <div>asfjkahnsfkanasjdnkanf</div>
+                        )
+                    }}/>
+                    <Route path={`${match.path}/book`} render={({match})=>{
+                        return (
+                            <div>{match.params.id}</div>
+                        )
+                    }}/>
+                    <Route path={`${match.path}/vip`} render={({match})=>{
+                        return (
+                            <div>{match.params.id}</div>
+                        )
+                    }}/>
+                </Switch>
+                
             </div>
 		)
 	}

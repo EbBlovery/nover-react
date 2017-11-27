@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom';
 
 import Index from '../component/Index/index';             //  主页 路由；
 import Recommend from '../container/Recommend/recommend';  // 首页书籍详细列表
@@ -16,20 +16,22 @@ class RouterMap extends Component {
 		return (
              <Router>
              	<Switch>
-                    <Route exact path="/" component={Index}/>
+                    <Route path="/index" component={Index}/>
              		<Route exact path="/recommend/:id" component={Recommend}/>
              		<Route exact path="/book/:id/interest" component={Interest} />
              		<Route exact path="/book/:id" component={Book} />
                     <Route exact path="/allcomment/:id" component={AllComment} />
                     <Route exact path="/commentdetaillist/:id" component={CommentDetailList} />
                     <Route exact path="/search" component={SearchNover} />
-                    <Route exact path="/sectionContents/:id/chapter" component={SectionContents} />
+                    <Redirect to="/index/home"/>
              	</Switch>
              </Router>
 		)
 	}
 }
 
-export default RouterMap; //<Route exact path="/list"/>
+export default RouterMap; 
 
-                   // 
+
+//<Route exact path="/list"/>   <Route exact path="/sectionContents/:id/chapter" component={SectionContents} />
+
