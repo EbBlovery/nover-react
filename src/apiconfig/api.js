@@ -44,7 +44,7 @@ export function getBook(id) {
 export function getChapter(id){
     //  http://novel.juhe.im/book-sources?view=summary&book=
     return axios.get(`http://novel.juhe.im/book-sources?view=summary&book=${id}`).then(res=>{
-    	return res.data.data;
+    	return res.data;
     }).catch(err=>{
     	console.log(err)
     })

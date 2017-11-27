@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import {getSection, getChapter} from '../../apiconfig/api.js';
 import HeaderBar from '../../component/HeaderBar/headerBar';
@@ -11,20 +12,32 @@ class SectionContents extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			spurce: [],  // chapter 章节
-            title: ''
+			source: [],  // chapter 章节
+            title: '',
+            isshow: false
 		}
 	}
 	componentDidMount(){
         getChapter(this.props.location.state.id).then(res=>{
-        	this.setState({source:res})
+        	console.log(res)
+        	this.setState({source:res.data})
         	// return res
         	// getSection(res._id).then(rest=>{
         	// 	this.setState({data:rest.data.data.chapters,title:rest.data.data.name})
         	// })
         })
 	}
+	handleGetSource(val){
+		console.log(val)
+	}
+	handleSource(){
+		this.setState({isshow : !this.state.isshow})
+	}
 	render() {
+		var showclass = classNames({
+		 	"changeSource":true,
+		 	"showSource":this.state.isshow
+		})
 		return (
             <div className="chapter">
                 <HeaderBar title={this.state.title} history={this.props.history}/>
@@ -32,9 +45,9 @@ class SectionContents extends Component {
                 	<div className="chapter-title">
 	                    <div>
 	                    	<h3>目录</h3>
-	                    	<span>共{this.state.data && this.state.data.length}章</span>
+	                    	<span>共{/*this.state.data && this.state.data.length*/}章</span>
 	                    </div>
-	                    <span>换源</span>
+	                    <span onClick={this.handleSource.bind(this)}>换源</span>
 	                </div>
 	                <div className="chapter-list">
 	                	<ul>
@@ -57,7 +70,19 @@ class SectionContents extends Component {
 	                	</ul>
 	                </div>
                 </div>
-                
+                <div className={showclass}>
+                    <ul>
+                    	{
+                            this.state.source && this.state.source.map((item,index)=>{
+                                return (
+                                    <li onClick={this.handleGetSource.bind(this,item.link)} key={index}>
+                                    	<p>{item.name}</p>
+                                    </li>
+                                )  
+                            })
+                    	}
+                    </ul>
+                </div>
             </div>
 		)
 	}
