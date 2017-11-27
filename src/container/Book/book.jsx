@@ -30,15 +30,11 @@ class Book extends Component {
 	handleClick(){
         this.setState({isShow:!this.state.isShow})
 	}
-    componentWillMount(){
-        console.log(1,this.props.location)
-
-    }
 	componentDidMount(){
-        console.log(1,this.props.location)
-        // console.log()
+        
         var id =this.props.location.state.id?this.props.location.state.id:this.props.location.state.data.book._id;
         getBook(id).then(res=>{
+            // console.log(res.data)
             this.setState({bookiInfo:res.data})
         })
 		getRecommend(id).then(res=>{  // 推荐列表
@@ -49,10 +45,10 @@ class Book extends Component {
 		})
 	}
     componentWillReceiveProps(){
-        console.log(2,this.props.history)
+        // console.log(2,this.props.history)
            // console.log(this.props.history.location.state)
         getBook(this.props.history.location.state.id).then(res=>{
-            // console.log(res.data)
+            console.log(res.data)
             this.setState({bookiInfo:res.data})
         })
         getComment(this.props.history.location.state.id).then(res=>{ // 整老子好久的bug 老子记住你了  this.props.history.location.state.id ！== this.props.location.state.id

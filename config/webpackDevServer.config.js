@@ -99,6 +99,11 @@ module.exports = function(proxy, allowedHost) {
       '/agent':{
          target: 'http://statics.zhuishushenqi.com/',
          secure: false,
+         changeOrigin: true   
+      },
+      '/btoc':{
+         target: 'http://api.zhuishushenqi.com/',
+         secure: false,
          changeOrigin: true
       }
     },

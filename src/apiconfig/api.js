@@ -41,8 +41,23 @@ export function getBook(id) {
     })
 }
 
+export function getChapter(id){
+    //  http://novel.juhe.im/book-sources?view=summary&book=
+    return axios.get(`/btoc?view=summary&book=${id}`).then(res=>{
+    	return res.data[0]
+    }).catch(err=>{
+    	console.log(err)
+    })
+}
+
 export function getSection(id){
     return axios.get(`http://novel.juhe.im/book-chapters/${id}`).then(res=>{
+    	return res
+    })
+}
+
+export function changeResource(id) {
+    axios.get(`http://novel.juhe.im/book-sources?view=summary&book=${id}`).then(res=>{
     	return res
     })
 }

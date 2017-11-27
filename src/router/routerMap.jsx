@@ -17,12 +17,15 @@ class RouterMap extends Component {
              <Router>
              	<Switch>
                     <Route path="/index" component={Index}/>
+                    
+
              		<Route exact path="/recommend/:id" component={Recommend}/>
              		<Route exact path="/book/:id/interest" component={Interest} />
              		<Route exact path="/book/:id" component={Book} />
                     <Route exact path="/allcomment/:id" component={AllComment} />
                     <Route exact path="/commentdetaillist/:id" component={CommentDetailList} />
                     <Route exact path="/search" component={SearchNover} />
+                    <Route exact path="/sectionContents/:id/chapter" component={SectionContents} />
                     <Redirect to="/index/home"/>
              	</Switch>
              </Router>
@@ -33,5 +36,5 @@ class RouterMap extends Component {
 export default RouterMap; 
 
 
-//<Route exact path="/list"/>   <Route exact path="/sectionContents/:id/chapter" component={SectionContents} />
+//<Route exact path="/list"/>   
 
