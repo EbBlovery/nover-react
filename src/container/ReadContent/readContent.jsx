@@ -11,15 +11,20 @@ class ReadContent extends Component {
 		super(props)
 		this.state = {
 			title: '',
-			body:[]
+			body:[],
+			contenteIndex: 1,
+			value: false
 		}
 	}
 	componentDidMount(){
+		if(this.props.match.params.index == 1){
+			this.setState({value:true})
+		}
 		const {link} = this.props.location.state;
 		getContent(link).then(res=>{
 			//const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
             var arr = res.body.split(/\s+/g);
-            this.setState({body: arr})
+            this.setState({body: arr,contenteIndex: this.props.match.params.index})
 			//document.getElementById('chapterContent').innerHTML = value
 		})
 	}
@@ -36,8 +41,26 @@ class ReadContent extends Component {
                         }
             		</div>
             	</div>
+            	<footer className="content-button">
+        			<button onClick={this.handleToPrev.bind(this)} className={this.state.value?"disabled":''} disabled={this.state.value}>上一章</button>
+        			<button onClick={this.handleToBookCase.bind(this)}>加书架</button>
+        			<button onClick={this.handleToCatalog.bind(this)}>目录</button>
+        			<button onClick={this.handleToNext.bind(this)}>下一章</button>
+        		</footer>
             </div>
 		)
+	}
+	handleToPrev (){
+        console.log(this.props)
+	}
+	handleToBookCase() {
+        console.log(this.props)
+	}
+	handleToCatalog() {
+        console.log(123)
+	}
+	handleToNext() {
+        console.log(123)
 	}
 }
 
