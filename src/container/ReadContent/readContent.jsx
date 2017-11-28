@@ -49,7 +49,7 @@ class ReadContent extends Component {
 		this.setState({isShowBtn: !this.state.isShowBtn})
 	}
 	render() {
-		var style={display: this.state.isShowBtn?'block':'none',zIndex:1300}
+		var style={display: this.state.isShowBtn?'block':'none'}
 		return (
             <div className="chapterup-detail">
                 <HeaderBar title={this.state.title} history={this.props.history}/>
@@ -85,10 +85,11 @@ class ReadContent extends Component {
                          </div>
         			</div>
         		</div>
-        		<section style={{display:this.state.isShowChapter?'block':'none'}} className="section-list">
-        		    <p className="section-catalog">目录</p>
+        		<section style={{transform:this.state.isShowChapter?'translateX(0)':'translateX(-100%)'}} className="section-list">
+        		    <p className="section-catalog">目录</p>  
         			<ul className="section-ul">
         			    {
+        			    	// 此栏目为目录
                             this.state.chapterList && this.state.chapterList.map((item,index)=>{
                             	return (
                             		<li>

@@ -2,6 +2,7 @@
 	width:100%;
 	height:100%;
 	position:relative;
+	overflow:hidden;
 	.chapter-detail-content{
 	    background:#eee6dd;
 	    width:100%;
@@ -37,8 +38,11 @@
 	.pageReadOption{
 	    width:100%;
 	    height:100%;
+	    position:fixed;
+	    top:0;
+	    left:0;
 	    .pageOption-Top{
-	        position:fixed;
+	        position:absolute;
 		    top:0rem;
 		    left:0;
 		    width:100%;
@@ -52,7 +56,7 @@
 		    }
 	    }
 	    .pageOption-Bottom{
-	        position:fixed;
+	        position:absolute;
 		    bottom:0rem;
 		    left:0;
 		    width:100%;
@@ -126,28 +130,32 @@
 	.section-list{
 	    width:100%;
 	    height:100%;
+	    position:fixed;
+	    top:0;
+	    left:0;
+	    transition: .3s all ease-in;
 	    .section-catalog{
-            position:fixed;
-		    top:0rem;
+            position:absolute;
+		    top:0;
 		    left:0;
 		    width:100%;
 		    height: 3rem;
 		    line-height: 3rem;
 		    text-align:center;
-		    background:rgba(0,0,0,.8);
-		    z-index:1003;
+		    background:rgb(0,0,0);
+		    z-index:1002!important;
 		    color:#fff;
 	    }
 	    .section-ul{
-	        position:fixed;
+	        position:absolute;
 	        top:3rem;
 	        left:0rem;
 	        width:100%;
-	        height:86%;
+	        height:100%;
 	        z-index:1001;
 	        overflow-y:auto;
 	        background:#fff;
-	        margin-bottom: 3rem;
+	        box-sizing: border-box;
 	        li{
                 width:inherit;
                 height:3rem;
@@ -168,7 +176,7 @@
 		    height: 3rem;
 		    line-height: 3rem;
 		    text-align:center;
-		    background:rgba(0,0,0,.8);
+		    background:rgb(0,0,0);
 		    z-index:1002;
 		    color:#fff;
 	    }
