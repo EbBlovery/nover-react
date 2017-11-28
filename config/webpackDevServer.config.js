@@ -101,8 +101,8 @@ module.exports = function(proxy, allowedHost) {
          secure: false,
          changeOrigin: true   
       },
-      '/btoc':{
-         target: 'http://api.zhuishushenqi.com/',
+      '/chapter':{
+         target: 'http://chapterup.zhuishushenqi.com/',
          secure: false,
          changeOrigin: true
       }

@@ -40,7 +40,7 @@ export function getBook(id) {
          return res.data
     })
 }
-
+ //http://api.zhuishushenqi.com/ctoc?view=summary&book=
 export function getChapter(id){
     //  http://novel.juhe.im/book-sources?view=summary&book=
     return axios.get(`http://novel.juhe.im/book-sources?view=summary&book=${id}`).then(res=>{
@@ -56,10 +56,9 @@ export function getSection(id){
     })
 }
 
-
 export function getContent(link){
-	return axios.get(`http://novel.juhe.im/chapters/${link}`).then(res=>{
-		return res.data.data.chapter
+	return axios.get(`/chapter/${link}`).then(res=>{
+		return res.data.chapter
 	})
 }
 

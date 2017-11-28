@@ -19,6 +19,7 @@ class SectionContents extends Component {
 	}
 	componentDidMount(){
 		const id = this.props.location.state.id?this.props.location.state.id:this.props.location.state.data.book._id;
+		console.log(id)
         getChapter(id).then(res=>{
         	this.setState({source:res.data})
         	// return res
