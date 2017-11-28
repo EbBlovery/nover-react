@@ -60,7 +60,7 @@ class SectionContents extends Component {
                                         <li key={index}>
                                         	<Link to={{
                                         		pathname:"/sectionContents/" + this.props.match.params.id + "/" + chap,
-                                        		state:{ link:link, title: item.title,length: len,source:this.state.source, bookTitle: this.state.bookTitle}
+                                        		state:{ link:link, title: item.title,length: len,source:this.state.source, bookTitle: this.state.bookTitle, chapterList:this.state.data}
                                         	}}>
                                                 <p>{index+1 || 0}&nbsp; {item.title}</p>
                                         	</Link>
