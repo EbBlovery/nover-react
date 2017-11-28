@@ -13,25 +13,34 @@ class ReadContent extends Component {
 			title: '',
 			body:[],
 			contenteIndex: 1,
-			value: false
+			value: false,
+			length: 0
 		}
 	}
 	componentDidMount(){
 		if(this.props.match.params.index == 1){
 			this.setState({value:true})
 		}
-		const {link} = this.props.location.state;
+
+		const {link,title,length,source} = this.props.location.state;
+
 		getContent(link).then(res=>{
 			//const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
-            var arr = res.body.split(/\s+/g);
-            this.setState({body: arr,contenteIndex: this.props.match.params.index})
-			//document.getElementById('chapterContent').innerHTML = value
+			if(res.isVip){
+				const vip = ['VIP章节，不给看！'];
+				const h = document.documentElement.clientHeight;
+				document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
+                this.setState({body:vip,contenteIndex: this.props.match.params.index,length: length,title: title})
+			}else{
+				var arr = res.cpContent.split(/\s+/g);
+                this.setState({body:arr,contenteIndex: this.props.match.params.index,length: length,title: title})
+			}
 		})
 	}
 	render() {
 		return (
             <div className="chapterup-detail">
-                <HeaderBar title={this.props.location.state.title} history={this.props.history}/>
+                <HeaderBar title={this.state.title} history={this.props.history}/>
             	<div className="chapter-detail-content">
             		<div id="chapterContent">
                         {

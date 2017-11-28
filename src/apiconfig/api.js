@@ -52,7 +52,7 @@ export function getChapter(id){
 
 export function getSection(id){
     return axios.get(`http://novel.juhe.im/book-chapters/${id}`).then(res=>{
-    	return res
+    	return res.data.data
     })
 }
 

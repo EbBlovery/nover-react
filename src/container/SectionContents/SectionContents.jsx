@@ -14,31 +14,30 @@ class SectionContents extends Component {
 		this.state = {
 			source: [],  // chapter 章节
             title: '',
-            isshow: false
+            data: []
 		}
 	}
 	componentDidMount(){
 		const id = this.props.location.state.id?this.props.location.state.id:this.props.location.state.data.book._id;
 		console.log(id)
         getChapter(id).then(res=>{
-        	this.setState({source:res.data})
-        	// return res
-        	
+        	getSection(res.data[0]._id).then(rest=>{
+	    		this.setState({data:rest.chapters,title:rest.name,source:res.data})  // 更新章节列表
+	    	})
         })
 	}
-	handleGetSource(val){
-		getSection(val).then(rest=>{
-    		this.setState({data:rest.data.data.chapters,title:rest.data.data.name,isshow : !this.state.isshow})
-    	})
-	}
-	handleSource(){
-		this.setState({isshow : !this.state.isshow})
-	}
+	// handleGetSource(val){
+		
+	// }
+	// handleSource(){
+	// 	this.setState({isshow : !this.state.isshow})
+	// }
 	render() {
-		var showclass = classNames({
-		 	"changeSource":true,
-		 	"showSource":this.state.isshow
-		})
+		// var showclass = classNames({
+		//  	"changeSource":true,
+		//  	"showSource":this.state.isshow
+		// })
+		var len = this.state.data.length; 
 		return (
             <div className="chapter">
                 <HeaderBar title={this.state.title} history={this.props.history}/>
@@ -48,7 +47,7 @@ class SectionContents extends Component {
 	                    	<h3>目录</h3>
 	                    	<span>共{this.state.data && this.state.data.length || 0 }章</span>
 	                    </div>
-	                    <span onClick={this.handleSource.bind(this)}>换源</span>
+	                    <span>目录</span>
 	                </div>
 	                <div className="chapter-list">
 	                	<ul>
@@ -60,7 +59,7 @@ class SectionContents extends Component {
                                         <li key={index}>
                                         	<Link to={{
                                         		pathname:"/sectionContents/" + this.props.location.state.id + "/" + chap,
-                                        		state:{ link:link, title: item.title }
+                                        		state:{ link:link, title: item.title,length: len,source:"zhuishu"}
                                         	}}>
                                                 <p>{index+1 || 0}&nbsp; {item.title}</p>
                                         	</Link>
@@ -71,19 +70,6 @@ class SectionContents extends Component {
 	                	</ul>
 	                </div>
                 </div>
-                <div className={showclass}>
-                    <ul>
-                    	{
-                            this.state.source && this.state.source.map((item,index)=>{
-                                return (
-                                    <li onClick={this.handleGetSource.bind(this,item._id)} key={index}>
-                                    	<p>{item.name}</p>
-                                    </li>
-                                )  
-                            })
-                    	}
-                    </ul>
-                </div>
             </div>
 		)
 	}
@@ -91,3 +77,16 @@ class SectionContents extends Component {
 
 export default SectionContents;
 
+// <div className={showclass}>
+//                     <ul>
+//                     	{
+//                             this.state.source && this.state.source.map((item,index)=>{
+//                                 return (
+//                                     <li onClick={this.handleGetSource.bind(this,item._id)} key={index}>
+//                                     	<p>{item.name}</p>
+//                                     </li>
+//                                 )
+//                             })
+//                     	}
+//                     </ul>
+//                 </div>
