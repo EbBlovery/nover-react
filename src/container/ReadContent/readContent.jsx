@@ -49,7 +49,7 @@ class ReadContent extends Component {
 		this.setState({isShowBtn: !this.state.isShowBtn})
 	}
 	render() {
-		var style={display: this.state.isShowBtn?'block':'none'}
+		var style={display: this.state.isShowBtn?'block':'none',zIndex:1300}
 		return (
             <div className="chapterup-detail">
                 <HeaderBar title={this.state.title} history={this.props.history}/>
