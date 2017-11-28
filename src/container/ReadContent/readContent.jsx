@@ -14,7 +14,9 @@ class ReadContent extends Component {
 			body:[],
 			contenteIndex: 1,
 			value: false,
-			length: 0
+			length: 0,
+			bookTitle: '',
+			isShowBtn: false
 		}
 	}
 	componentDidMount(){
@@ -22,27 +24,30 @@ class ReadContent extends Component {
 			this.setState({value:true})
 		}
 
-		const {link,title,length,source} = this.props.location.state;
-
+		const {link,title,length,source,bookTitle} = this.props.location.state;
 		getContent(link).then(res=>{
 			//const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
 			if(res.isVip){
 				const vip = ['VIP章节，不给看！'];
 				const h = document.documentElement.clientHeight;
 				document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
-                this.setState({body:vip,contenteIndex: this.props.match.params.index,length: length,title: title})
+                this.setState({body:vip,contenteIndex: this.props.match.params.index,length: length,title: title,bookTitle:bookTitle})
 			}else{
 				var arr = res.cpContent.split(/\s+/g);
-                this.setState({body:arr,contenteIndex: this.props.match.params.index,length: length,title: title})
+                this.setState({body:arr,contenteIndex: this.props.match.params.index,length: length,title: title,bookTitle:bookTitle})
 			}
 		})
 	}
+	handleClickShowBtn(){
+		this.setState({isShowBtn: !this.state.isShowBtn})
+	}
 	render() {
+		var style={display: this.state.isShowBtn?'block':'none',zIndex:1300}
 		return (
             <div className="chapterup-detail">
                 <HeaderBar title={this.state.title} history={this.props.history}/>
             	<div className="chapter-detail-content">
-            		<div id="chapterContent">
+            		<div onClick={this.handleClickShowBtn.bind(this)} id="chapterContent">
                         {
                         	this.state.body && this.state.body.map((item,index)=>{
                         		return <p key={index}>{item}</p>
@@ -56,6 +61,23 @@ class ReadContent extends Component {
         			<button onClick={this.handleToCatalog.bind(this)}>目录</button>
         			<button onClick={this.handleToNext.bind(this)}>下一章</button>
         		</footer>
+        		<div className="pageReadOption" style={style}>
+        			<div className="pageOption-Top">
+                         <p>{this.state.bookTitle}</p>
+        			</div>
+        			<div className="pageOption-Bottom">
+                         <div className="chapterBtn-top">
+                         	<button className={'btn rectangle'}>Aa-</button>
+                         	<button className={'btn rectangle'}>Aa+</button>
+                         	<button className={'btn ' + 'square'}>月</button>
+                         	<button className={'btn ' + 'square'}><span className="item"></span></button>
+                         </div>
+                         <div className="chapterBtn-bot">
+                         	<button className={'btn btn-rectangle'}>上一章</button>
+                         	<button className={'btn btn-rectangle'}>下一章</button>
+                         </div>
+        			</div>
+        		</div>
             </div>
 		)
 	}

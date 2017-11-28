@@ -14,15 +14,16 @@ class SectionContents extends Component {
 		this.state = {
 			source: [],  // chapter 章节
             title: '',
-            data: []
+            data: [],
+            bookTitle:''
 		}
 	}
 	componentDidMount(){
-		const id = this.props.location.state.id?this.props.location.state.id:this.props.location.state.data.book._id;
-		console.log(id)
+		const {title} = this.props.location.state.title?this.props.location.state:this.props.location.state.data.book;
+		const {id} = this.props.match.params
         getChapter(id).then(res=>{
         	getSection(res.data[0]._id).then(rest=>{
-	    		this.setState({data:rest.chapters,title:rest.name,source:res.data})  // 更新章节列表
+	    		this.setState({data:rest.chapters,title:rest.name,source:res.data,bookTitle:title})  // 更新章节列表
 	    	})
         })
 	}
@@ -58,8 +59,8 @@ class SectionContents extends Component {
 	                				return (
                                         <li key={index}>
                                         	<Link to={{
-                                        		pathname:"/sectionContents/" + this.props.location.state.id + "/" + chap,
-                                        		state:{ link:link, title: item.title,length: len,source:"zhuishu"}
+                                        		pathname:"/sectionContents/" + this.props.match.params.id + "/" + chap,
+                                        		state:{ link:link, title: item.title,length: len,source:this.state.source, bookTitle: this.state.bookTitle}
                                         	}}>
                                                 <p>{index+1 || 0}&nbsp; {item.title}</p>
                                         	</Link>

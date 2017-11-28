@@ -131,7 +131,7 @@ class Book extends Component {
                     <p>
                         <Link to={{
                             pathname: '/sectionContents/'+ this.state.bookiInfo._id + '/chapter',
-                            state: {id: this.state.bookiInfo._id}
+                            state: {title:this.state.bookiInfo.title}
                         }}>
                             <span>目录</span>
                             <span>{this.state.bookiInfo.lastChapter}</span>
