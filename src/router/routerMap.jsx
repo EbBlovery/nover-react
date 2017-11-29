@@ -27,7 +27,7 @@ class RouterMap extends Component {
                     <Route exact path="/search" component={SearchNover} />
                     <Route exact path="/sectionContents/:id/chapter" component={SectionContents} />
                     <Route exact path="/sectionContents/:id/:index" component={ReadContent} />
-                    <Redirect to="/index/home"/>
+                    <Redirect path="*" to="/index/home"/>
              	</Switch>
              </Router>
 		)

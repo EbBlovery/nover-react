@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 
-import {getContent} from '../../apiconfig/api';
+
+import {getContent, getSection} from '../../apiconfig/api';
 
 import './readContent.less';
 
@@ -15,16 +16,17 @@ class ReadContent extends Component {
 			body:[],    //  正文
 			contenteIndex: 1,  // 章节下标
 			value: false,   // 是否是第一章
-			length: false,    // 章节长度
+			length: 0,    // 章节长度
 			bookTitle: '',  // 小说标题
 			isShowBtn: false,   //  是否展示文字控制栏目,
 			isShowChapter: false,
 			chapterList: [],
-            lastChapter: false // 是否最后一章
+            lastChapter: false, // 是否最后一章
+            source: [],
+            isShowSource: false
 		}
 	}
 	componentDidMount(){
-        console.log(1)
 		if(Number(this.props.match.params.index) === 1){
 			this.setState({value:true})
 		}else{
@@ -33,7 +35,6 @@ class ReadContent extends Component {
 		
 
 		const {link,title,length,source,bookTitle,chapterList} = this.props.location.state;
-        console.log(length,this.props.match.params.index)
 		if(Number(this.props.match.params.index) === length){
 			this.setState({length:length,lastChapter:true})
 		}else{
@@ -45,26 +46,23 @@ class ReadContent extends Component {
 				const vip = ['VIP章节，不给看！'];
 				const h = document.documentElement.clientHeight;
 				document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
-                this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList})
+                this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
 			}else{
 				var arr = res.cpContent.split(/\s+/g);
-                this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList})
+                this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
 			}
 		})
 	}
     componentWillReceiveProps(){
-        console.log(2)
-        if(Number(this.props.match.params.index) === 1){
-            console.log('start')
+        const {link,title,length,source,bookTitle,chapterList} = this.props.history.location.state;
+        const index = this.props.history.location.pathname.split('/')[3];
+        if(Number(index) === 1){
             this.setState({value:true})
         }else{
-            console.log('stop')
             this.setState({value:false})
         }
-        const {link,title,length,source,bookTitle,chapterList} = this.props.history.location.state;
-        console.log(length,this.props.match.params.index)
 
-        if(Number(this.props.match.params.index) == length){
+        if(Number(index) == length){
             this.setState({length:length,lastChapter:true})
         }else{
             this.setState({length:length,lastChapter:false})
@@ -75,10 +73,10 @@ class ReadContent extends Component {
                 const vip = ['VIP章节，不给看！'];
                 const h = document.documentElement.clientHeight;
                 document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
-                this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList})
+                this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
             }else{
                 var arr = res.cpContent.split(/\s+/g);
-                this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList})
+                this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
             }
         })
     }
@@ -86,7 +84,6 @@ class ReadContent extends Component {
         return true
     }
 	handleClickShowBtn(){
-		console.log(this.state.isShowBtn)
 		this.setState({isShowBtn: !this.state.isShowBtn})
 	}
 	render() {
@@ -111,7 +108,7 @@ class ReadContent extends Component {
         		</footer>
         		<div className="pageReadOption" style={style}>
         			<div className="pageOption-Top">
-                         <p>{this.state.bookTitle}<span className="boochangesource">换源</span></p>
+                         <p>{this.state.bookTitle}<span onClick={this.handleShowSource.bind(this)} className="boochangesource">换源</span></p>
         			</div>
         			<div className="pageOption-Bottom">
                          <div className="chapterBtn-top">
@@ -121,8 +118,8 @@ class ReadContent extends Component {
                          	<button onClick={this.handleCloseChapter.bind(this)} className={'btn ' + 'square'}><span className="item"></span></button>
                          </div>
                          <div className="chapterBtn-bot">
-                         	<button onClick={this.handleToPrev.bind(this)} className={'btn btn-rectangle'}>上一章</button>
-                         	<button onClick={this.handleToNext.bind(this)} className={'btn btn-rectangle'}>下一章</button>
+                         	<button onClick={this.handleToPrev.bind(this)} className={'btn btn-rectangle'} disabled={this.state.value}>上一章</button>
+                         	<button onClick={this.handleToNext.bind(this)} className={'btn btn-rectangle'} disabled={this.state.lastChapter}>下一章</button>
                          </div>
         			</div>
         		</div>
@@ -155,12 +152,28 @@ class ReadContent extends Component {
         			</ul>
         			<p onClick={this.handleCloseChapter.bind(this)} className="section-close">close</p>
         		</section>
+                <section style={{transform:this.state.isShowSource?'translateY(0)':'translateY(100%)'}} className="changeSource">
+                    <p className="source-header" key="laiyuan">× 选择来源</p>
+                    <ul>
+                        {
+                            this.state.source && this.state.source.map((item,index)=>{
+                                return (
+                                    <li onClick={this.getChangeSource.bind(this,item._id)} key={index}>
+                                        <span className="source-logo">{item.host.charAt(0).toUpperCase()}</span>
+                                        <p className="source-info">
+                                            <span>{item.host}</span>
+                                            <span>{item.lastChapter}</span>
+                                        </p>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                </section>
             </div>
 		)
 	}
 	handleToPrev (){
-        console.log('prev')
-
         var i = Number(this.props.match.params.index) - 1;
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
             link:this.state.chapterList[i-1].link,
@@ -173,7 +186,6 @@ class ReadContent extends Component {
         this.setState({isShowBtn: false})
 	}
     handleToNext() {
-        console.log('next')
         var i = 1 + Number(this.props.match.params.index);
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
             link:this.state.chapterList[i-1].link,
@@ -185,8 +197,8 @@ class ReadContent extends Component {
         })
         this.setState({isShowBtn: false})
     }
-	handleToBookCase() {
-        console.log(this.props)
+	handleToBookCase() {   // 加书架
+
 	}
 	handleToCatalog() {
         this.setState({isShowChapter:true})
@@ -197,6 +209,17 @@ class ReadContent extends Component {
 	}
     getClickChapter(){
         this.setState({isShowChapter:false})
+    }
+
+
+    getChangeSource(id){    // 换源大发好
+        getSection(id).then(res=>{
+            console.log(res)
+        })
+    }
+
+    handleShowSource(){
+        this.setState({isShowSource:true,isShowBtn:false})
     }
 }
 

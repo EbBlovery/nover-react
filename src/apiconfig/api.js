@@ -58,7 +58,6 @@ export function getSection(id){
 
 export function getContent(link){
 	return axios.get(`/chapter/${link}`).then(res=>{
-        console.log(res)
 		return res.data.chapter
 	})
 }
