@@ -23,7 +23,9 @@ class ReadContent extends Component {
 			chapterList: [],
             lastChapter: false, // 是否最后一章
             source: [],
-            isShowSource: false
+            isShowSource: false,
+            hideListChapter: [],
+            isShowhideListChapter: false
 		}
 	}
 	componentDidMount(){
@@ -32,8 +34,6 @@ class ReadContent extends Component {
 		}else{
             this.setState({value:false})
         }
-		
-
 		const {link,title,length,source,bookTitle,chapterList} = this.props.location.state;
 		if(Number(this.props.match.params.index) === length){
 			this.setState({length:length,lastChapter:true})
@@ -79,6 +79,7 @@ class ReadContent extends Component {
                 this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
             }
         })
+        console.log(this.props.history.location.state)
     }
     shouldComponentUpdate(){
         return true
@@ -153,8 +154,8 @@ class ReadContent extends Component {
         			<p onClick={this.handleCloseChapter.bind(this)} className="section-close">close</p>
         		</section>
                 <section style={{transform:this.state.isShowSource?'translateY(0)':'translateY(100%)'}} className="changeSource">
-                    <p className="source-header" key="laiyuan">× 选择来源</p>
-                    <ul>
+                    <p className="source-header" key="laiyuan"><span onClick={this.clickCloseSourceBar.bind(this)}>×</span> 选择来源</p>
+                    <ul className="source-ul">
                         {
                             this.state.source && this.state.source.map((item,index)=>{
                                 return (
@@ -169,6 +170,20 @@ class ReadContent extends Component {
                             })
                         }
                     </ul>
+                    <div className="hide-list-chapter" style={{transform:this.state.isShowhideListChapter?'translateX(0)':'translateX(100%)'}}>
+                        <ul className="hide-ul">
+                            {
+                                this.state.hideListChapter && this.state.hideListChapter.map((item,index)=>{
+                                    return (
+                                        <li onClick={this.handleCloseSourceChapter.bind(this,item.link,index)} key={index}>
+                                            {item.title}
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
+                    
                 </section>
             </div>
 		)
@@ -214,12 +229,29 @@ class ReadContent extends Component {
 
     getChangeSource(id){    // 换源大发好
         getSection(id).then(res=>{
+            this.setState({hideListChapter:res.chapters,isShowhideListChapter:true})
             console.log(res)
         })
     }
 
     handleShowSource(){
         this.setState({isShowSource:true,isShowBtn:false})
+    }
+
+    clickCloseSourceBar(){
+        this.setState({isShowSource:false})
+    }
+    handleCloseSourceChapter(link,index){
+        const i = index + 1;
+        this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
+            link:this.state.chapterList[i].link,
+            title:this.state.chapterList[i].title,
+            length:this.state.hideListChapter.length,
+            source:this.state.source,
+            bookTitle:this.state.bookTitle,
+            chapterList:this.state.hideListChapter
+        })
+        this.setState({isShowSource:false,isShowhideListChapter:false,isShowChapter:false})
     }
 }
 
