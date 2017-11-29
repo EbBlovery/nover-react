@@ -67,18 +67,34 @@ class ReadContent extends Component {
         }else{
             this.setState({length:length,lastChapter:false})
         }
-        getContent(link).then(res=>{
-            //const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
-            if(res.isVip){
-                const vip = ['VIP章节，不给看！'];
-                const h = document.documentElement.clientHeight;
-                document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
-                this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
-            }else{
-                var arr = res.cpContent.split(/\s+/g);
-                this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
-            }
-        })
+        if((/zhuishushenqi/i).test(link)){
+            getContent(link).then(res=>{
+                //const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
+                if(res.isVip){
+                    const vip = ['VIP章节，不给看！'];
+                    const h = document.documentElement.clientHeight;
+                    document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
+                    this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
+                }else{
+                    var arr = res.cpContent.split(/\s+/g);
+                    this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
+                }
+            })
+        }else{
+            getContent(encodeURIComponent(link)).then(res=>{
+                //const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
+                if(res.isVip){
+                    const vip = ['VIP章节，不给看！'];
+                    const h = document.documentElement.clientHeight;
+                    document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
+                    this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
+                }else{
+                    var arr = res.body.split(/\s+/g);
+                    this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
+                }
+            })
+        }
+        
         console.log(this.props.history.location.state)
     }
     shouldComponentUpdate(){
