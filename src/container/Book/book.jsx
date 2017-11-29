@@ -31,7 +31,6 @@ class Book extends Component {
         this.setState({isShow:!this.state.isShow})
 	}
 	componentDidMount(){
-        
         var id =this.props.location.state.id?this.props.location.state.id:this.props.location.state.data.book._id;
         getBook(id).then(res=>{
             // console.log(res.data)

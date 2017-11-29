@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 
@@ -18,20 +19,26 @@ class ReadContent extends Component {
 			bookTitle: '',  // 小说标题
 			isShowBtn: false,   //  是否展示文字控制栏目,
 			isShowChapter: false,
-			chapterList: []
+			chapterList: [],
+            lastChapter: false // 是否最后一章
 		}
 	}
 	componentDidMount(){
-		if(this.props.match.params.index === 1){
+        console.log(1)
+		if(Number(this.props.match.params.index) === 1){
 			this.setState({value:true})
-		}
+		}else{
+            this.setState({value:false})
+        }
 		
 
 		const {link,title,length,source,bookTitle,chapterList} = this.props.location.state;
-		if(this.props.match.params.index == length){
-			console.log(length)
-			this.setState({length:true})
-		}
+        console.log(length,this.props.match.params.index)
+		if(Number(this.props.match.params.index) === length){
+			this.setState({length:length,lastChapter:true})
+		}else{
+            this.setState({length:length,lastChapter:false})
+        }
 		getContent(link).then(res=>{
 			//const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
 			if(res.isVip){
@@ -45,11 +52,45 @@ class ReadContent extends Component {
 			}
 		})
 	}
+    componentWillReceiveProps(){
+        console.log(2)
+        if(Number(this.props.match.params.index) === 1){
+            console.log('start')
+            this.setState({value:true})
+        }else{
+            console.log('stop')
+            this.setState({value:false})
+        }
+        const {link,title,length,source,bookTitle,chapterList} = this.props.history.location.state;
+        console.log(length,this.props.match.params.index)
+
+        if(Number(this.props.match.params.index) == length){
+            this.setState({length:length,lastChapter:true})
+        }else{
+            this.setState({length:length,lastChapter:false})
+        }
+        getContent(link).then(res=>{
+            //const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
+            if(res.isVip){
+                const vip = ['VIP章节，不给看！'];
+                const h = document.documentElement.clientHeight;
+                document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
+                this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList})
+            }else{
+                var arr = res.cpContent.split(/\s+/g);
+                this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList})
+            }
+        })
+    }
+    shouldComponentUpdate(){
+        return true
+    }
 	handleClickShowBtn(){
+		console.log(this.state.isShowBtn)
 		this.setState({isShowBtn: !this.state.isShowBtn})
 	}
 	render() {
-		var style={display: this.state.isShowBtn?'block':'none',zIndex:1300}
+		var style={display: this.state.isShowBtn?'block':'none',zIndex:200}
 		return (
             <div className="chapterup-detail">
                 <HeaderBar title={this.state.title} history={this.props.history}/>
@@ -66,11 +107,11 @@ class ReadContent extends Component {
         			<button onClick={this.handleToPrev.bind(this)} className={this.state.value?"disabled":''} disabled={this.state.value}>上一章</button>
         			<button onClick={this.handleToBookCase.bind(this)}>加书架</button>
         			<button onClick={this.handleToCatalog.bind(this)}>目录</button>
-        			<button onClick={this.handleToNext.bind(this)}  className={this.state.length?"disabled":''} disabled={this.state.length}>下一章</button>
+        			<button onClick={this.handleToNext.bind(this)}  className={this.state.lastChapter?"disabled":''} disabled={this.state.lastChapter}>下一章</button>
         		</footer>
         		<div className="pageReadOption" style={style}>
         			<div className="pageOption-Top">
-                         <p>{this.state.bookTitle}</p>
+                         <p>{this.state.bookTitle}<span className="boochangesource">换源</span></p>
         			</div>
         			<div className="pageOption-Bottom">
                          <div className="chapterBtn-top">
@@ -80,8 +121,8 @@ class ReadContent extends Component {
                          	<button onClick={this.handleCloseChapter.bind(this)} className={'btn ' + 'square'}><span className="item"></span></button>
                          </div>
                          <div className="chapterBtn-bot">
-                         	<button className={'btn btn-rectangle'}>上一章</button>
-                         	<button className={'btn btn-rectangle'}>下一章</button>
+                         	<button onClick={this.handleToPrev.bind(this)} className={'btn btn-rectangle'}>上一章</button>
+                         	<button onClick={this.handleToNext.bind(this)} className={'btn btn-rectangle'}>下一章</button>
                          </div>
         			</div>
         		</div>
@@ -91,9 +132,22 @@ class ReadContent extends Component {
         			    {
         			    	// 此栏目为目录
                             this.state.chapterList && this.state.chapterList.map((item,index)=>{
+                                const i = index + 1;
                             	return (
-                            		<li>
-                        	            <p>{index+1 || 0} {item.title}</p>
+                            		<li onClick={this.getClickChapter.bind(this)} key={index}>
+                                        <Link replace to={{
+                                            pathname: "/sectionContents/" + this.props.match.params.id +"/" + i,
+                                            state: {
+                                                link:item.link,
+                                                title:item.title,
+                                                length:this.state.length,
+                                                source:this.state.source,
+                                                bookTitle:this.state.bookTitle,
+                                                chapterList:this.state.chapterList
+                                            }
+                                        }}>
+                        	                 <p>{index+1 || 0} {item.title}</p>
+                                        </Link>
                         	       </li>
                             	)
                             })
@@ -105,20 +159,45 @@ class ReadContent extends Component {
 		)
 	}
 	handleToPrev (){
-        console.log(this.props)
+        console.log('prev')
+
+        var i = Number(this.props.match.params.index) - 1;
+        this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
+            link:this.state.chapterList[i-1].link,
+            title:this.state.chapterList[i-1].title,
+            length:this.state.length,
+            source:this.state.source,
+            bookTitle:this.state.bookTitle,
+            chapterList:this.state.chapterList
+        })
+        this.setState({isShowBtn: false})
 	}
+    handleToNext() {
+        console.log('next')
+        var i = 1 + Number(this.props.match.params.index);
+        this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
+            link:this.state.chapterList[i-1].link,
+            title:this.state.chapterList[i-1].title,
+            length:this.state.length,
+            source:this.state.source,
+            bookTitle:this.state.bookTitle,
+            chapterList:this.state.chapterList
+        })
+        this.setState({isShowBtn: false})
+    }
 	handleToBookCase() {
         console.log(this.props)
 	}
 	handleToCatalog() {
-        console.log(123)
+        this.setState({isShowChapter:true})
 	}
-	handleToNext() {
-        console.log(123)
-	}
+	
 	handleCloseChapter(){
 		this.setState({isShowChapter: !this.state.isShowChapter,isShowBtn:false})
 	}
+    getClickChapter(){
+        this.setState({isShowChapter:false})
+    }
 }
 
 export default ReadContent;
