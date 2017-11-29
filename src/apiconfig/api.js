@@ -62,6 +62,12 @@ export function getContent(link){
 	})
 }
 
+export function fetchClassify(){
+    return axios.get('http://novel.juhe.im/categories').then(res=>{
+        return res.data
+    })
+}
+
 
 
 // http://api.zhuishushenqi.com/recommendPage/node/books/all/578351b97fa1aac6396a3cd2?   //ajax=ajax&st=1&size=10

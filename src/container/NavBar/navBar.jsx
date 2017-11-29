@@ -3,7 +3,7 @@ import { NavLink, Route, Switch, BrowserRouter as Router } from 'react-router-do
 import Header from '../Header/header';
 import Content from '../../component/Content/content';
 import Footer from '../../component/Footer/footer';
-
+import Classify from '../Classify/classify';
 import SectionContents from '../SectionContents/SectionContents';
 
 import './navBar.less';
@@ -17,7 +17,7 @@ class NavBar extends Component {
                 <Header />
                 <div className="navbar">
                 	<div><NavLink to={`${match.path}/home`}>首页</NavLink></div>
-                	<div><NavLink to={`${match.path}/list`}>分类</NavLink></div>
+                	<div><NavLink to={`${match.path}/classify`}>分类</NavLink></div>
                 	<div><NavLink to={`${match.path}/rank`}>排行</NavLink></div>
                 	<div><NavLink to={`${match.path}/book`}>书单</NavLink></div>
                 	<div><NavLink to={`${match.path}/vip`}>VIP专区</NavLink></div>
@@ -33,11 +33,7 @@ class NavBar extends Component {
                             </div>
                         )
                     }}/>
-                    <Route path={`${match.path}/list`} render={({match})=>{
-                        return (
-                            <div>dsafdasfafasfas</div>
-                        )
-                    }}/>
+                    <Route path={`${match.path}/classify`} component={Classify}/>
                     <Route path={`${match.path}/rank`} render={({match})=>{
                         return (
                             <div>asfjkahnsfkanasjdnkanf</div>
