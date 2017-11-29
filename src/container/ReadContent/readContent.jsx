@@ -260,8 +260,8 @@ class ReadContent extends Component {
     handleCloseSourceChapter(link,index){
         const i = index + 1;
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
-            link:this.state.chapterList[i].link,
-            title:this.state.chapterList[i].title,
+            link:this.state.chapterList[index].link,
+            title:this.state.chapterList[index].title,
             length:this.state.hideListChapter.length,
             source:this.state.source,
             bookTitle:this.state.bookTitle,
