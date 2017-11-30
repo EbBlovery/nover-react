@@ -68,6 +68,23 @@ export function fetchClassify(){
     })
 }
 
+export function fetchGenderData(gender,major,type = 'hot',minor,start = 0){
+    return axios.get(`http://novel.juhe.im/category-info?gender=${gender}&type=${type}&major=${major}&minor=&start=${start}&limit=20`).then(res=>{
+        return res.data.data
+    })
+}
+
+export function getSubCategories(type,index){
+    return axios.get(`http://novel.juhe.im/sub-categories`).then(res=>{
+        if(type == "male"){
+            return res.data.data.male[index]
+        }else if(type == "female"){
+            return res.data.data.female[index]
+        }else{
+            return res.data.data.press[index]
+        }
+    })
+}
 
 
 // http://api.zhuishushenqi.com/recommendPage/node/books/all/578351b97fa1aac6396a3cd2?   //ajax=ajax&st=1&size=10

@@ -1,4 +1,4 @@
-import {getSearch} from '../../apiconfig/api.js';
+import {getSearch,fetchGenderData,getSubCategories} from '../../apiconfig/api.js';
 
 export function handleSearch(key){
     return dispatch => {
@@ -20,4 +20,49 @@ export function getSearchData(data){
 	    })
 	}
 }
+
+/*=======================================================================================================================================*/
+
+export function getGender(gender,major,type,minor,start) {
+	console.log(1)
+    return dispatch => {
+    	fetchGenderData(gender,major).then(res=>{  // 获取子分类
+    		dispatch(getGenderInfo(res))
+    	})
+    }
+}
+
+export function getGenderInfo(data) {  // 子分类信息
+    return dispatch =>{
+    	dispatch({
+	    	type: 'GETGENDERINFO',
+	    	payload:{
+	    		data:data
+	    	}
+	    })
+    } 
+}
+
+/*=======================================================================================================================================*/
+
+export function getSub(type,index){
+    return dispatch => {
+    	getSubCategories(type,index).then(res=>{
+    		dispatch(getSubTitle(res))
+    	})
+    }
+}
+
+export function getSubTitle(data) {
+    return dispatch => {
+    	dispatch({
+    		type: 'GETSUBTITLE',
+    		payload: {
+    			data: data
+    		}
+    	})
+    }
+}
+
+/*=======================================================================================================================================*/
 

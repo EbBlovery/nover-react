@@ -25,13 +25,13 @@ class Classify extends Component {
             <div>
                 <div>
                 	<section key="sect1" className="classify-section">
-                		<ClassifyContent title="男生" data={this.state.data.male}/>
+                		<ClassifyContent history={this.props.history} gender="male" title="男生" data={this.state.data.male}/>
                 	</section>
                 	<section key="sect2" className="classify-section">
-                		<ClassifyContent title="女生" data={this.state.data.female}/>
+                		<ClassifyContent history={this.props.history} gender="female" title="女生" data={this.state.data.female}/>
                 	</section>
                 	<section key="sect3" className="classify-section">
-                		<ClassifyContent title="传记" data={this.state.data.press}/>
+                		<ClassifyContent history={this.props.history} gender="press" title="传记" data={this.state.data.press}/>
                 	</section>
                 </div>
                 <Footer history={this.props.history}/>

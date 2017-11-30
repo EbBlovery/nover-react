@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { getSub,getGender } from '../../store/action/index';
 
 import './classifyContent.less';
 
@@ -13,7 +16,7 @@ class ClassifyContent extends Component {
             	{
             		data && data.map((item,index)=>{
             			return (
-                            <li className="classify-li" key={index}>
+                            <li onClick={this.handleGetClassify.bind(this,this.props.gender,item,index)} className="classify-li" key={index}>
                                 <div className="classify-content">
                                 	<span>{item.name}</span>
                                 	<span>{item.bookCount}</span>
@@ -26,6 +29,25 @@ class ClassifyContent extends Component {
             </div>
 		)
 	}
+	handleGetClassify(type,item,index){
+		this.props.history.push('/gender/' + item.name + '?gender=' + this.props.gender);
+		this.props.getSub(type,index);
+		this.props.getGender(type,item.name)
+	}
 }
 
-export default ClassifyContent;
+function mapStateToProps(state) {
+
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        getSub:(type,index)=>{
+            dispatch(getSub(type,index))
+        },
+        getGender: (type,major)=>{
+        	dispatch(getGender(type,major))
+        }
+    }
+}
+
+export default connect(null,mapDispatchToProps)(ClassifyContent);

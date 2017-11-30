@@ -33,7 +33,7 @@ class NavBar extends Component {
                             </div>
                         )
                     }}/>
-                    <Route path={`${match.path}/classify`} component={Classify}/>
+                    <Route exact path={`${match.path}/classify`} component={Classify}/>
                     <Route path={`${match.path}/rank`} render={({match})=>{
                         return (
                             <div>asfjkahnsfkanasjdnkanf</div>

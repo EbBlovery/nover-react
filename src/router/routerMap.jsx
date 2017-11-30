@@ -10,6 +10,7 @@ import CommentDetailList from '../container/CommentDetailList/commentDetailList'
 import SearchNover from '../container/Search/SearchNover/searchNover';
 import SectionContents from '../container/SectionContents/SectionContents';
 import ReadContent from '../container/ReadContent/readContent';
+import Gender from '../container/Gender/gender';
 
 class RouterMap extends Component {
 	render() {
@@ -27,6 +28,8 @@ class RouterMap extends Component {
                     <Route exact path="/search" component={SearchNover} />
                     <Route exact path="/sectionContents/:id/chapter" component={SectionContents} />
                     <Route exact path="/sectionContents/:id/:index" component={ReadContent} />
+                    <Route exact path="/gender/:name" component={Gender}/>
+
                     <Redirect path="*" to="/index/home"/>
              	</Switch>
              </Router>
