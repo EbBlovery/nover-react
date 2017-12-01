@@ -68,8 +68,8 @@ export function fetchClassify(){
     })
 }
 
-export function fetchGenderData(gender,major,type = 'hot',minor,start = 0){
-    return axios.get(`http://novel.juhe.im/category-info?gender=${gender}&type=${type}&major=${major}&minor=&start=${start}&limit=20`).then(res=>{
+export function fetchGenderData(gender,major,type = 'hot',minor='',start = 0){
+    return axios.get(`http://novel.juhe.im/category-info?gender=${gender}&type=${type}&major=${major}&minor=${minor}&start=${start}&limit=20`).then(res=>{
         return res.data.data
     })
 }

@@ -24,9 +24,9 @@ export function getSearchData(data){
 /*=======================================================================================================================================*/
 
 export function getGender(gender,major,type,minor,start) {
-	console.log(1)
+	console.log(gender,major,type,minor,start)
     return dispatch => {
-    	fetchGenderData(gender,major).then(res=>{  // 获取子分类
+    	fetchGenderData(gender,major,type,minor,start).then(res=>{  // 获取子分类
     		dispatch(getGenderInfo(res))
     	})
     }
