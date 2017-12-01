@@ -30,7 +30,7 @@ class ClassifyContent extends Component {
 		)
 	}
 	handleGetClassify(type,item,index){
-		this.props.history.push('/gender/' + item.name + '?gender=' + this.props.gender);
+		this.props.history.push('/gender/' + item.name + '?gender=' + type,{index:index});
 		this.props.getSub(type,index);
 		this.props.getGender(type,item.name)
 	}
