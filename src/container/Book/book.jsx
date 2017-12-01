@@ -31,7 +31,7 @@ class Book extends Component {
         this.setState({isShow:!this.state.isShow})
 	}
 	componentDidMount(){
-        var id =this.props.location.state.id?this.props.location.state.id:this.props.location.state.data.book._id;
+        var id =this.props.match.params.id;
         getBook(id).then(res=>{
             // console.log(res.data)
             this.setState({bookiInfo:res.data})
@@ -46,14 +46,15 @@ class Book extends Component {
     componentWillReceiveProps(){
         // console.log(2,this.props.history)
            // console.log(this.props.history.location.state)
-        getBook(this.props.history.location.state.id).then(res=>{
+        var id =this.props.match.params.id;
+        getBook(id).then(res=>{
             console.log(res.data)
             this.setState({bookiInfo:res.data})
         })
-        getComment(this.props.history.location.state.id).then(res=>{ // 整老子好久的bug 老子记住你了  this.props.history.location.state.id ！== this.props.location.state.id
+        getComment(id).then(res=>{ // 整老子好久的bug 老子记住你了  this.props.history.location.state.id ！== this.props.location.state.id
 			this.setState({val:res})
 		})
-		getRecommend(this.props.history.location.state.id).then(res=>{
+		getRecommend(id).then(res=>{
             this.setState({recommend:res})
 		})
     }

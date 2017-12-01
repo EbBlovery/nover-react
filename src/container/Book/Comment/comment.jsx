@@ -14,7 +14,7 @@ class Comment extends Component {
 	            	data.map((item,index)=>{
                         return (
                             <li key={index}>
-                            	<Link replace to={{
+                            	<Link to={{
                                     pathname:"/commentdetaillist/" + item._id,
                                     state:{data:item,id:item._id,title: title}
                                 }}>

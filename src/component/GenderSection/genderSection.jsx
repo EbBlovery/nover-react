@@ -12,18 +12,25 @@ class GenderSection extends Component {
         		<ul>
         			{
         				this.props.data.books && this.props.data.books.map((item,index)=>{
+        					console.log(item)
                             return (
-                                <li key={index}>
-                                	<Link to="/">
-                                        <CommendDetail data={item}/>
-                                	</Link>
+                                <li onClick={this.getBookInfo.bind(this,item._id)} key={index}>
+                                    <CommendDetail data={item}/>
                                 </li>
                             )
         				})
         			}
         		</ul>
+        		<p onClick={this.getMore.bind(this)}>LoadMore...</p>
         	</section>
 		)
+	}
+	getBookInfo(id){
+	    this.props.history.push("/book/" + id)
+	}
+	getMore(){
+	    const FetchBook = this.props.FetchBook;
+	    FetchBook(20)
 	}
 }
 
