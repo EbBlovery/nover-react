@@ -12,7 +12,6 @@ class GenderSection extends Component {
         		<ul>
         			{
         				this.props.data.books && this.props.data.books.map((item,index)=>{
-        					console.log(item)
                             return (
                                 <li onClick={this.getBookInfo.bind(this,item._id)} key={index}>
                                     <CommendDetail data={item}/>

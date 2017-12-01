@@ -6,6 +6,8 @@ export default function getGender(state = defaultState,action){
      	case 'GETGENDERINFO':
      	    states = action.payload.data
      	    return states
+     	case 'GETMOREGENDERINFO':
+     	    console.log(states)
      	default :
      	    return states
      }

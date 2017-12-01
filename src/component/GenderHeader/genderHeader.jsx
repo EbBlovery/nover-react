@@ -17,7 +17,7 @@ class GenderHeader extends Component {
             <header className="gender-header">
         	     <HeaderBar title={this.props.list.major} history={this.props.history}/>
         	     <div></div>
-        	     <nav className="gender-nav">
+        	     <nav style={{display:this.props.location.search.split("=")[1] === 'press'?'none':'block'}} className="gender-nav">
         	        <div className="gender-nav-scllor-1">
         	        	<ul className="gender-nav-type">
             	        	<li onClick={this.handleGetType.bind(this,'hot')}>热门</li>
@@ -27,7 +27,7 @@ class GenderHeader extends Component {
             	        	<li onClick={this.handleGetType.bind(this,'monthly')}>包月</li>
             	        </ul>
         	        </div>
-        	        <div className="gender-nav-scllor-2">
+        	        <div style={{display:this.props.list.mins && this.props.list.mins.length>0?'block':'none'}} className="gender-nav-scllor-2">
             	     	<ul className="gender-nav-mins">
 	            	     	{
 	            	     		this.props.list.mins && this.props.list.mins.length>0 && this.props.list.mins.map((item,index)=>{

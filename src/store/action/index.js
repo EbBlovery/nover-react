@@ -43,6 +43,24 @@ export function getGenderInfo(data) {  // 子分类信息
     } 
 }
 
+export function getMoreBooks(gender,major,type,minor,start){
+	return dispatch => {
+		fetchGenderData(gender,major,type,minor,start).then(res=>{  // 获取子分类
+    		dispatch(getMoreGenderInfo(res))
+    	})
+	}
+}
+export function getMoreGenderInfo(data) {  // 子分类信息
+    return dispatch =>{
+    	dispatch({
+	    	type: 'GETMOREGENDERINFO',
+	    	payload:{
+	    		data:data
+	    	}
+	    })
+    } 
+}
+
 /*=======================================================================================================================================*/
 
 export function getSub(type,index){

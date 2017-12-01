@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import GenderHeader from '../../component/GenderHeader/genderHeader';
 import GenderSection from '../../component/GenderSection/genderSection';
 
-import { getSub, getGender } from '../../store/action/index';
+import { getSub, getGender, getMoreBooks } from '../../store/action/index';
 
 import './gender.less';
 
@@ -23,12 +23,16 @@ class Gender extends Component {
 	componentDidMount(){
 		const { search, state} = this.props.location;
 		this.props.getSub(search.split('=')[1],state.index);
-		this.props.getGender(search.split("=")[1],this.props.match.params.name)
+		this.props.getGender(search.split("=")[1],this.props.match.params.name);
+		this.setState({
+			gender:search.split("=")[1],
+        	major:this.props.match.params.name
+        })
 	}
 	render() {
 		return (
             <div className="genderDetail">
-                <GenderHeader FetchType={this.FetchType.bind(this)} history={this.props.history} list={this.props.list}/>
+                <GenderHeader FetchType={this.FetchType.bind(this)} location={this.props.location} history={this.props.history} list={this.props.list}/>
             	<GenderSection FetchBook={this.FetchBook.bind(this)} history={this.props.history} data={this.props.data} />
             </div>
 		)
@@ -39,14 +43,12 @@ class Gender extends Component {
         console.log(search.split("=")[1],this.props.match.params.name,type,mins)
         this.props.getGender(search.split("=")[1],this.props.match.params.name,type,mins)
         this.setState({
-        	gender:search.split("=")[1],
-        	name:this.props.match.params.name,
         	type:type,
         	mins:mins
         })
 	}
 	FetchBook(start){
-        console.log(...this.state)
+		this.props.getMoreBooks(this.state.gender,this.state.major)
 	}
 }
 
@@ -68,6 +70,9 @@ function mapDispatchToProps(dispatch){
 		},
 		getGender: (gender,major,type,mins,start)=>{
         	dispatch(getGender(gender,major,type,mins,start))
+        },
+        getMoreBooks: (gender,major,type,mins,start)=>{
+        	dispatch(getMoreBooks(gender,major,type,mins,start))
         }
 	}
 }
