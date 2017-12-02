@@ -87,6 +87,16 @@ export function getSubCategories(type,index){
 }
 
 
+
+export function getRanking(){
+    return axios.get(`http://novel.juhe.im/rank-category`).then(res=>{
+        return res.data.data
+    }).catch(err=>{
+        console.log(err)
+    })
+}
+
+
 // http://api.zhuishushenqi.com/recommendPage/node/books/all/578351b97fa1aac6396a3cd2?   //ajax=ajax&st=1&size=10
 
 //  vip 推荐 api
