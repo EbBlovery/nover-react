@@ -23,7 +23,7 @@ class Raking extends Component {
 		)
 	}
 	handleGetList(item){
-        console.log(item)
+        this.props.history.push('/ranklist/' + item._id)
 	}
 }
 

@@ -1,4 +1,4 @@
-import {getSearch,fetchGenderData,getSubCategories,getRanking} from '../../apiconfig/api.js';
+import {getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList} from '../../apiconfig/api.js';
 
 export function handleSearch(key){
     return dispatch => {
@@ -97,4 +97,30 @@ export function getRankingDetail(){
             })
          })
      }
+}
+
+export function getRankList(id){
+    return dispatch => {
+        fetchRankList(id).then(res=>{
+            dispatch({
+                type: 'GETRANKLIST',
+                payload: {
+                    data: res
+                }
+            })
+        })
+    }
+}
+
+export function getOtherRankList(id){
+    return dispatch => {
+        fetchRankList(id).then(res=>{
+            dispatch({
+                type: 'GETOTHERRANKLIST',
+                payload: {
+                    data: res
+                }
+            })
+        })
+    }
 }

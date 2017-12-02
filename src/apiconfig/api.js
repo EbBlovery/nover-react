@@ -97,6 +97,14 @@ export function getRanking(){
 }
 
 
+export function fetchRankList(id){
+    return axios.get(`http://novel.juhe.im/rank/${id}`).then(res=>{
+        return res.data.data.ranking
+    }).catch(err=>{
+        console.log(err)
+    })
+}
+
 // http://api.zhuishushenqi.com/recommendPage/node/books/all/578351b97fa1aac6396a3cd2?   //ajax=ajax&st=1&size=10
 
 //  vip 推荐 api
