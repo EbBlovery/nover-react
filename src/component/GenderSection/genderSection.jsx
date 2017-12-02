@@ -6,12 +6,18 @@ import CommendDetail from '../../container/CommendDetail/commendDetail';
 import './genderSection.less';
 
 class GenderSection extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            i: 1
+        }
+    }
 	render() {
 		return (
-            <section>
+            <section className="gender-section">
         		<ul>
         			{
-        				this.props.data.books && this.props.data.books.map((item,index)=>{
+        				this.props.data && this.props.data.map((item,index)=>{
                             return (
                                 <li onClick={this.getBookInfo.bind(this,item._id)} key={index}>
                                     <CommendDetail data={item}/>
@@ -29,7 +35,8 @@ class GenderSection extends Component {
 	}
 	getMore(){
 	    const FetchBook = this.props.FetchBook;
-	    FetchBook(20)
+        this.setState({i:this.state.i + 1})
+	    FetchBook(this.state.i)
 	}
 }
 

@@ -13,9 +13,10 @@ class GenderHeader extends Component {
         }
 	}
 	render() {
+        const list = this.props.list
 		return (
             <header className="gender-header">
-        	     <HeaderBar title={this.props.list.major} history={this.props.history}/>
+        	     <HeaderBar title={list && list.major} history={this.props.history}/>
         	     <div></div>
         	     <nav style={{display:this.props.location.search.split("=")[1] === 'press'?'none':'block'}} className="gender-nav">
         	        <div className="gender-nav-scllor-1">
@@ -27,10 +28,10 @@ class GenderHeader extends Component {
             	        	<li onClick={this.handleGetType.bind(this,'monthly')}>包月</li>
             	        </ul>
         	        </div>
-        	        <div style={{display:this.props.list.mins && this.props.list.mins.length>0?'block':'none'}} className="gender-nav-scllor-2">
+        	        <div style={{display:list && list.mins && list.mins.length>0?'block':'none'}} className="gender-nav-scllor-2">
             	     	<ul className="gender-nav-mins">
 	            	     	{
-	            	     		this.props.list.mins && this.props.list.mins.length>0 && this.props.list.mins.map((item,index)=>{
+	            	     		list && list.mins && list.mins.length>0 && this.props.list.mins.map((item,index)=>{
 	            	     			return (
 	            	     		        <li onClick={this.handleGetMins.bind(this,item)} key={index}>
 	            	     		        	{item}

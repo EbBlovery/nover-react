@@ -15,7 +15,7 @@ class Gender extends Component {
         this.state = {
         	gender:'',
         	major:'',
-        	type:'',
+        	type:'hot',
         	mins:'',
         	start:0
         }
@@ -32,15 +32,14 @@ class Gender extends Component {
 	render() {
 		return (
             <div className="genderDetail">
-                <GenderHeader FetchType={this.FetchType.bind(this)} location={this.props.location} history={this.props.history} list={this.props.list}/>
-            	<GenderSection FetchBook={this.FetchBook.bind(this)} history={this.props.history} data={this.props.data} />
+                <GenderHeader FetchType={this.FetchType.bind(this)} location={this.props.location} history={this.props.history} list={this.props.getgender.nav}/>
+            	<GenderSection FetchBook={this.FetchBook.bind(this)} history={this.props.history} data={this.props.getgender.data} />
             </div>
 		)
 	}
 	FetchType(type,mins){
          // type: 热门分类大类 name：二级分类 
         const { search } = this.props.location;
-        console.log(search.split("=")[1],this.props.match.params.name,type,mins)
         this.props.getGender(search.split("=")[1],this.props.match.params.name,type,mins)
         this.setState({
         	type:type,
@@ -48,7 +47,7 @@ class Gender extends Component {
         })
 	}
 	FetchBook(start){
-		this.props.getMoreBooks(this.state.gender,this.state.major)
+		this.props.getMoreBooks(this.state.gender,this.state.major,this.state.type,this.state.mins,start*20)
 	}
 }
 
@@ -58,8 +57,7 @@ class Gender extends Component {
 
 function mapStateToProps(state){
     return {
-    	list:state.getSubTitle,
-    	data:state.getGender
+    	getgender:state.getGender
     }
 }
 

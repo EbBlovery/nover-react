@@ -2,12 +2,25 @@ var defaultState = { data:[] }
 
 export default function getGender(state = defaultState,action){
      var states = Object.assign({},state);
+     console.log(action)
      switch(action.type){
      	case 'GETGENDERINFO':
-     	    states = action.payload.data
-     	    return states
+     	     return {
+                    ...states,
+                    data: action.payload.data.books,
+                    total: action.payload.data.total
+               }
      	case 'GETMOREGENDERINFO':
-     	    console.log(states)
+               return {
+                    ...states,
+                    data: states.data.concat(action.payload.data.books),
+                    total: action.payload.data.total
+               }
+          case 'GETSUBTITLE':
+               return {
+                    ...states,
+                    nav: action.payload.data
+               }
      	default :
      	    return states
      }
