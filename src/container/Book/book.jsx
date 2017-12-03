@@ -34,7 +34,7 @@ class Book extends Component {
     shouldComponentUpdate(a,b){         // 一直返回true 只要数据变更就重新render； 变更糟 componentWillReceiveProps 里边
     	return true;
     }
-	render() {    
+	render() {
 		return (
             <div className="book">
             	<HeaderBar title="书籍详情" history={this.props.history} />

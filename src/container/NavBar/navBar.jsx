@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { NavLink, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import Header from '../Header/header';
+import Header from '../../component/Header/header';
 import Content from '../../component/Content/content';
 import Footer from '../../component/Footer/footer';
 import Classify from '../Classify/classify';
@@ -36,15 +36,6 @@ class NavBar extends Component {
                     }}/>
                     <Route exact path={`${match.path}/classify`} component={Classify}/>
                     <Route exact path={`${match.path}/ranking`} component={Raking}/>
-
-
-
-
-
-
-
-
-
 
                     <Route path={`${match.path}/book`} render={({match})=>{
                         return (
