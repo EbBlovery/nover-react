@@ -8,7 +8,6 @@ import './classifyContent.less';
 class ClassifyContent extends Component {
 	render() {
 		const {data} = this.props;
-		console.log(data)
 		return (
             <div className="list-section">
                 <article>{this.props.title}</article>
