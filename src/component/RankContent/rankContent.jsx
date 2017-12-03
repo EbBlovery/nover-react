@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 
 import CommendDetail from '../../container/CommendDetail/commendDetail';
 
+import './rankContent.less';
 
 class RankContent extends Component {
 	render() {
 		const data = this.props.data
 		return (
-            <div>
+            <div className="rankContent">
             	<ul>
 	            	{
 	            		data && data.map((item,index)=>{
 	            			return (
-	            		        <li>
+	            		        <li onClick={this.handleToBooks.bind(this,item._id)} key={index}>
 	            		        	<CommendDetail data={item}/>
 	            		        </li>
 	            			)
@@ -22,6 +23,9 @@ class RankContent extends Component {
             </div>
 		)
 	}
+    handleToBooks(id){
+    	this.props.history.push('/book/' + id)
+    }
 }
 
 export default RankContent;

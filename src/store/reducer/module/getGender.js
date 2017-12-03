@@ -2,7 +2,6 @@ var defaultState = { data:[] }
 
 export default function getGender(state = defaultState,action){
      var states = Object.assign({},state);
-     console.log(action)
      switch(action.type){
      	case 'GETGENDERINFO':
      	     return {

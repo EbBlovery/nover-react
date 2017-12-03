@@ -12,6 +12,7 @@ export default function Ranking(state = defaultState,action){
     	    return {
     	    	rankList: action.payload.data.books,
     	    	rankTitle: action.payload.data.title,
+                collapse: action.payload.data.collapse,
     	    	rankId:{
     	    		monthRank:action.payload.data.monthRank,
     	    		totalRank:action.payload.data.totalRank,

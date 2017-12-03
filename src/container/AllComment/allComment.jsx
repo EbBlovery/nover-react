@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
-import CommentDetail from '../Book/Comment/CommentDetail';
+import CommentDetail from '../../component/Comment/CommentDetail';
 
 import { getComment } from '../../apiconfig/api.js';
 

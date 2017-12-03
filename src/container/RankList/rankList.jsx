@@ -14,8 +14,8 @@ class RankList extends Component {
 	render() {
 		return (
             <div>
-            	<RankNavHeader getDetailRank={this.getDetailRank.bind(this)} rankId={this.props.rankId?this.props.rankId:''} rankTitle={this.props.rankTitle?this.props.rankTitle:''}  history={this.props.history}/>
-                <RankContent data={this.props.rankList?this.props.rankList:''}/>
+            	<RankNavHeader isshow={this.props.collapse?this.props.collapse:''} getDetailRank={this.getDetailRank.bind(this)} rankId={this.props.rankId?this.props.rankId:''} rankTitle={this.props.rankTitle?this.props.rankTitle:''}  history={this.props.history}/>
+                <RankContent history={this.props.history} data={this.props.rankList?this.props.rankList:''}/>
             </div>
 		)
 	}
@@ -29,7 +29,8 @@ function mapStateToProps(state){
 	return{
         rankList: state.Ranking.rankList,
         rankId: state.Ranking.rankId,
-        rankTitle: state.Ranking.rankTitle
+        rankTitle: state.Ranking.rankTitle,
+        collapse: state.Ranking.collapse
 	}
 }
 

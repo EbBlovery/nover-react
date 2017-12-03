@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import './bookLove.less';
+import './bookRecommend.less';
 
-class BookLove extends Component {
+class BookRecommend extends Component {
 	render() {
 		const data = this.props.data.slice(0,4);
 		return (
@@ -20,17 +20,10 @@ class BookLove extends Component {
             	<ul>
             		{
             			data && data.map((items,index)=>{
-            				var arr = [];
-             				arr.book= items;
             				return (
-                                <li key={index}>
-                                	<Link key={index} to={{
-                                        pathname:"/book/" + items._id,
-                                        state: {id:items._id}
-                                    }}>
-                                        <img src={items.cover} alt={items.title}/>
-                                        <p>{items.title}</p>
-                                	</Link>
+                                <li onClick={this.handleChangeBookDetail.bind(this,items._id)} key={index}>
+                                    <img src={items.cover} alt={items.title}/>
+                                    <p>{items.title}</p>
                                 </li>
             				)
             			})
@@ -39,6 +32,10 @@ class BookLove extends Component {
             </div>
 		)
 	}
+    handleChangeBookDetail(id){
+        const {changeBookDetail} = this.props;
+        changeBookDetail(id)
+    }
 }
 
-export default BookLove;
+export default BookRecommend;

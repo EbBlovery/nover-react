@@ -1,4 +1,4 @@
-import {getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList} from '../../apiconfig/api.js';
+import {getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook} from '../../apiconfig/api.js';
 
 export function handleSearch(key){
     return dispatch => {
@@ -16,7 +16,6 @@ export function getSearchData(data){
 		    type:'GETNEWSINFO',
 		    payload:{
 		        data: data
-
 		    }
 	    })
 	}
@@ -124,3 +123,49 @@ export function getOtherRankList(id){
         })
     }
 }
+
+
+/*=======================================================================================================================================*/
+
+// book detail info;
+
+export function BookDetails(id){
+    return dispatch => {
+        getBook(id).then(res=>{
+            dispatch({
+                type: 'BOOKDETAILS',
+                payload: {
+                    data: res.data
+                }
+            })
+        })
+    }
+}
+export function BookComments(id){      // book comment 评论
+    return dispatch => {
+        getComment(id).then(res=>{
+            dispatch({
+                type: 'BOOKCOMMENTS',
+                payload: {
+                    data: res
+                }
+            })
+        })
+    }
+}
+
+// 长得像  注意区分
+export function BookReCommends(id){   // book commend 推荐
+    return dispatch => {
+        getRecommend(id).then(res=>{
+            dispatch({
+                type: 'BOOKRECOMMENDS',
+                payload: {
+                    data: res
+                }
+            })
+        })
+    }
+}
+
+/*=======================================================================================================================================*/

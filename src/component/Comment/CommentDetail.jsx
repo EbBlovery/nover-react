@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {tab} from '../../../util/util.js';
+import {tab} from '../../util/util.js';
 
 import './commentDetail.less';
 
