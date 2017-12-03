@@ -20,7 +20,12 @@ export default function getGender(state = defaultState,action){
                     ...states,
                     nav: action.payload.data
                }
+          case 'GETCLASSIFY':
+               return {
+                    ...states,
+                    classify: action.payload.data.data
+               }
      	default :
-     	    return states
+     	     return states
      }
 }

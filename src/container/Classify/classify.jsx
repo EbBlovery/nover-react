@@ -1,37 +1,31 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 
 import Footer from '../../component/Footer/footer';
 import ClassifyContent from '../../component/ClassifyContent/classifyContent';
 
 import {fetchClassify} from '../../apiconfig/api.js';
 
+import { getClassify } from '../../store/action/index';
+
 import './classify.less';
 
 class Classify extends Component {
-	constructor(props){
-        super(props)
-        this.state = {
-        	data: []
-        }
-	}
 	componentDidMount(){
-        fetchClassify().then(res=>{
-        	this.setState({data:res.data})
-        })
+        this.props.getClassify()
 	}
 	render() {
-		console.log(this.state.data)
 		return (
             <div>
                 <div>
                 	<section key="sect1" className="classify-section">
-                		<ClassifyContent history={this.props.history} gender="male" title="男生" data={this.state.data.male}/>
+                		<ClassifyContent history={this.props.history} gender="male" title="男生" data={this.props.classify?this.props.classify.male:''}/>
                 	</section>
                 	<section key="sect2" className="classify-section">
-                		<ClassifyContent history={this.props.history} gender="female" title="女生" data={this.state.data.female}/>
+                		<ClassifyContent history={this.props.history} gender="female" title="女生" data={this.props.classify?this.props.classify.female:''}/>
                 	</section>
                 	<section key="sect3" className="classify-section">
-                		<ClassifyContent history={this.props.history} gender="press" title="传记" data={this.state.data.press}/>
+                		<ClassifyContent history={this.props.history} gender="press" title="传记" data={this.props.classify?this.props.classify.press:''}/>
                 	</section>
                 </div>
                 <Footer history={this.props.history}/>
@@ -40,6 +34,20 @@ class Classify extends Component {
 	}
 }
 
+function mapStateToProps(state){
+    console.log(state)
+    return {
+        classify: state.getGender.classify
+    }
+}
 
-export default Classify;
+function mapDispatchToProps(dispatch){
+    return {
+        getClassify: () => {
+            dispatch(getClassify())
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Classify);
 

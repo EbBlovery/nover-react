@@ -1,4 +1,4 @@
-import {getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal} from '../../apiconfig/api.js';
+import {getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify} from '../../apiconfig/api.js';
 
 export function handleSearch(key){  // search
     return dispatch => {
@@ -17,6 +17,22 @@ export function handleSearch(key){  // search
 }
 
 /*=======================================================================================================================================*/
+  //分类信息
+export function getClassify() {
+    return dispatch => {
+        fetchClassify().then(res=>{
+            dispatch({
+                type: 'GETCLASSIFY',
+                payload: {
+                    data:res
+                }
+            })
+        })
+    }
+}
+
+
+
 
 export function getGender(gender,major,type,minor,start) {
     return dispatch => {
@@ -193,3 +209,6 @@ export function getMoreRecommend(id) {
         })
     }
 }
+
+/*=======================================================================================================================================*/
+
