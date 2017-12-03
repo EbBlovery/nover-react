@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { NavLink, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Header from '../../component/Header/header';
-import Content from '../../component/Content/content';
+import Content from '../Content/content';
 import Footer from '../../component/Footer/footer';
 import Classify from '../Classify/classify';
 import SectionContents from '../SectionContents/SectionContents';

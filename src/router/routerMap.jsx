@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom';
 
-import Index from '../component/Index/index';             //  主页 路由；
+import Index from '../container/Index/index';             //  主页 路由；
 import Recommend from '../container/Recommend/recommend';  // 首页书籍详细列表
 import Book from '../container/Book/book';              //  小说内容信息
 import Interest from '../container/Interest/interest';  //  推荐小说全部列表
