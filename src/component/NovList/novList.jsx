@@ -20,8 +20,7 @@ class NovList extends Component {
 	                    	return (
                                 <li className="novlist-li" key={index}>
                                     <Link to={{
-                                        pathname:"/book/" + item.book._id,
-                                        state:{data: item}
+                                        pathname:"/book/" + item.book._id
                                     }}>
                                         <NoverInfo data={item} />
                                 	</Link>
@@ -32,8 +31,7 @@ class NovList extends Component {
              	</ul>
              	<p className="loadmore">
                     <Link to={{
-                        pathname: "/recommend/" + this.props.id,
-                        state: {data:this.props.data,title:this.props.title}
+                        pathname: "/recommend/" + this.props.id
                     }}>
                         查看更多>>
                     </Link>

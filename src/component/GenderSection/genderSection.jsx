@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import CommendDetail from '../../container/CommendDetail/commendDetail';
+import CommendDetail from '../CommendDetail/commendDetail';
 
 import './genderSection.less';
 

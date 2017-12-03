@@ -1,24 +1,19 @@
-import {getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook} from '../../apiconfig/api.js';
+import {getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal} from '../../apiconfig/api.js';
 
-export function handleSearch(key){
+export function handleSearch(key){  // search
     return dispatch => {
     	getSearch(key).then(res=>{
-            dispatch(getSearchData(res))
+            dispatch({
+                type:'GETNEWSINFO',
+                payload:{
+                    data: res,
+                    title: key
+                }
+            })
         }).catch(err=>{
         	console.log(err)
         })
     }
-}
-
-export function getSearchData(data){
-	return dispatch => {
-	    dispatch({
-		    type:'GETNEWSINFO',
-		    payload:{
-		        data: data
-		    }
-	    })
-	}
 }
 
 /*=======================================================================================================================================*/
@@ -169,3 +164,32 @@ export function BookReCommends(id){   // book commend 推荐
 }
 
 /*=======================================================================================================================================*/
+
+export function getHomeCommend(){  //  首页信息
+    return dispatch => {
+        Promise.all([getVal('5912825ba1dbf3ad33ee7ffe'),getVal('59128334694d1cda365b8985'),getVal('59128365e5a3262c37488e3d'),getVal('5912a9d08973b2fe33614642'),getVal('5912aa17e647570434175d34'),getVal('5912872f8973b2fe3361463f'),getVal('591284376e2e237c36d7b8bd')])
+            .then(res=>{
+                dispatch({
+                    type: 'GETHOMECOMMEND',
+                    payload:{
+                        data:res
+                    }
+                })
+            }).catch(err=>{
+                 console.log(err)
+            })
+    }
+}
+
+export function getMoreRecommend(id) {
+    return dispatch => {
+        getVal(id).then(res=>{
+            dispatch({
+                type: 'GETMORERECOMMEND',
+                payload: {
+                    data: res
+                }
+            })
+        })
+    }
+}

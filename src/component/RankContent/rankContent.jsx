@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CommendDetail from '../../container/CommendDetail/commendDetail';
+import CommendDetail from '../CommendDetail/commendDetail';
 
 import './rankContent.less';
 

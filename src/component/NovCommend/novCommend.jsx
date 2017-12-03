@@ -22,8 +22,7 @@ class NovCommend extends Component {
 
                 <p className="loadmore">
                     <Link to={{
-                        pathname:"/recommend/" + this.props.id,
-                        state: {data:this.props.data,title:this.props.title}
+                        pathname:"/recommend/" + this.props.id
                     }}>
                         查看更多>>
                     </Link>

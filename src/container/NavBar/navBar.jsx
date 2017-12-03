@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { NavLink, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Header from '../../component/Header/header';
-import Content from '../Content/content';
+import HomePage from '../HomePage/homePage';
 import Footer from '../../component/Footer/footer';
 import Classify from '../Classify/classify';
 import SectionContents from '../SectionContents/SectionContents';
@@ -12,7 +12,6 @@ import './navBar.less';
 class NavBar extends Component {
 	render() {
         const match = this.props.match
-        console.log(match)
 		return (
             <div>
                 <Header />
@@ -28,7 +27,7 @@ class NavBar extends Component {
                         return (
                             <div>
                                 <div className="mainbody">
-                                    <Content history={this.props.history}/>
+                                    <HomePage history={this.props.history}/>
                                 </div>
                                 <Footer history={this.props.history}/>
                             </div>

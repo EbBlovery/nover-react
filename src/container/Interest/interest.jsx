@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
-import CommendDetail from '../CommendDetail/commendDetail';
+import CommendDetail from '../../component/CommendDetail/commendDetail';
 
 import './interest.less';
 

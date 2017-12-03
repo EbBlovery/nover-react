@@ -1,6 +1,17 @@
 import axios from 'axios';
 
 // /post/review/by-book?book=537a03e9ac8932bf19003d7c&limit=10&start=0   
+
+export function getVal(id){       // 获取首页信息
+    return axios.get(`/recommendPage/node/books/all/${id}`).then(res=>{
+        return res.data.data
+    }).catch(err=>{
+        console.log(err)
+    })
+}
+
+
+
 export function getComment(id,start = 0){  // 获取评论
 	return axios.get(`/post/review/by-book?book=${id}&limit=10&start=${start}`).then(res=>{
 	// this.setState({val:res.data.reviews})

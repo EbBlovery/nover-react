@@ -13,8 +13,7 @@ class CommendList extends Component {
 				        return (
 				            <li className="commend-ul-li" key={index}>
 				                <Link to={{
-				                    pathname:"/book/" + item.book._id,
-				                    state:{data:item}
+				                    pathname:"/book/" + item.book._id
 				                }}>
 				                    <img src={item.book.cover}/>
 				                    <p>{item.book.title}</p>
