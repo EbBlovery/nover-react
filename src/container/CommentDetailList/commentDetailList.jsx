@@ -1,82 +1,58 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import HeaderBar from '../../component/HeaderBar/headerBar';
+import UserComment from '../../component/UserComment/userComment'
+import UserCommentList from '../../component/UserCommentList/userCommentList';
 
-import {getCommentDetail} from '../../apiconfig/api.js';
-
-import {tab} from '../../util/util.js';
+import {bookUserComment,getMoreUserComment} from '../../store/action/index';
 
 
 import './commentDetailList.less';
 
 class CommentDetailList extends Component {
-    constructor(props){
-    	super(props)
-    	this.state = {comment: [], count: 10}
-    }
     componentDidMount(){
-    	getCommentDetail(this.props.location.state.id).then(res=>{  // 获取一部分评论
-    	 	this.setState({comment: res})
-    	})
+    	// getCommentDetail(this.props.location.state.id).then(res=>{  // 获取一部分评论
+    	//  	this.setState({comment: res})
+    	// })
+        this.props.bookUserComment(this.props.match.params.id)
     }
-    loadMore(){   // 点击加载更多 细节评论
-        this.setState({count: this.state.count + 10})
-        getCommentDetail(this.props.location.state.id,this.state.count).then(res=>{
-            res.unshift(...this.state.comment)
-            this.setState({comment: res})
-        })
-    }
+    // loadMore(){   // 点击加载更多 细节评论
+    //     this.setState({count: this.state.count + 10})
+    //     getCommentDetail(this.props.location.state.id,this.state.count).then(res=>{
+    //         res.unshift(...this.state.comment)
+    //         this.setState({comment: res})
+    //     })
+    // }
     render(){
         const {data,title} = this.props.location.state
     	return (
         <div className="commentAvator">
-         	<div>
-         	    <HeaderBar history={this.props.history} title={title}/>
-         	</div>
-         	<div className="comment-detail">
-         		<div className="comment-left">
-         			<img src={'http://statics.zhuishushenqi.com' + data.author.avatar}/>
-         			<p>
-         				<span>{data.author.nickname}</span>
-         				<span>n天前</span>
-         			</p>
-         		</div>
-         		<div className="comment-content">
-         			<p>{data.content}</p>
-         		</div>
-         	</div>
-         	<p className="commentCount">共{data.commentCount}条回复</p>
-         	<div className="comment-list">
-     			<ul>
-     				{
-     					this.state.comment && this.state.comment.map((item,index)=>{
-     						const days =  tab((new Date(item.created)).toLocaleDateString().split('/').join('-'));
-     						return (
-                                <li key={index}>
-                                	<div className="list-left">
-                                		<img src={'http://statics.zhuishushenqi.com' + item.author.avatar}/>
-                                	</div>
-                                	<div className="list-right">
-                                		<div className="list-right-div">
-                                    		<p>{item.author.nickname}</p>
-                                    		<p>{days}前</p>
-                                		</div>
-                                		<p className="content">{item.content}</p>
-                                	</div>
-                                </li>
-     						)
-     					})
-     				}
-     			</ul>
-     		</div>
-            <div className="loadMore">
-                {
-                    this.state.count>data.commentCount?(<p>暂无更多评论</p>):(<p onClick={this.loadMore.bind(this)}>Laad More ...</p>)
-                }
-            </div>
+         	<HeaderBar history={this.props.history} title={title}/>
+            <UserComment data={data?data:''}/>
+            <UserCommentList LoadMore={this.LoadMore.bind(this)} len={data.count} userCommment={this.props.userCommment?this.props.userCommment:''}/>
         </div>
     	)
     }
+    LoadMore(count){
+        this.props.getMoreUserComment(this.props.match.params.id,count)
+    }
+}
+function mapStateToProps(state){
+    return {
+        userCommment: state.books.userCommment
+    }
 }
 
-export default CommentDetailList;
+function mapDispatchToProps(dispatch){
+    return {
+        bookUserComment: (id,start)=>{
+            dispatch(bookUserComment(id,start))
+        },
+        getMoreUserComment: (id,start)=> {
+            dispatch(getMoreUserComment(id,start))
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CommentDetailList);

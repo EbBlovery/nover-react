@@ -6,11 +6,14 @@ import HeaderBar from '../../component/HeaderBar/headerBar';
 import AllCommentDetail from '../../component/AllCommentDetail/allCommentDetail';
 
 import { getComment } from '../../apiconfig/api.js';
-import { getToMoreComments } from '../../store/action/index';
+import { getToMoreComments, BookComments } from '../../store/action/index';
 
 import './allComment.less';
 
 class AllComment extends Component {
+    componentDidMount(){
+        this.props.BookComments(this.props.match.params.id)
+    }
     render() {
 	    return (
             <div className="allComment">
@@ -36,6 +39,9 @@ function mapDispatchToProps(dispatch) {
     return {
         getToMoreComments: (id,start)=>{
             dispatch(getToMoreComments(id,start))
+        },
+        BookComments: (id) => {
+            dispatch(BookComments(id))
         }
     }
 }

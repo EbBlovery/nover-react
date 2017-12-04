@@ -1,7 +1,5 @@
 var defaultState = {
-    allRecomment: {
-        i: 0
-    }
+    
 }
 
 function search(state = defaultState,action){
@@ -27,6 +25,16 @@ function search(state = defaultState,action){
             return {
                 ...states,
                 comments: states.comments.concat(action.payload.data)
+            }
+        case 'BOOKUSERCOMMENT':
+            return {
+                ...states,
+                userCommment: action.payload.data
+            }
+        case 'GETMOREUSERCOMMENT':
+            return {
+                ...states,
+                userCommment: states.userCommment.concat(action.payload.data)
             }
      	default :
      	    return states
