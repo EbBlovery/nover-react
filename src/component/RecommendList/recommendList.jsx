@@ -16,7 +16,7 @@ class RecommendList extends Component {
                             var items = item.book;
              				return (
                                 <li className="recommend-li" key={index}>
-                                	<Link replace to={{
+                                	<Link to={{
                                 		pathname:"/book/" + item.book._id
                                 	}}>
                                 		<CommendDetail data={items} />

@@ -3,8 +3,6 @@ import { Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 
-import { getRecommend, getComment, getBook } from '../../apiconfig/api.js';
-
 import {BookDetails,BookComments,BookReCommends} from '../../store/action/index';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
@@ -39,7 +37,7 @@ class Book extends Component {
             <div className="book">
             	<HeaderBar title="书籍详情" history={this.props.history} />
                 <BookDetail bookdetail={this.props.bookdetail?this.props.bookdetail:''}/>
-                <BookComment match={this.props.match} bookdetail={this.props.bookdetail?this.props.bookdetail:''} comments={this.props.comments?this.props.comments:''}/>
+                <BookComment onGetMoreComment={this.onGetMoreComment.bind(this)} match={this.props.match} bookdetail={this.props.bookdetail?this.props.bookdetail:''} comments={this.props.comments?this.props.comments:''}/>
             	
             	<div className="book-love">
                 	{
@@ -59,6 +57,9 @@ class Book extends Component {
         this.props.BookComments(id)
         this.props.BookReCommends(id)
         this.props.history.replace('/book/' +  id)
+    }
+    onGetMoreComment(){
+        this.props.history.push("/allcomment/" + this.props.match.params.id)
     }
 }
 

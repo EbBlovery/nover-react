@@ -7,22 +7,15 @@ import './bookComment.less';
 class BookComment extends Component {
 	render() {
 		const {comments,bookdetail} = this.props;
-		var info = (comments && comments.reviews)?comments.reviews.slice(0,2):''
-
+		var info = comments?comments.slice(0,2):''
 		return (
             <div className="hot-comment">
-    		    <div className="comment-header">
+    		    <div onClick={this.getMoreComment.bind(this,bookdetail.title)} className="comment-header">
                     <span>
                     	热门书评
                     </span>
                     <span>
-                    	<Link to={{
-                            // this.props.location.state.data.book._id
-                    		pathname:"/allcomment/" + this.props.match.params.id,
-                            state: {comment:comments && comments,title:bookdetail.title,total:comments && comments.total}
-                        }}>
-                    	    更多评论
-                    	</Link>
+                        更多评论
                     </span>
                 </div>
     		    <div>
@@ -35,6 +28,9 @@ class BookComment extends Component {
     		</div>
 		)
 	}
+    getMoreComment(title){
+        this.props.onGetMoreComment(title)
+    }
 }
 
 export default BookComment;

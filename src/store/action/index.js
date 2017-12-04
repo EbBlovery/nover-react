@@ -152,9 +152,9 @@ export function BookDetails(id){
         })
     }
 }
-export function BookComments(id){      // book comment 评论
+export function BookComments(id,start){      // book comment 评论
     return dispatch => {
-        getComment(id).then(res=>{
+        getComment(id,start).then(res=>{
             dispatch({
                 type: 'BOOKCOMMENTS',
                 payload: {
@@ -178,6 +178,20 @@ export function BookReCommends(id){   // book commend 推荐
         })
     }
 }
+
+export function getToMoreComments(id,start) {
+    return dispatch => {
+        getComment(id,start).then(res=>{
+            dispatch({
+                type: 'GETTOMORECOMMENTS',
+                payload: {
+                    data: res.reviews
+                }
+            })
+        })
+    }
+}
+
 
 /*=======================================================================================================================================*/
 

@@ -1,4 +1,8 @@
-var defaultState = { }
+var defaultState = {
+    allRecomment: {
+        i: 0
+    }
+}
 
 function search(state = defaultState,action){
      var states = Object.assign({},state);
@@ -11,13 +15,19 @@ function search(state = defaultState,action){
      	case 'BOOKCOMMENTS':
      	    return {
      	    	...states,
-     	    	comments: action.payload.data
+     	    	comments: action.payload.data.reviews,
+                total: action.payload.data.total
      	    }
      	case 'BOOKRECOMMENDS':
      	    return {
      	    	...states,
      	    	recommends: action.payload.data
      	    }
+        case 'GETTOMORECOMMENTS':
+            return {
+                ...states,
+                comments: states.comments.concat(action.payload.data)
+            }
      	default :
      	    return states
      }
