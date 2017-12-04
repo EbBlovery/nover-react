@@ -12,18 +12,8 @@ import './commentDetailList.less';
 
 class CommentDetailList extends Component {
     componentDidMount(){
-    	// getCommentDetail(this.props.location.state.id).then(res=>{  // 获取一部分评论
-    	//  	this.setState({comment: res})
-    	// })
         this.props.bookUserComment(this.props.match.params.id)
     }
-    // loadMore(){   // 点击加载更多 细节评论
-    //     this.setState({count: this.state.count + 10})
-    //     getCommentDetail(this.props.location.state.id,this.state.count).then(res=>{
-    //         res.unshift(...this.state.comment)
-    //         this.setState({comment: res})
-    //     })
-    // }
     render(){
         const {data,title} = this.props.location.state
     	return (

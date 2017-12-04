@@ -22,8 +22,7 @@ class Interest extends Component {
              				return (
                                 <li className="interest-li" key={index}>
                                 	<Link to={{
-                                		pathname:"/book/" + item._id,
-                                        state:{data: arr}
+                                		pathname:"/book/" + item._id
                                 	}}>
                                 		<CommendDetail data={item} />
                                 	</Link>

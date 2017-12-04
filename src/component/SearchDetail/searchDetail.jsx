@@ -18,7 +18,7 @@ class SearchDetail extends Component {
              				return (
                                 <li className="searchDetail-li" key={index}>
                                 	<Link to={{
-                                		pathname:"/book/" + item._id,
+                                		pathname:"/book/" + item._id
                                 	}}>
                                 		<CommendDetail data={item}/>
                                 	</Link>
