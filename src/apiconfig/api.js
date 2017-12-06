@@ -1,19 +1,21 @@
 import axios from 'axios';
 
 // /post/review/by-book?book=537a03e9ac8932bf19003d7c&limit=10&start=0   
+const url = process.env.NODE_ENV == 'development'?'http://localhost:3001':'http://59.110.241.135:3001';
 
 export function getVal(id){       // 获取首页信息
-    return axios.get(`/recommendPage/node/books/all/${id}`).then(res=>{
+    return axios.get(`${url}/recommendPage/node/books/all/${id}`).then(res=>{
         return res.data.data
     }).catch(err=>{
         console.log(err)
     })
 }
 
+console.log(process.env.NODE_ENV)
 
 
 export function getComment(id,start = 0){  // 获取评论
-	return axios.get(`/post/review/by-book?book=${id}&limit=10&start=${start}`).then(res=>{
+	return axios.get(`${url}/post/review/by-book?book=${id}&limit=10&start=${start}`).then(res=>{
 	// this.setState({val:res.data.reviews})
 	    return res.data
 	}).catch(err=>{
@@ -31,7 +33,7 @@ export function getRecommend(id){  //获取推荐列表
 }
 
 export function getCommentDetail(id,start = 0){
-	return axios.get(`/post/review/${id}/comment/?start=${start}&limit=10`).then(res=>{
+	return axios.get(`${url}/post/review/${id}/comment/?start=${start}&limit=10`).then(res=>{
 		return res.data.comments
 	}).catch(err=>{
 		console.log(err)
@@ -68,7 +70,7 @@ export function getSection(id){
 }
 
 export function getContent(link){
-	return axios.get(`/chapter/${link}`).then(res=>{
+	return axios.get(`${url}/chapter/${link}`).then(res=>{
 		return res.data.chapter
 	})
 }

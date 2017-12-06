@@ -86,26 +86,26 @@ module.exports = function(proxy, allowedHost) {
     },
     public: allowedHost,
     proxy: {
-      '/recommendPage':{
-         target: 'http://api.zhuishushenqi.com/',
-         secure: false,
-         changeOrigin: true
-      },
-      '/post':{
-         target: 'http://api.zhuishushenqi.com/',
-         secure: false,
-         changeOrigin: true
-      },
-      '/agent':{
-         target: 'http://statics.zhuishushenqi.com/',
-         secure: false,
-         changeOrigin: true   
-      },
-      '/chapter':{
-         target: 'http://chapterup.zhuishushenqi.com/',
-         secure: false,
-         changeOrigin: true
-      }
+      // '/recommendPage':{
+      //    target: 'http://api.zhuishushenqi.com/',
+      //    secure: false,
+      //    changeOrigin: true
+      // },
+      // '/post':{
+      //    target: 'http://api.zhuishushenqi.com/',
+      //    secure: false,
+      //    changeOrigin: true
+      // },
+      // '/agent':{
+      //    target: 'http://statics.zhuishushenqi.com/',
+      //    secure: false,
+      //    changeOrigin: true   
+      // },
+      // '/chapter':{
+      //    target: 'http://chapterup.zhuishushenqi.com/',
+      //    secure: false,
+      //    changeOrigin: true
+      // }
     },
     before(app) {
       // This lets us open files from the runtime error overlay.

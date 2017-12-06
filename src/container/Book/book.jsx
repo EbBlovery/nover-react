@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 
 import {BookDetails,BookComments,BookReCommends} from '../../store/action/index';
+import {setBookCase,judegData} from '../../util/util';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import Footer from '../../component/Footer/footer'
@@ -36,7 +37,7 @@ class Book extends Component {
 		return (
             <div className="book">
             	<HeaderBar title="书籍详情" history={this.props.history} />
-                <BookDetail bookdetail={this.props.bookdetail?this.props.bookdetail:''}/>
+                <BookDetail handleBookCase={this.handleBookCase.bind(this)} bookdetail={this.props.bookdetail?this.props.bookdetail:''}/>
                 <BookComment onGetMoreComment={this.onGetMoreComment.bind(this)} match={this.props.match} bookdetail={this.props.bookdetail?this.props.bookdetail:''} comments={this.props.comments?this.props.comments:''}/>
             	
             	<div className="book-love">
@@ -61,8 +62,22 @@ class Book extends Component {
     onGetMoreComment(){
         this.props.history.push("/allcomment/" + this.props.match.params.id)
     }
+    handleBookCase(){
+        var istrue = judegData(this.props.match.params.id);
+        console.log(istrue)
+        if(istrue){
+            console.log(123123)
+        }else{
+            var data = {
+                "_id":this.props.bookdetail._id,
+                "cover":this.props.bookdetail.cover,
+                "title":this.props.bookdetail.title
+            }
+            setBookCase(data)
+        }
+        
+    }
 }
-
 
 
 function mapStateToProps(state){

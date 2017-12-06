@@ -15,7 +15,7 @@ class CommendDetail extends Component {
 		return (
 			<div className="commendDetail-div">
 	           	<div className="commendDetail-left">
-	           		<img src={item.cover}/>
+	           		<img src={/statics/.test(item.cover)?item.cover: 'http://statics.zhuishushenqi.com' + item.cover}/>
 	           	</div>
 	           	<div className="commendDetail-right">
 	           		<p>{item.title}</p>

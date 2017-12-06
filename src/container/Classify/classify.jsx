@@ -35,7 +35,6 @@ class Classify extends Component {
 }
 
 function mapStateToProps(state){
-    console.log(state)
     return {
         classify: state.getGender.classify
     }

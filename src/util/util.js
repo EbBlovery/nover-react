@@ -16,10 +16,38 @@ export function tab(date){
         result = result + '天前';
     }else if(result<=30){
         result = (result/7).toFixed(0) + '周前'
-    }else if(60<result && result<90){
+    }else if(result<90){
         result = '1月前'
-    }else if(result>=90){
+    }else{
         result = '完结'
     }
     return result;
+}
+
+export function setBookCase(info){
+    var bookName = [];
+    var t = JSON.parse(localStorage.getItem('bookName'));
+    if(t){
+        bookName = t.concat(info)
+    }else{
+        bookName.push(info)
+    } 
+    localStorage.setItem('bookName',JSON.stringify(bookName))
+}
+
+export function judegData(id){
+    var data = JSON.parse(localStorage.getItem('bookName'));
+    if(data){
+        const p = data.filter(item=>{
+            return item._id === id
+        })
+        console.log(p)
+        return p.length>0?true:false
+    }else{
+        return false
+    }
+}
+
+export function deleteData(id){
+    
 }

@@ -8,7 +8,7 @@ class Header extends Component {
      	 return (
              <div className="Header">
              	 <div><Link to="/"><img src={require("../../assets/logo.png")} alt="logo"/></Link></div>
-             	 <div><img src={require("../../assets/boospra.png")} alt="boospra"/></div>
+             	 <div><Link to="/bookcase"><img src={require("../../assets/boospra.png")} alt="boospra"/></Link></div>
              	 <div><img src={require("../../assets/user.png")} alt="user"/></div>
              </div>
      	 )

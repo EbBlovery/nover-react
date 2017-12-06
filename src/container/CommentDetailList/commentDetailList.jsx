@@ -17,11 +17,11 @@ class CommentDetailList extends Component {
     render(){
         const {data,title} = this.props.location.state
     	return (
-        <div className="commentAvator">
-         	<HeaderBar history={this.props.history} title={title}/>
-            <UserComment data={data?data:''}/>
-            <UserCommentList LoadMore={this.LoadMore.bind(this)} len={data.count} userCommment={this.props.userCommment?this.props.userCommment:''}/>
-        </div>
+            <div className="commentAvator">
+             	<HeaderBar history={this.props.history} title={title}/>
+                <UserComment data={data?data:''}/>
+                <UserCommentList LoadMore={this.LoadMore.bind(this)} len={data.count} userCommment={this.props.userCommment?this.props.userCommment:''}/>
+            </div>
     	)
     }
     LoadMore(count){

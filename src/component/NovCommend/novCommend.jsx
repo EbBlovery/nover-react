@@ -17,9 +17,7 @@ class NovCommend extends Component {
 		return (
             <div className="commend">
                 <h4 className="title">{this.props.title}</h4>
-                
                 <CommendList data={data} />  
-
                 <p className="loadmore">
                     <Link to={{
                         pathname:"/recommend/" + this.props.id

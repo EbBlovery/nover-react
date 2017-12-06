@@ -136,7 +136,7 @@ module.exports = {
           // "url" loader works just like "file" loader but it also embeds
           // assets smaller than specified size as data URLs to avoid requests.
           {
-            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/,/\.svg/],
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
@@ -166,7 +166,7 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test: /\.css$/,
+            test: /\.(css|less)$/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
@@ -204,7 +204,9 @@ module.exports = {
                           }),
                         ],
                       },
-                    },
+                    },{
+                      loader: require.resolve('less-loader')
+                    }
                   ],
                 },
                 extractTextPluginOptions

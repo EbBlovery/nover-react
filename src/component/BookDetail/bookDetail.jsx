@@ -25,7 +25,7 @@ class BookDetail extends Component {
 	        		<div className="book-info-content">
 	        			<div className="book-top">
 	        				<div>
-	        					<img src={bookdetail && bookdetail.cover} alt={bookdetail && bookdetail.title}/>
+	        					<img src={bookdetail && 'http://statics.zhuishushenqi.com' + bookdetail.cover} alt={bookdetail && bookdetail.title}/>
 	        				</div>
 	        				<div>
 	        					<p>{bookdetail && bookdetail.title}</p>
@@ -34,7 +34,7 @@ class BookDetail extends Component {
 	        				</div>
 	        			</div>
 	        			<div className="book-bot">
-	        				<span>加入书架</span>
+	        				<span onClick={this.handleToBookCase.bind(this)}>加入书架</span>
 	        				<span>开始阅读</span>
 	        			</div>
 	        		</div>
@@ -78,6 +78,9 @@ class BookDetail extends Component {
 	}
 	handleClick(){
 		this.setState({isShow: !this.state.isShow})
+	}
+	handleToBookCase(){
+		this.props.handleBookCase()
 	}
 }
 

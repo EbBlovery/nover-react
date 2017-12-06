@@ -12,6 +12,7 @@ import SectionContents from '../container/SectionContents/SectionContents';
 import ReadContent from '../container/ReadContent/readContent';
 import Gender from '../container/Gender/gender';
 import RankList from '../container/RankList/rankList';
+import BookCase from '../container/BookCase/bookCase';
 
 class RouterMap extends Component {
 	render() {
@@ -29,6 +30,9 @@ class RouterMap extends Component {
                     <Route exact path="/sectionContents/:id/:index" component={ReadContent} />
                     <Route exact path="/gender/:name" component={Gender}/>
                     <Route exact path="/ranklist/:id" component={RankList}/>
+                    <Route exact path="/bookcase" component={BookCase}/>
+
+
                     <Redirect path="*" to="/index/home"/>
              	</Switch>
              </Router>

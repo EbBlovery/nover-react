@@ -27,17 +27,7 @@ class SectionContents extends Component {
 	    	})
         })
 	}
-	// handleGetSource(val){
-		
-	// }
-	// handleSource(){
-	// 	this.setState({isshow : !this.state.isshow})
-	// }
 	render() {
-		// var showclass = classNames({
-		//  	"changeSource":true,
-		//  	"showSource":this.state.isshow
-		// })
 		var len = this.state.data.length; 
 		return (
             <div className="chapter">

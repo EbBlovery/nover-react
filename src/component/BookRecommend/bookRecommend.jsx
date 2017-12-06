@@ -22,7 +22,7 @@ class BookRecommend extends Component {
             			data && data.map((items,index)=>{
             				return (
                                 <li onClick={this.handleChangeBookDetail.bind(this,items._id)} key={index}>
-                                    <img src={items.cover} alt={items.title}/>
+                                    <img src={'http://statics.zhuishushenqi.com' + items.cover} alt={items.title}/>
                                     <p>{items.title}</p>
                                 </li>
             				)
