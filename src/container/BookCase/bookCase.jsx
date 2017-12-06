@@ -15,7 +15,7 @@ class BookCase extends Component {
 	}
 	componentDidMount(){
         const data = localStorage.getItem('bookName');
-        if(data.length>0){
+        if(data){
         	this.setState({data:JSON.parse(data)})
         }
 	}

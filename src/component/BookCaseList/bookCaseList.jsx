@@ -13,7 +13,7 @@ class BookCaseList extends Component {
             				return (
                                 <li key={index}>
                                 	<img src={'http://statics.zhuishushenqi.com' + item.cover}/>
-                                	<div>
+                                	<div className="list-info">
                                 		<p>{item.title}</p>
                                 		<p>阅读到第1章</p>
                                 	</div>
