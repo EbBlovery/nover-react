@@ -7,11 +7,23 @@ import Footer from '../../component/Footer/footer';
 
 
 class BookCase extends Component {
+	constructor(props){
+		super(props)
+		this.state = {
+			data: []
+		}
+	}
+	componentDidMount(){
+        const data = localStorage.getItem('bookName');
+        if(data.length>0){
+        	this.setState({data:JSON.parse(data)})
+        }
+	}
     render() {
     	return (
             <div>
             	<HeaderBar title="我的书架" history={this.props.history}/>
-            	<BookCaseList />
+            	<BookCaseList data={this.state.data?this.state.data:''}/>
             	<Footer history={this.props.history}/>
             </div>
     	)
@@ -26,7 +38,7 @@ function mapStateToProps(state){
 
 function masDispatchToProps(dispatch){
 	return {
-
+        
 	}
 }
 

@@ -31,7 +31,7 @@ export function setBookCase(info){
         bookName = t.concat(info)
     }else{
         bookName.push(info)
-    } 
+    }
     localStorage.setItem('bookName',JSON.stringify(bookName))
 }
 
@@ -41,7 +41,6 @@ export function judegData(id){
         const p = data.filter(item=>{
             return item._id === id
         })
-        console.log(p)
         return p.length>0?true:false
     }else{
         return false
@@ -49,5 +48,14 @@ export function judegData(id){
 }
 
 export function deleteData(id){
-    
+    var data = JSON.parse(localStorage.getItem('bookName'));
+    const p = data.filter(item=>{
+        return item._id !== id
+    })
+    console.log(p)
+    if(p.length == 0){
+        localStorage.removeItem('bookName')
+    }else{
+        localStorage.setItem('bookName',JSON.stringify(p))
+    }
 }

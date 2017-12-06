@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 
 import {BookDetails,BookComments,BookReCommends} from '../../store/action/index';
-import {setBookCase,judegData} from '../../util/util';
+import {setBookCase,judegData,deleteData} from '../../util/util';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import Footer from '../../component/Footer/footer'
@@ -66,7 +66,8 @@ class Book extends Component {
         var istrue = judegData(this.props.match.params.id);
         console.log(istrue)
         if(istrue){
-            console.log(123123)
+            console.log('delete')
+            deleteData(this.props.match.params.id)
         }else{
             var data = {
                 "_id":this.props.bookdetail._id,
