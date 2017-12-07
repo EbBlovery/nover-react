@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
  
-import {tab} from '../../util/util.js';
+import {tab,judegData} from '../../util/util.js';
 
 
 import './bookDetail.less';
@@ -11,7 +11,12 @@ class BookDetail extends Component {
         super(props)
         this.state = {
         	isShow: false, //  短介绍 是否展示
+        	isAdd: false
         }
+	}
+	componentDidMount(){
+        var isAdd = judegData(this.props.match.params.id);
+        this.setState({isAdd: isAdd})
 	}
 	render() {
 		const {bookdetail} = this.props;
@@ -19,6 +24,7 @@ class BookDetail extends Component {
 			var updated = bookdetail.updated && tab((new Date(bookdetail.updated)).toLocaleDateString().split('/').join('-'));
             var wordCount = bookdetail.wordCount>=10000?Math.round((bookdetail.wordCount)/10000) + "万":bookdetail.wordCount
 		}
+		var styles =  {background:this.state.isAdd?'#999':'',color:this.state.isAdd?'#fff':'',border:this.state.isAdd?'1px solid #999':''}
 		return (
 			<section>
                 <div className="book-info">
@@ -34,7 +40,9 @@ class BookDetail extends Component {
 	        				</div>
 	        			</div>
 	        			<div className="book-bot">
-	        				<span onClick={this.handleToBookCase.bind(this)}>加入书架</span>
+	        				<span style={styles} onClick={this.handleToBookCase.bind(this)}>
+                                {this.state.isAdd?'撤出书架':'加入书架'}
+	        				</span>
 	        				<span>开始阅读</span>
 	        			</div>
 	        		</div>
@@ -81,6 +89,7 @@ class BookDetail extends Component {
 	}
 	handleToBookCase(){
 		this.props.handleBookCase()
+		this.setState({isAdd:!this.state.isAdd})
 	}
 }
 

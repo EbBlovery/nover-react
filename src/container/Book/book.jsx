@@ -21,7 +21,6 @@ class Book extends Component {
         this.props.BookDetails(id)
         this.props.BookComments(id)
         this.props.BookReCommends(id)
-
 	}
     componentWillReceiveProps(){
         var id =this.props.match.params.id;
@@ -33,7 +32,7 @@ class Book extends Component {
 		return (
             <div className="book">
             	<HeaderBar title="书籍详情" history={this.props.history} />
-                <BookDetail handleBookCase={this.handleBookCase.bind(this)} bookdetail={this.props.bookdetail?this.props.bookdetail:''}/>
+                <BookDetail handleBookCase={this.handleBookCase.bind(this)} bookdetail={this.props.bookdetail?this.props.bookdetail:''} match={this.props.match}/>
                 <BookComment onGetMoreComment={this.onGetMoreComment.bind(this)} match={this.props.match} bookdetail={this.props.bookdetail?this.props.bookdetail:''} comments={this.props.comments?this.props.comments:''}/>
             	
             	<div className="book-love">
@@ -60,7 +59,6 @@ class Book extends Component {
     }
     handleBookCase(){
         var istrue = judegData(this.props.match.params.id);
-        console.log(istrue)
         if(istrue){
             console.log('delete')
             deleteData(this.props.match.params.id)
