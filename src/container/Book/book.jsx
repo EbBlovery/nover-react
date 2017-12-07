@@ -4,17 +4,13 @@ import { connect } from 'react-redux';
 
 
 import {BookDetails,BookComments,BookReCommends} from '../../store/action/index';
-import {setBookCase,judegData,deleteData} from '../../util/util';
+import {setBookCase,judegData,deleteData} from '../../util/util';  // localStorage 存取数据；
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import Footer from '../../component/Footer/footer'
 import BookRecommend from '../../component/BookRecommend/bookRecommend';    //  类似小说推荐列表
 import BookDetail from '../../component/BookDetail/bookDetail';
 import BookComment from '../../component/BookComment/bookComment';
-
-import SectionContents from '../SectionContents/SectionContents';
-
-
 
 
 import './book.less';

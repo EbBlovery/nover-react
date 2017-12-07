@@ -94,8 +94,6 @@ class ReadContent extends Component {
                 }
             })
         }
-        
-        console.log(this.props.history.location.state)
     }
     shouldComponentUpdate(){
         return true
