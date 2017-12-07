@@ -1,4 +1,4 @@
-import {getCommentDetail,getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify,getSection, getChapter} from '../../apiconfig/api.js';
+import {getCommentDetail,getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify,getSection, getChapter,getContent} from '../../apiconfig/api.js';
 
 export function handleSearch(key){  // search
     return dispatch => {
@@ -268,6 +268,31 @@ export function getChapterList(id){
                     }
                 })
             })
+        })
+    }
+}
+
+export function getChapterContent(link){
+    return dispatch => {
+        getContent(link).then(res=>{
+            if(res.isVip){
+                const vip = ['VIP章节，不给看！'];
+                dispatch({
+                    type: 'GETCHAPTERCONTENT',
+                    payload: {
+                         body: vip
+                    }
+                })
+            }else{
+                var arr = res.cpContent.split(/\s+/g);
+                dispatch({
+                    type: 'GETCHAPTERCONTENT',
+                    payload: {
+                        body: arr
+                    }
+                })
+            }
+            
         })
     }
 }

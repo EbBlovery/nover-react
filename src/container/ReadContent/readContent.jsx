@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
 
 
 import {getContent, getSection} from '../../apiconfig/api';
+import {getChapterContent} from '../../store/action/index';
 
 import './readContent.less';
 
@@ -52,6 +54,7 @@ class ReadContent extends Component {
                 this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
 			}
 		})
+        this.props.getChapterContent(link)
 	}
     componentWillReceiveProps(){
         const {link,title,length,source,bookTitle,chapterList} = this.props.history.location.state;
@@ -269,4 +272,19 @@ class ReadContent extends Component {
     }
 }
 
-export default ReadContent;
+function mapStateToProps(state){
+    console.log(state)
+    return {
+        
+    }
+}
+
+function masDispatchToProps(dispatch){
+    return {
+        getChapterContent: (link) => {
+            dispatch(getChapterContent(link))
+        }
+    }
+}
+
+export default connect(mapStateToProps,masDispatchToProps)(ReadContent);

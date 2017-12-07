@@ -11,6 +11,11 @@ function chapter(state = defaultState,action){
      	    	chapterlist: action.payload.chapter,
                 source: action.payload.source
      	    }
+     	case 'GETCHAPTERCONTENT':
+     	    return {
+     	    	...states,
+     	    	body: action.payload.body
+     	    }
      	default :
      	    return states
      }
