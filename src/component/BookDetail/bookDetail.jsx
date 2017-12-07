@@ -73,7 +73,6 @@ class BookDetail extends Component {
                         <Link to={{
                             pathname: '/sectionContents/'+ bookdetail._id + '/chapter',
                             state: {title: bookdetail.title}
-
                         }}>
                             <span>目录</span>
                             <span>{bookdetail && bookdetail.lastChapter}</span>

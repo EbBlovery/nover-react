@@ -1,4 +1,4 @@
-import {getCommentDetail,getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify} from '../../apiconfig/api.js';
+import {getCommentDetail,getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify,getSection, getChapter} from '../../apiconfig/api.js';
 
 export function handleSearch(key){  // search
     return dispatch => {
@@ -253,3 +253,21 @@ export function getMoreRecommend(id) {
 
 /*=======================================================================================================================================*/
 
+// boookchapter
+
+export function getChapterList(id){
+    return dispatch => {
+        getChapter(id).then(res=>{
+            getSection(res.data[0]._id).then(rest=>{
+                //this.setState({data:rest.chapters,title:rest.name,source:res.data,bookTitle:title})  // 更新章节列表
+                dispatch({
+                    type: 'GETCHAPTERLIST',
+                    payload: {
+                        chapter: rest.chapters,
+                        source: res.data
+                    }
+                })
+            })
+        })
+    }
+}
