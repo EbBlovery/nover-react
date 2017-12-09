@@ -13,16 +13,8 @@ class SectionCatlog extends Component {
                         chapterlist && chapterlist.map((item,index)=>{
                             const i = index + 1;
                         	return (
-                        		<li onClick={this.getClickChapter.bind(this)} key={index}>
-                                    <Link replace to={{
-                                        pathname: "/sectionContents/" + this.props.match.params.id +"/" + i,
-                                        state: {
-                                            link:item.link,
-                                            title:item.title
-                                        }
-                                    }}>
-                    	                 <p>{index+1 || 0} {item.title}</p>
-                                    </Link>
+                        		<li onClick={this.getClickChapter.bind(this,item.link,item.title,i,chapterlist.length)} key={index}>
+                    	            <p>{index+1 || 0} {item.title}</p>
                     	       </li>
                         	)
                         })
@@ -35,8 +27,8 @@ class SectionCatlog extends Component {
 	handleCloseChapter(){
         this.props.handleCloseChapter()
 	}
-	getClickChapter(){
-		
+	getClickChapter(link,title,i,len){
+        this.props.getClickChapter(link,title,i,len)
 	}
 }
 

@@ -19,12 +19,11 @@ class ChapterContent extends Component {
                 		{
                 			data && data.map((item,index)=>{
                 				const chap = index + 1;
-                				const link = encodeURIComponent(item.link);
                 				return (
                                     <li key={index}>
                                     	<Link to={{
                                     		pathname:"/sectionContents/" + this.props.match.params.id + "/" + chap,
-                                    		state:{ link:link, title: item.title}
+                                    		state:{ link:item.link, title: item.title, length: data.length}
                                     	}}>
                                             <p>{index+1 || 0}&nbsp; {item.title}</p>
                                     	</Link>
