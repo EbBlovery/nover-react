@@ -296,3 +296,17 @@ export function getChapterContent(link){
         })
     }
 }
+
+export function getChangeSourceChapter(link){
+    return dispatch => {
+        getContent(link).then(res=>{
+            var arr = res.body.split(/\s+/g);
+            dispatch({
+                type: 'GETCHANGESOURCECHAPTER',
+                payload: {
+                    body: arr
+                }
+            })
+        })
+    }
+}

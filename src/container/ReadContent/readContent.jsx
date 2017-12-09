@@ -6,9 +6,10 @@ import HeaderBar from '../../component/HeaderBar/headerBar';
 import ChapterDetailContent from '../../component/ChapterDetailContent/chapterDetailContent';
 import PageReadOption from '../../component/PageReadOption/pageReadOption';
 import SectionCatlog from '../../component/SectionCatlog/sectionCatlog';
+import ChangeSource from '../../component/ChangeSource/changeSource';
 
-import {getContent, getSection} from '../../apiconfig/api';
-import {getChapterContent,getChapterList} from '../../store/action/index';
+import {getSection} from '../../apiconfig/api';
+import {getChapterContent,getChapterList,getChangeSourceChapter} from '../../store/action/index';
 
 import './readContent.less';
 
@@ -32,8 +33,11 @@ class ReadContent extends Component {
 	}
 	componentDidMount(){
         const {link,title,length} = this.props.location.state;
-
-        this.props.getChapterContent(/zhuishushenqi/g.test(link)?encodeURIComponent(link):link)
+        if(/zhuishushenqi/g.test(link)){
+            this.props.getChapterContent(encodeURIComponent(link))
+        }else{
+            this.props.getChangeSourceChapter(link)
+        }
         this.props.getChapterList(this.props.match.params.id)
 		if(Number(this.props.match.params.index) === 1){
 			this.setState({value:true})
@@ -92,45 +96,20 @@ class ReadContent extends Component {
                     handleCloseChapter = {this.handleCloseChapter.bind(this)}
                     handleShowSource = {this.handleShowSource.bind(this)}
                 />
-
         		<SectionCatlog  //  目录
                     chapterlist={this.props.chapterlist?this.props.chapterlist:''}
                     isShowChapter = {this.state.isShowChapter}
                     handleCloseChapter = {this.handleCloseChapter.bind(this)}
                     getClickChapter = {this.getClickChapter.bind(this)}
                 />
-                <section style={{transform:this.state.isShowSource?'translateY(0)':'translateY(100%)'}} className="changeSource">
-                    <p className="source-header" key="laiyuan"><span onClick={this.clickCloseSourceBar.bind(this)}>×</span> 选择来源</p>
-                    <ul className="source-ul">
-                        {
-                            this.props.source && this.props.source.map((item,index)=>{
-                                return (
-                                    <li onClick={this.getChangeSource.bind(this,item._id)} key={index}>
-                                        <span className="source-logo">{item.host.charAt(0).toUpperCase()}</span>
-                                        <p className="source-info">
-                                            <span>{item.host}</span>
-                                            <span>{item.lastChapter}</span>
-                                        </p>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                    <div className="hide-list-chapter" style={{transform:this.state.isShowhideListChapter?'translateX(0)':'translateX(100%)'}}>
-                        <ul className="hide-ul">
-                            {
-                                this.state.hideListChapter && this.state.hideListChapter.map((item,index)=>{
-                                    return (
-                                        <li onClick={this.handleCloseSourceChapter.bind(this,item.link,index)} key={index}>
-                                            {item.title}
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
-                    </div>
-                    
-                </section>
+                <ChangeSource  // 换源部分
+                    isShowhideListChapter={this.state.isShowhideListChapter} 
+                    isShowSource = {this.state.isShowSource}
+                    source = {this.props.source?this.props.source:''}
+                    hideListChapter = {this.state.hideListChapter?this.state.hideListChapter:''}
+                    getChangeSource = {this.getChangeSource.bind(this)}
+                    handleCloseSourceChapter = {this.handleCloseSourceChapter.bind(this)}
+                />
             </div>
 		)
 	}
@@ -194,18 +173,19 @@ class ReadContent extends Component {
     clickCloseSourceBar(){
         this.setState({isShowSource:false})
     }
-    handleCloseSourceChapter(link,index){
+    handleCloseSourceChapter(link,title,len,index){
         const i = index + 1;
-
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
-            link:this.state.chapterList[index].link,
-            title:this.state.chapterList[index].title,
-            length:this.state.hideListChapter.length,
-            source:this.state.source,
-            bookTitle:this.state.bookTitle,
-            chapterList:this.state.hideListChapter
+            link:link,
+            title:title,
+            length:len
         })
         this.setState({isShowSource:false,isShowhideListChapter:false,isShowChapter:false})
+        if(/zhuishushenqi/g.test(link)){
+            this.props.getChapterContent(encodeURIComponent(link))
+        }else{
+            this.props.getChangeSourceChapter(link)
+        }
     }
 }
 
@@ -225,6 +205,9 @@ function masDispatchToProps(dispatch){
         },
         getChapterList: (id)=>{
             dispatch(getChapterList(id))
+        },
+        getChangeSourceChapter: (link)=>{
+            dispatch(getChangeSourceChapter(link))
         }
     }
 }

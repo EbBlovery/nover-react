@@ -16,6 +16,11 @@ function chapter(state = defaultState,action){
      	    	...states,
      	    	body: action.payload.body
      	    }
+     	case 'GETCHANGESOURCECHAPTER':
+     	    return {
+     	    	...states,
+     	    	body: action.payload.body
+     	    }
      	default :
      	    return states
      }
