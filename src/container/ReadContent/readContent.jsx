@@ -86,11 +86,12 @@ class ReadContent extends Component {
                     handleCloseChapter = {this.handleCloseChapter.bind(this)}
                 />
                 <PageReadOption   // 小说配置选项
-                    title={this.state.bookTitle?this.state.bookTitle:''} 
-                    style={style} 
-                    value={this.state.value} 
+                    title={this.state.bookTitle?this.state.bookTitle:''}
+                    style={style}
+                    value={this.state.value}
                     lastChapter={this.state.lastChapter}
                     handleCloseChapter = {this.handleCloseChapter.bind(this)}
+                    handleShowSource = {this.handleShowSource.bind(this)}
                 />
 
         		<SectionCatlog  //  目录
@@ -173,25 +174,8 @@ class ReadContent extends Component {
         if((/zhuishushenqi/i).test(link)){
             this.props.getChapterContent(encodeURIComponent(link))
         }else{
-            // getContent(encodeURIComponent(link)).then(res=>{
-            //     //const value = res.body.replace(/\s+/g,'<span style="display: block; height: 5px;"></span>');
-            //     if(res.isVip){
-            //         const vip = ['VIP章节，不给看！'];
-            //         const h = document.documentElement.clientHeight;
-            //         document.getElementById('chapterContent').style.height = h - 16*10 + 'px';
-            //         this.setState({body:vip,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
-            //     }else{
-            //         var arr = res.body.split(/\s+/g);
-            //         this.setState({body:arr,contenteIndex: this.props.match.params.index,title: title,bookTitle:bookTitle, chapterList: chapterList,source:source})
-            //     }
-            // })
+            
         }
-
-
-
-
-
-
         this.setState({isShowChapter:false});
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{title: title,length:len,link:link})
     }

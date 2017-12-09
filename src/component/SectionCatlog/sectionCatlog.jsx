@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import './sectionCatlog.less';
+
 class SectionCatlog extends Component {
 	render() {
 		const {chapterlist,isShowChapter} = this.props;
 		return (
-            <section style={{transform:isShowChapter?'translateX(0)':'translateX(-100%)'}} className="section-list">
+            <section style={{transform:isShowChapter?'translateX(0)':'translateX(-100%)'}} className="section-list-chapter">
     		    <p className="section-catalog">目录</p>  
     			<ul className="section-ul">
     			    {

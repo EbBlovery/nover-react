@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import './pageReadOption.less'
 
 class PageReadOption extends Component {
 	render() {
@@ -25,7 +26,7 @@ class PageReadOption extends Component {
 		)
 	}
 	handleShowSource(){
-      
+        this.props.handleShowSource()
 	}
 	handleCloseChapter(){
         this.props.handleCloseChapter()

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './chapterDetailContent.less';
+
 class ChapterDetailContent extends Component {
 	render() {
 		const {body,lastChapter,value} = this.props;
