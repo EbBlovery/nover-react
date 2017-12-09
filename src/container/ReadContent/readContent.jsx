@@ -18,16 +18,13 @@ class ReadContent extends Component {
 		this.state = {
 			title: '',  //  章节标题
 			body:[],    //  正文
-
 			contenteIndex: 1,  // 章节下标  
 			value: false,   // 是否是第一章                           /*按钮判断*/
 			length: 0,    // 章节长度                                 /*按钮判断*/
 			bookTitle: '',  // 小说标题
 			isShowBtn: false,   //  是否展示文字控制栏目,             /*按钮判断*/
 			isShowChapter: false,                                     /*按钮判断*/
-			chapterList: [], 
             lastChapter: false, // 是否最后一章                       /*按钮判断*/
-            source: [],
             isShowSource: false,                                      /*按钮判断*/
             hideListChapter: [],                                      /*按钮判断*/
             isShowhideListChapter: false                              /*按钮判断*/
@@ -84,6 +81,8 @@ class ReadContent extends Component {
                     value={this.state.value} 
                     lastChapter={this.state.lastChapter}
                     handleCloseChapter = {this.handleCloseChapter.bind(this)}
+                    handleToPrev = {this.handleToPrev.bind(this)}
+                    handleToNext = {this.handleToNext.bind(this)}
                 />
                 <PageReadOption   // 小说配置选项
                     title={this.state.bookTitle?this.state.bookTitle:''}
@@ -100,7 +99,6 @@ class ReadContent extends Component {
                     handleCloseChapter = {this.handleCloseChapter.bind(this)}
                     getClickChapter = {this.getClickChapter.bind(this)}
                 />
-
                 <section style={{transform:this.state.isShowSource?'translateY(0)':'translateY(100%)'}} className="changeSource">
                     <p className="source-header" key="laiyuan"><span onClick={this.clickCloseSourceBar.bind(this)}>×</span> 选择来源</p>
                     <ul className="source-ul">
@@ -138,27 +136,28 @@ class ReadContent extends Component {
 	}
 	handleToPrev (){
         var i = Number(this.props.match.params.index) - 1;
+        if(!i) return;
+        const link = this.props.chapterlist[i-1].link;
+        const title = this.props.chapterlist[i-1].title
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
-            link:this.state.chapterList[i-1].link,
-            title:this.state.chapterList[i-1].title,
-            length:this.state.length,
-            source:this.state.source,
-            bookTitle:this.state.bookTitle,
-            chapterList:this.state.chapterList
+            link:link,
+            title:title,
+            length:this.state.length
         })
         this.setState({isShowBtn: false})
+        this.props.getChapterContent(/zhuishushenqi/g.test(link)?encodeURIComponent(link):link)
 	}
     handleToNext() {
         var i = 1 + Number(this.props.match.params.index);
+        const link = this.props.chapterlist[i-1].link;
+        const title = this.props.chapterlist[i-1].title
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
-            link:this.state.chapterList[i-1].link,
-            title:this.state.chapterList[i-1].title,
-            length:this.state.length,
-            source:this.state.source,
-            bookTitle:this.state.bookTitle,
-            chapterList:this.state.chapterList
+            link:link,
+            title:title,
+            length:this.state.length
         })
         this.setState({isShowBtn: false})
+        this.props.getChapterContent(/zhuishushenqi/g.test(link)?encodeURIComponent(link):link)
     }
 	handleToBookCase() {   // 加书架
 
@@ -197,6 +196,7 @@ class ReadContent extends Component {
     }
     handleCloseSourceChapter(link,index){
         const i = index + 1;
+
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
             link:this.state.chapterList[index].link,
             title:this.state.chapterList[index].title,

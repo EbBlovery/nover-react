@@ -29,16 +29,16 @@ class ChapterDetailContent extends Component {
 		this.props.handleClickShowBtn()
 	}
 	handleToPrev(){
-
+        this.props.handleToPrev()
 	}
 	handleToBookCase(){
-
+        this.props.handleToBookCase()
 	}
 	handleToCatalog(){
         this.props.handleCloseChapter()
 	}
 	handleToNext(){
-
+        this.props.handleToNext()
 	}
 }
 
