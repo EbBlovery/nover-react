@@ -32,10 +32,10 @@ class PageReadOption extends Component {
         this.props.handleCloseChapter()
 	}
 	handleToPrev(){
-
+        this.props.handleToPrev()
 	}
 	handleToNext(){
-
+        this.props.handleToNext()
 	}
 }
 

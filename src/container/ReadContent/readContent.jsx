@@ -90,10 +90,12 @@ class ReadContent extends Component {
                 <PageReadOption   // 小说配置选项
                     title={this.state.bookTitle?this.state.bookTitle:''}
                     style={style}
-                    value={this.state.value}
-                    lastChapter={this.state.lastChapter}
                     handleCloseChapter = {this.handleCloseChapter.bind(this)}
                     handleShowSource = {this.handleShowSource.bind(this)}
+                    handleToPrev = {this.handleToPrev.bind(this)}
+                    handleToNext = {this.handleToNext.bind(this)}
+                    value={this.state.value}                // 判断是否为第一章
+                    lastChapter={this.state.lastChapter}    //判断是否为最后一章
                 />
         		<SectionCatlog  //  目录
                     chapterlist={this.props.chapterlist?this.props.chapterlist:''}
