@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 class ChangeSource extends Component {
 	render() {
-		const {isShowhideListChapter,isShowSource,source,hideListChapter} = this.props;
+		const {isShowhideListChapter,isShowSource,source,chapterlist} = this.props;
 		return (
             <section style={{transform:isShowSource?'translateY(0)':'translateY(100%)'}} className="changeSource">
                 <p className="source-header" key="laiyuan"><span onClick={this.clickCloseSourceBar.bind(this)}>×</span> 选择来源</p>
@@ -25,9 +25,9 @@ class ChangeSource extends Component {
                 <div className="hide-list-chapter" style={{transform:isShowhideListChapter?'translateX(0)':'translateX(100%)'}}>
                     <ul className="hide-ul">
                         {
-                            hideListChapter && hideListChapter.map((item,index)=>{
+                            chapterlist && chapterlist.map((item,index)=>{
                                 return (
-                                    <li onClick={this.handleCloseSourceChapter.bind(this,item.link,item.title,hideListChapter.length,index)} key={index}>
+                                    <li onClick={this.handleCloseSourceChapter.bind(this,item.link,item.title,chapterlist.length,index)} key={index}>
                                         {item.title}
                                     </li>
                                 )

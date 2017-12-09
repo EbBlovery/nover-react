@@ -8,8 +8,7 @@ import PageReadOption from '../../component/PageReadOption/pageReadOption';
 import SectionCatlog from '../../component/SectionCatlog/sectionCatlog';
 import ChangeSource from '../../component/ChangeSource/changeSource';
 
-import {getSection} from '../../apiconfig/api';
-import {getChapterContent,getChapterList,getChangeSourceChapter} from '../../store/action/index';
+import {getChapterContent,getChapterList,getChangeSourceChapter,getChangeSourceChapterList} from '../../store/action/index';
 
 import './readContent.less';
 
@@ -27,7 +26,7 @@ class ReadContent extends Component {
 			isShowChapter: false,                                     /*按钮判断*/
             lastChapter: false, // 是否最后一章                       /*按钮判断*/
             isShowSource: false,                                      /*按钮判断*/
-            hideListChapter: [],                                      /*按钮判断*/
+            hideListChapter: [],                                      
             isShowhideListChapter: false                              /*按钮判断*/
 		}
 	}
@@ -106,14 +105,14 @@ class ReadContent extends Component {
                     isShowhideListChapter={this.state.isShowhideListChapter} 
                     isShowSource = {this.state.isShowSource}
                     source = {this.props.source?this.props.source:''}
-                    hideListChapter = {this.state.hideListChapter?this.state.hideListChapter:''}
+                    chapterlist = {this.props.chapterlist?this.props.chapterlist:''}
                     getChangeSource = {this.getChangeSource.bind(this)}
                     handleCloseSourceChapter = {this.handleCloseSourceChapter.bind(this)}
                 />
             </div>
 		)
 	}
-	handleToPrev (){
+	handleToPrev (){   // 上一个章节
         var i = Number(this.props.match.params.index) - 1;
         if(!i) return;
         const link = this.props.chapterlist[i-1].link;
@@ -124,9 +123,14 @@ class ReadContent extends Component {
             length:this.state.length
         })
         this.setState({isShowBtn: false})
-        this.props.getChapterContent(/zhuishushenqi/g.test(link)?encodeURIComponent(link):link)
+        //this.props.getChapterContent(/zhuishushenqi/g.test(link)?encodeURIComponent(link):link)
+        if(/zhuishushenqi/g.test(link)){
+            this.props.getChapterContent(encodeURIComponent(link))
+        }else{
+            this.props.getChangeSourceChapter(link)
+        }
 	}
-    handleToNext() {
+    handleToNext() {     // 下一个章节
         var i = 1 + Number(this.props.match.params.index);
         const link = this.props.chapterlist[i-1].link;
         const title = this.props.chapterlist[i-1].title
@@ -136,7 +140,13 @@ class ReadContent extends Component {
             length:this.state.length
         })
         this.setState({isShowBtn: false})
-        this.props.getChapterContent(/zhuishushenqi/g.test(link)?encodeURIComponent(link):link)
+        //this.props.getChapterContent(/zhuishushenqi/g.test(link)?encodeURIComponent(link):link)  这个是错误的
+        if(/zhuishushenqi/g.test(link)){
+            this.props.getChapterContent(encodeURIComponent(link))
+        }else{
+            this.props.getChangeSourceChapter(link)
+        }
+
     }
 	handleToBookCase() {   // 加书架
 
@@ -148,22 +158,20 @@ class ReadContent extends Component {
 	handleCloseChapter(){
 		this.setState({isShowChapter: !this.state.isShowChapter,isShowBtn:false})
 	}
-    getClickChapter(link,title,i,len){
+    getClickChapter(link,title,i,len){  // 目录列表点击获取章节
         if((/zhuishushenqi/i).test(link)){
             this.props.getChapterContent(encodeURIComponent(link))
         }else{
-            
+            this.props.getChangeSourceChapter(link)
         }
         this.setState({isShowChapter:false});
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{title: title,length:len,link:link})
     }
 
 
-    getChangeSource(id){    // 换源大发好
-        getSection(id).then(res=>{
-            this.setState({hideListChapter:res.chapters,isShowhideListChapter:true})
-            console.log(res)
-        })
+    getChangeSource(id){    // 换源大发好   换源之后先显示新章节列表， 等待点击列表后silder全部关闭，在handleCloseSourceChapter方法里边
+        this.props.getChangeSourceChapterList(id)
+        this.setState({isShowhideListChapter:true})
     }
 
     handleShowSource(){
@@ -208,6 +216,9 @@ function masDispatchToProps(dispatch){
         },
         getChangeSourceChapter: (link)=>{
             dispatch(getChangeSourceChapter(link))
+        },
+        getChangeSourceChapterList: (id) => {
+            dispatch(getChangeSourceChapterList(id))
         }
     }
 }

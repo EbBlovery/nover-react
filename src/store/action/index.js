@@ -255,7 +255,7 @@ export function getMoreRecommend(id) {
 
 // boookchapter
 
-export function getChapterList(id){
+export function getChapterList(id){      // 获取优质书源的章节列表
     return dispatch => {
         getChapter(id).then(res=>{
             getSection(res.data[0]._id).then(rest=>{
@@ -272,7 +272,21 @@ export function getChapterList(id){
     }
 }
 
-export function getChapterContent(link){
+export function getChangeSourceChapterList(id){  // 获取换源后的小说章节列表
+    return dispatch => {
+        getSection(id).then(rest=>{
+            //this.setState({data:rest.chapters,title:rest.name,source:res.data,bookTitle:title})  // 更新章节列表
+            dispatch({
+                type: 'GETCHANGESOURCECHAPTERLIST',
+                payload: {
+                    chapter: rest.chapters
+                }
+            })
+        })
+    }
+}
+
+export function getChapterContent(link){  
     return dispatch => {
         getContent(link).then(res=>{
             if(res.isVip){

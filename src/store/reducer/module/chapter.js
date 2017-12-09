@@ -21,6 +21,11 @@ function chapter(state = defaultState,action){
      	    	...states,
      	    	body: action.payload.body
      	    }
+     	case 'GETCHANGESOURCECHAPTERLIST':
+     	    return {
+     	    	...states,
+     	    	chapterlist: action.payload.chapter
+     	    }
      	default :
      	    return states
      }
