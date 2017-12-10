@@ -118,7 +118,14 @@ export function fetchRankList(id){
     })
 }
 
+export function fetchBookList(sort = 'collectorCount',duration = 'last-seven-days',start = 0,tag = ''){
+    return axios.get(`${url}/book-list?sort=${sort}&duration=${duration}&start=${start}&${tag}`).then(res=>{
+        return res.data
+    })
+}
+
 // http://api.zhuishushenqi.com/recommendPage/node/books/all/578351b97fa1aac6396a3cd2?   //ajax=ajax&st=1&size=10
 
 //  vip 推荐 api
+
 		

@@ -6,7 +6,7 @@ class HeaderNavBar extends Component {
 	render() {
 		return (
 			<div className="headerBarNav">
-			    <div style={{display:'none'}} className="headerNavBar-title">
+			    <div className="headerNavBar-title">
 			    	<nav>
 	            	    <div>本周最热</div>
 		            	<div>最新发布</div>
@@ -24,7 +24,7 @@ class HeaderNavBar extends Component {
 		            	<span>筛选</span>
 		            </nav>
 			    </div>
-	            <div className="headerNavBar-click">
+	            <div style={{display:'none'}} className="headerNavBar-click">
 	            	<p>asdasdasdadasd</p>
 	            </div>
             </div>

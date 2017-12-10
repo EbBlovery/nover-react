@@ -7,7 +7,7 @@ const server = http.createServer();
 server.on('request',(req,res)=>{
 	const reqUrl = req.url;
     res.setHeader("Access-Control-Allow-Origin","*");
-    if(/(\/recommendPage|\/post)/.test(reqUrl)){
+    if(/(\/recommendPage|\/post|\/book-list)/.test(reqUrl)){
         const getUrl = 'http://api.zhuishushenqi.com';
         var request = http.request(getUrl + reqUrl);
         request.on('response',(response)=>{

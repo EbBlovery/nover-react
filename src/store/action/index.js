@@ -1,4 +1,4 @@
-import {getCommentDetail,getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify,getSection, getChapter,getContent} from '../../apiconfig/api.js';
+import {fetchBookList,getCommentDetail,getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify,getSection, getChapter,getContent} from '../../apiconfig/api.js';
 
 export function handleSearch(key){  // search
     return dispatch => {
@@ -324,3 +324,24 @@ export function getChangeSourceChapterContent(link){   //   获取其他书源�
         })
     }
 }
+
+/*=======================================================================================================================================*/
+
+//  主题书单
+
+
+export function getBookList(sort,duration,start,tag){
+    return dispatch => {
+        fetchBookList(sort,duration,start,tag).then(res=>{
+            console.log(res)
+            dispatch({
+                type: 'GETBOOKLIST',
+                payload: {
+                    data: res.bookLists,
+                    total: res.total
+                }
+            })
+        })
+    }
+}
+
