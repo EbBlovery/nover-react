@@ -18,9 +18,15 @@ class BookList extends Component {
             <div>
                 <HeaderBar title="主题书单" history={this.props.history}/>
                 <HeaderNavBar />
-                <BookListContent booklists={this.props.booklists?this.props.booklists:''}/>
+                <BookListContent 
+                    booklists={this.props.booklists?this.props.booklists:''}
+                    wengToBookList={this.wengToBookList.bind(this)}
+                />
             </div>
 		)
+	}
+	wengToBookList(id){
+		this.props.history.push('/booklist/' + id)
 	}
 }
 
