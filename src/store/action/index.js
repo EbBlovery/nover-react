@@ -311,7 +311,7 @@ export function getChapterContent(link){
     }
 }
 
-export function getChangeSourceChapter(link){
+export function getChangeSourceChapterContent(link){   //   获取其他书源的章节内容
     return dispatch => {
         getContent(link).then(res=>{
             var arr = res.body.split(/\s+/g);

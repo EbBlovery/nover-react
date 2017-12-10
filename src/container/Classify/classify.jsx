@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Footer from '../../component/Footer/footer';
 import ClassifyContent from '../../component/ClassifyContent/classifyContent';
 
-import {fetchClassify} from '../../apiconfig/api.js';
 
 import { getClassify } from '../../store/action/index';
 

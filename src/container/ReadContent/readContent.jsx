@@ -8,7 +8,7 @@ import PageReadOption from '../../component/PageReadOption/pageReadOption';
 import SectionCatlog from '../../component/SectionCatlog/sectionCatlog';
 import ChangeSource from '../../component/ChangeSource/changeSource';
 
-import {getChapterContent,getChapterList,getChangeSourceChapter,getChangeSourceChapterList} from '../../store/action/index';
+import {getChapterContent,getChapterList,getChangeSourceChapterContent,getChangeSourceChapterList} from '../../store/action/index';
 
 import './readContent.less';
 
@@ -35,7 +35,7 @@ class ReadContent extends Component {
         if(/zhuishushenqi/g.test(link)){
             this.props.getChapterContent(encodeURIComponent(link))
         }else{
-            this.props.getChangeSourceChapter(link)
+            this.props.getChangeSourceChapterContent(link)
         }
         this.props.getChapterList(this.props.match.params.id)
 		if(Number(this.props.match.params.index) === 1){
@@ -129,7 +129,7 @@ class ReadContent extends Component {
         if(/zhuishushenqi/g.test(link)){
             this.props.getChapterContent(encodeURIComponent(link))
         }else{
-            this.props.getChangeSourceChapter(link)
+            this.props.getChangeSourceChapterContent(link)
         }
 	}
     handleToNext() {     // 下一个章节
@@ -146,81 +146,81 @@ class ReadContent extends Component {
         if(/zhuishushenqi/g.test(link)){
             this.props.getChapterContent(encodeURIComponent(link))
         }else{
-            this.props.getChangeSourceChapter(link)
+            this.props.getChangeSourceChapterContent(link)
         }
 
     }
 	handleToBookCase() {   // 加书架
 
 	}
-	handleToCatalog() {
+	handleToCatalog() {     //   忘了  ///            
         this.setState({isShowChapter:true})
 	}
 	
-	handleCloseChapter(){
+	handleCloseChapter(){               // 关闭章节列表 slider
 		this.setState({isShowChapter: !this.state.isShowChapter,isShowBtn:false})
 	}
     getClickChapter(link,title,i,len){  // 目录列表点击获取章节
         if((/zhuishushenqi/i).test(link)){
             this.props.getChapterContent(encodeURIComponent(link))
         }else{
-            this.props.getChangeSourceChapter(link)
+            this.props.getChangeSourceChapterContent(link)
         }
         this.setState({isShowChapter:false});
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{title: title,length:len,link:link})
     }
-
-
     getChangeSource(id){    // 换源大发好   换源之后先显示新章节列表， 等待点击列表后silder全部关闭，在handleCloseSourceChapter方法里边
-        this.props.getChangeSourceChapterList(id)
+        this.props.getChangeSourceChapterList(id)          // 此处换源，触发换源 的api，改变小说列表。
         this.setState({isShowhideListChapter:true})
     }
 
-    handleShowSource(){
+    handleShowSource(){                                     // 是否显示换源的slider    
         this.setState({isShowSource:true,isShowBtn:false})
     }
 
-    clickCloseSourceBar(){
+    clickCloseSourceBar(){                                  // 是否关闭换源的slider bar
         this.setState({isShowSource:false})
     }
-    handleCloseSourceChapter(link,title,len,index){
+    handleCloseSourceChapter(link,title,len,index){        // 换源后获取小说正文信息
         const i = index + 1;
         this.props.history.replace("/sectionContents/" + this.props.match.params.id +"/" + i,{
             link:link,
             title:title,
             length:len
         })
-        this.setState({isShowSource:false,isShowhideListChapter:false,isShowChapter:false})
         if(/zhuishushenqi/g.test(link)){
             this.props.getChapterContent(encodeURIComponent(link))
         }else{
-            this.props.getChangeSourceChapter(link)
+            this.props.getChangeSourceChapterContent(link)
         }
+        this.setState({isShowSource:false,isShowhideListChapter:false,isShowChapter:false})
+
     }
+
 }
 
 function mapStateToProps(state){
     console.log(state)
     return {
-        body: state.chapter.body,
-        source: state.chapter.source,
-        chapterlist: state.chapter.chapterlist
+        body: state.chapter.body,                     //  小说正文内容， 为数组模式。
+        source: state.chapter.source,                 //   小说源  换源列表
+        chapterlist: state.chapter.chapterlist        //   章节列表
     }
 }
 
 function masDispatchToProps(dispatch){
     return {
-        getChapterContent: (link) => {
+        getChapterContent: (link) => {                  //  获取优质书源小说内容
             dispatch(getChapterContent(link))
         },
-        getChapterList: (id)=>{
+        getChapterList: (id)=>{                         //  获取章节列表，一般情况下是优质书源 根据  /zhuishushenqi/g.test(link)判断
             dispatch(getChapterList(id))
         },
         getChangeSourceChapter: (link)=>{
-            dispatch(getChangeSourceChapter(link))
+            dispatch(getChangeSourceChapterContent(link))     //  其他书源的小说内容
         },
         getChangeSourceChapterList: (id) => {
-            dispatch(getChangeSourceChapterList(id))
+            dispatch(getChangeSourceChapterList(id))   //  换源之后的章节列表   其他书源的chapter list
         }
     }
 }

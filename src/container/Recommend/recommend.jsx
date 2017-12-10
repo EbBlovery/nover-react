@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
@@ -15,7 +14,6 @@ class Recommend extends Component {
         this.props.getMoreRecommend(this.props.match.params.id)
     }
 	render() {
-		
 		return (
             <div className="recommend">
                 <HeaderBar history={this.props.history} title={this.props.moreRecommend?this.props.moreRecommend[0].node.title:''}/>
@@ -26,7 +24,6 @@ class Recommend extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         moreRecommend:state.homeRecommend.moreRecommend
     }
