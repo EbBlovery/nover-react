@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import HeaderBar from '../../component/HeaderBar/headerBar';
 import HeaderNavBar from '../../component/HeaderNavBar/headerNavBar';
 import BookListContent from '../../component/BookListContent/bookListContent';
+import BookTagList from '../../component/BookTagList/bookTagList';
 
 import {getBookList} from '../../store/action/index';
  
@@ -25,14 +26,15 @@ class BookList extends Component {
 		return (
             <div>
                 <HeaderBar title="主题书单" history={this.props.history}/>
-                <HeaderNavBar 
+                <HeaderNavBar
                     wentToSort = {this.wentToSort.bind(this)}
                     wentToTag = {this.wentToTag.bind(this)}
                 />
-                <BookListContent 
+                <BookListContent
                     booklists={this.props.booklists?this.props.booklists:''}
                     wengToBookList={this.wengToBookList.bind(this)}
                 />
+                <BookTagList />
             </div>
 		)
 	}
