@@ -8,18 +8,18 @@ class HeaderNavBar extends Component {
 			<div className="headerBarNav">
 			    <div className="headerNavBar-title">
 			    	<nav>
-	            	    <div>本周最热</div>
-		            	<div>最新发布</div>
-		            	<div>最多收藏</div>
+	            	    <div onClick={this.handleToHot.bind(this,'collectorCount','last-seven-days')}>本周最热</div>
+		            	<div onClick={this.handleToHot.bind(this,'created','all')}>最新发布</div>
+		            	<div onClick={this.handleToHot.bind(this,'collectorCount','all')}>最多收藏</div>
 		            </nav>
 		            <nav>
 		            	<ul>
-		            		<li>全部</li>
-		            		<li>男生</li>
-		            		<li>女生</li>
-		            		<li>玄幻</li>
-		            		<li>都市</li>
-		            		<li>总裁</li>
+		            		<li onClick={this.handleToTag.bind(this)}>全部</li>
+		            		<li onClick={this.handleToTag.bind(this,'gender=male')}>男生</li>
+		            		<li onClick={this.handleToTag.bind(this,'gender=female')}>女生</li>
+		            		<li onClick={this.handleToTag.bind(this,'tag=玄幻')}>玄幻</li>
+		            		<li onClick={this.handleToTag.bind(this,'tag=都市')}>都市</li>
+		            		<li onClick={this.handleToTag.bind(this,'tag=总裁')}>总裁</li>
 		            	</ul>
 		            	<span>筛选</span>
 		            </nav>
@@ -29,6 +29,12 @@ class HeaderNavBar extends Component {
 	            </div>
             </div>
 		)
+	}
+	handleToHot(sort,duration){
+        this.props.wentToSort(sort,duration)
+	}
+	handleToTag(tag){
+        this.props.wentToTag(tag)
 	}
 }
 
