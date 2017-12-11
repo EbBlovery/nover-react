@@ -9,6 +9,11 @@ export default function Ranking(state = defaultState,action){
     	    	booklists: action.payload.data,
     	    	booktotal: action.payload.total
     	    }
+        case 'GETBOOKLISTCONTENT':
+            return {
+                ...states,
+                bookcontent: action.payload.data
+            }
     	default :
     	    return states
     }

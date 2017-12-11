@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import HeaderBar from '../../component/HeaderBar/headerBar';
+import BookListDetailContent from '../../component/BookListDetailContent/bookListDetailContent';
 
 import {getBookListContent} from '../../store/action/index';
+
+import './bookListDetail.less';
 
 class BookListDetail extends Component {
 	componentDidMount(){
@@ -11,9 +14,9 @@ class BookListDetail extends Component {
 	}
 	render() {
 		return (
-            <div>
+            <div className="bookList-container">
             	<HeaderBar title="我的书架" history={this.props.history}/>
-            	
+            	<BookListDetailContent bookcontent={this.props.bookcontent?this.props.bookcontent:''}/>
             </div>
 		)
 	}
@@ -21,7 +24,7 @@ class BookListDetail extends Component {
 
 function mapStateToProps(state){
 	return {
-
+        bookcontent: state.booklist.bookcontent
 	}
 }
 

@@ -333,7 +333,6 @@ export function getChangeSourceChapterContent(link){   //   获取其他书源�
 export function getBookList(sort,duration,start,tag){
     return dispatch => {
         fetchBookList(sort,duration,start,tag).then(res=>{
-            console.log(res)
             dispatch({
                 type: 'GETBOOKLIST',
                 payload: {
@@ -348,7 +347,6 @@ export function getBookList(sort,duration,start,tag){
 export function getBookListContent(id){
     return dispatch => {
         fetchBookContent(id).then(res=>{
-            console.log(res)
             dispatch({
                 type: 'GETBOOKLISTCONTENT',
                 payload: {
