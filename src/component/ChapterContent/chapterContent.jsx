@@ -10,7 +10,7 @@ class ChapterContent extends Component {
             	<div className="chapter-title">
                     <div>
                     	<h3>目录</h3>
-                    	<span>共{data && data.length || 0 }章</span>
+                    	<span>共{data && data.length}章</span>
                     </div>
                     <span>目录</span>
                 </div>
