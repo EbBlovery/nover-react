@@ -1,4 +1,4 @@
-import {fetchBookList,getCommentDetail,getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify,getSection, getChapter,getContent} from '../../apiconfig/api.js';
+import {fetchBookContent,fetchBookList,getCommentDetail,getSearch,fetchGenderData,getSubCategories,getRanking,fetchRankList,  getRecommend, getComment, getBook,getVal,fetchClassify,getSection, getChapter,getContent} from '../../apiconfig/api.js';
 
 export function handleSearch(key){  // search
     return dispatch => {
@@ -339,6 +339,20 @@ export function getBookList(sort,duration,start,tag){
                 payload: {
                     data: res.bookLists,
                     total: res.total
+                }
+            })
+        })
+    }
+}
+
+export function getBookListContent(id){
+    return dispatch => {
+        fetchBookContent(id).then(res=>{
+            console.log(res)
+            dispatch({
+                type: 'GETBOOKLISTCONTENT',
+                payload: {
+                    data: res
                 }
             })
         })

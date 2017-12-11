@@ -51,6 +51,8 @@ export function getSearch(key){
 export function getBook(id) {
     return axios.get(`http://novel.juhe.im/book-info/${id}`).then(res=>{
          return res.data
+    }).catch(err=>{
+        console.log(err)
     })
 }
  //http://api.zhuishushenqi.com/ctoc?view=summary&book=
@@ -66,24 +68,32 @@ export function getChapter(id){
 export function getSection(id){
     return axios.get(`http://novel.juhe.im/book-chapters/${id}`).then(res=>{
     	return res.data.data
+    }).catch(err=>{
+        console.log(err)
     })
 }
 
 export function getContent(link){
 	return axios.get(`${url}/chapter/${link}`).then(res=>{
 		return res.data.chapter
-	})
+	}).catch(err=>{
+        console.log(err)
+    })
 }
 
 export function fetchClassify(){
     return axios.get('http://novel.juhe.im/categories').then(res=>{
         return res.data
+    }).catch(err=>{
+        console.log(err)
     })
 }
 
 export function fetchGenderData(gender,major,type = 'hot',minor='',start = 0){
     return axios.get(`http://novel.juhe.im/category-info?gender=${gender}&type=${type}&major=${major}&minor=${minor}&start=${start}&limit=20`).then(res=>{
         return res.data.data
+    }).catch(err=>{
+        console.log(err)
     })
 }
 
@@ -96,6 +106,8 @@ export function getSubCategories(type,index){
         }else{
             return res.data.data.press[index]
         }
+    }).catch(err=>{
+        console.log(err)
     })
 }
 
@@ -121,6 +133,16 @@ export function fetchRankList(id){
 export function fetchBookList(sort = 'collectorCount',duration = 'last-seven-days',start = 0,tag = ''){
     return axios.get(`${url}/book-list?sort=${sort}&duration=${duration}&start=${start}&${tag}`).then(res=>{
         return res.data
+    }).catch(err=>{
+        console.log(err)
+    })
+}
+
+export function fetchBookContent(id){
+    return axios.get(`http://novel.juhe.im/booklists/${id}`).then(res=>{
+        return res.data.data.bookList
+    }).catch(err=>{
+        console.log(err)
     })
 }
 
